@@ -26,7 +26,6 @@ setup(
           'scipy',
           'statsmodels',
           'wget',
-          'imp',
           'inspect',
       ],
   classifiers=[
