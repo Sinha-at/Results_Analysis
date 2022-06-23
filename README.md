@@ -42,9 +42,14 @@ Files must be formatted like [this file](https://docs.google.com/spreadsheets/d/
 
 ## Installation
 
-Results_Analysis requires a version of python over 3 to run.
+_Results_Analysis requires a version of python over 3 to run._
 
-Install the package
+Download the package
+```sh
+pip install Results_Analysis
+```
+
+Import the package
 
 ```sh
 import Results_Analysis
