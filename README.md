@@ -262,7 +262,7 @@ Parameters:
 - alpha (float): level of significance. Default=0.05
 ```sh
 CompFile.Software_Usability(format='graph')
-CompFile.Software_Usability(format='tab', format='pdf', alpha = 0.05)
+CompFile.Software_Usability(format='tab', save='pdf', alpha = 0.05)
 ```
 #### Qualitative analysis
 ```sh
@@ -279,7 +279,7 @@ Parameters:
 - alpha (float): level of significance. Default=0.05
 ```sh
 CompFile.Searching_Learning(format='graph')
-CompFile.Searching_Learning(format='tab', format='pdf', alpha = 0.05)
+CompFile.Searching_Learning(format='tab', save='pdf', alpha = 0.05)
 ```
 #### Qualitative analysis
 ```sh
@@ -295,7 +295,7 @@ Parameters:
 - alpha (float): level of significance. Default=0.05
 ```sh
 CompFile.Knowledge_Gain(format='graph')
-CompFile.Knowledge_Gain(format='tab', format='pdf', alpha = 0.05)
+CompFile.Knowledge_Gain(format='tab', save='pdf', alpha = 0.05)
 ```
 #### Qualitative analysis
 ```sh
