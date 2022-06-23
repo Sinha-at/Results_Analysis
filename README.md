@@ -225,4 +225,90 @@ CompFile.inconsistencies(save='pdf')
 #### Qualitative analysis
 
 ```sh
+CompFile.User_Experience_Qual_Analysis()
+CompFile.User_Experience_Qual_Analysis(save='pdf')
+```
+## Cognitive load
+#### Quantitative analysis
+Display information on the cognitive load part of the results.
+Parameters: 
+- format (String): ‘tab’ to display the information in a table format or ‘graph’ to display the information in a graph format
+- save (String): ‘pdf’ to download the pdf version
+- alpha (float): level of significance. Default=0.05
 
+```sh
+CompFile.cognitive_load(format='graph')
+CompFile.cognitive_load(format='tab', format='pdf', alpha = 0.05)
+```
+#### Qualitative analysis
+```sh
+CompFile.cognitive_load_Qual_Analysis()
+CompFile.cognitive_load_Qual_Analysis(save='pdf')
+```
+## Software Usability
+Display all the comments about the Software Usability part of the results. Can take a save argument 'pdf' that will download the information in a pdf format and a type argument 'WordCloud' that will display the information in the format of a word cloud.
+Parameters: 
+- format (String): ‘tab’ to display the information in a table format or ‘graph’ to display the information in a graph format
+- save (String): ‘pdf’ to download the pdf version
+- alpha (float): level of significance. Default=0.05
+```sh
+CompFile.Software_Usability_Coments(type='WordCloud', save='pdf')
+```
+#### Quantitative analysis
+Display information on the Software Usability part of the results. Can take a save argument 'pdf' that will download the information in a pdf format
+Parameters: 
+- format (String): ‘tab’ to display the information in a table format or ‘graph’ to display the information in a graph format
+- save (String): ‘pdf’ to download the pdf version
+- alpha (float): level of significance. Default=0.05
+```sh
+CompFile.Software_Usability(format='graph')
+CompFile.Software_Usability(format='tab', format='pdf', alpha = 0.05)
+```
+#### Qualitative analysis
+```sh
+CompFile.Software_Usability_Qual()
+CompFile.Software_Usability_Qual(save='pdf')
+```
+
+## Searching Learning
+#### Quantitative analysis
+Display information on the searching as learning part of the results.
+Parameters: 
+- format (String): ‘tab’ to display the information in a table format or ‘graph’ to display the information in a graph format
+- save (String): ‘pdf’ to download the pdf version
+- alpha (float): level of significance. Default=0.05
+```sh
+CompFile.Searching_Learning(format='graph')
+CompFile.Searching_Learning(format='tab', format='pdf', alpha = 0.05)
+```
+#### Qualitative analysis
+```sh
+CompFile.Searching_Learning_Qual()
+CompFile.Searching_Learning_Qual(save='pdf')
+```
+##Knowledge Gain
+#### Quantitative analysis
+Display information on the Knowledge Gain part of the results.
+Parameters: 
+- format (String): ‘tab’ to display the information in a table format or ‘graph’ to display the information in a graph format
+- save (String): ‘pdf’ to download the pdf version
+- alpha (float): level of significance. Default=0.05
+```sh
+CompFile.Knowledge_Gain(format='graph')
+CompFile.Knowledge_Gain(format='tab', format='pdf', alpha = 0.05)
+```
+#### Qualitative analysis
+```sh
+CompFile.Knowledge_Gain_Qual_Analysis()
+CompFile.Knowledge_Gain_Qual_Analysis(save='pdf')
+```
+
+## Help
+
+Information about every possible function and their parameters
+```sh
+ CompFile.info()
+ MyFile.info()
+```
+## License
+MIT
