@@ -1,33 +1,37 @@
 import pandas as pd
 import openpyxl
-import sys
 import warnings
-from pycel import ExcelCompiler
 from IPython.display import display
 import formulas
 import numpy as np
 from win32com import client
 import matplotlib.pyplot as plt
-import ipywidgets as widgets
-import string
 import os
+import formulas
 from pathlib import Path
 import dataframe_image as dfi
 import aspose.words as aw
 from wordcloud import WordCloud, STOPWORDS, ImageColorGenerator
-from collections import Counter
 import matplotlib.gridspec as gridspec
 from matplotlib.backends.backend_pdf import PdfPages
+from scipy import stats
+from statsmodels.stats.weightstats import ztest
+import imp
+import wget
 
+#help function stat test explanation
 class dataFile():
     
     warnings.filterwarnings('ignore', category=UserWarning, module='openpyxl')
     
     def __init__(self, path):
-        excel = client.Dispatch("Excel.Application")
-        excel.Application.Quit()
+        test, ph, au=imp.find_module('Results_Analysis')
+        self.to_mod=ph
+        wget.download('http://docs.google.com/spreadsheets/d/1VfMyCkI5xUmbBa-LXQm_O_Ebz62MH7y_/export?format=xlsx', self.to_mod+'\Short_UEQ_Data_Analysis_Tool.xlsx')
+
+        self.resPath = str(os.path.join(self.to_mod, "resExcel", "DATAUPDATES.XLSX"))
         self.processing(path)
-        self.resPath=r'.\resExcel\DATAUPDATES.XLSX'
+        
         
 
     def processing(self, path):
@@ -51,7 +55,8 @@ class dataFile():
         
         print("loading file...")
         #openning files
-        xfile = openpyxl.load_workbook(r'.\excDoc\Short_UEQ_Data_Analysis_Tool.xlsx')
+        pathDown=self.to_mod+'\Short_UEQ_Data_Analysis_Tool.xlsx'
+        xfile = openpyxl.load_workbook(pathDown)
         sheet = xfile['Data']
         df = pd.read_excel(path)
         df = df.to_dict()
@@ -256,19 +261,20 @@ class dataFile():
             
                 
         print("converting data...")
-        spreadsheet=r'.\excDoc\DataUpdates.xlsx'
+        spreadsheet=self.to_mod+'\DataUpdates.xlsx'
         xfile.save(spreadsheet)
 
-        # fpath = spreadsheet
-        # dirname = r'.\resExcel'
-        # xl_model = formulas.ExcelModel().loads(fpath).finish()
-        # xl_model.calculate()
-        # xl_model.write(dirpath=dirname)
+        fpath = spreadsheet
+        dirname = str(os.path.join(self.to_mod, "resExcel"))
+        xl_model = formulas.ExcelModel().loads(fpath).finish()
+        xl_model.calculate()
+        xl_model.write(dirpath=dirname)
         print("task complete")
+        
         
        
     #User Experience  
-    def dt(self, format='display'):
+    def dt(self, save='display'):
         df = pd.read_excel(self.resPath, sheet_name='DT')
         df = df.head(10).style.format(precision=2, na_rep='').hide_index().set_table_styles([
                             
@@ -284,10 +290,10 @@ class dataFile():
 
                         ])
         display(df)
-        if format=='pdf':
+        if save=='pdf':
             print("loading pdf...")
             excel = client.Dispatch("Excel.Application")
-            pathAct = str(os.path.join(Path().absolute(), "excDoc", "DataUpdates.xlsx"))
+            pathAct = str(os.path.join(self.to_mod, "resExcel", "DataUpdates.xlsx"))
             sheets = excel.Workbooks.Open(pathAct)
             wb = sheets.Worksheets[2]
             #.head()
@@ -296,7 +302,7 @@ class dataFile():
             excel.Application.Quit()
             print("pdf downloaded !")
         
-    def confidence_Intervals(self, format='display'):
+    def confidence_Intervals(self, save='display'):
         df = pd.read_excel(self.resPath, sheet_name='CONFIDENCE_INTERVALS')
         df = df.head(10).style.format(precision=2, na_rep='').hide_index().set_table_styles([
                             
@@ -320,10 +326,10 @@ class dataFile():
 
                         ])
         display(df)
-        if format=='pdf':
+        if save=='pdf':
             print("loading pdf...")
             excel = client.Dispatch("Excel.Application")
-            pathAct = str(os.path.join(Path().absolute(), "excDoc", "DataUpdates.xlsx"))
+            pathAct = str(os.path.join(self.to_mod, "resExcel", "DataUpdates.xlsx"))
             sheets = excel.Workbooks.Open(pathAct)
             wb = sheets.Worksheets[4]
             path=str(os.path.join(Path.home(), "Downloads", "confidence_Intervals.pdf"))
@@ -331,7 +337,7 @@ class dataFile():
             excel.Application.Quit()
             print("pdf downloaded !")
         
-    def scale_Consistency(self, format='display'):
+    def scale_Consistency(self, save='display'):
         df = pd.read_excel(self.resPath, sheet_name='SCALE_CONSISTENCY')
         df = df.head(10).style.format(precision=2, na_rep='').hide_index().set_table_styles([
                             
@@ -355,10 +361,10 @@ class dataFile():
 
                         ])
         display(df)
-        if format=='pdf':
+        if save=='pdf':
             print("loading pdf...")
             excel = client.Dispatch("Excel.Application")
-            pathAct = str(os.path.join(Path().absolute(), "excDoc", "DataUpdates.xlsx"))
+            pathAct = str(os.path.join(self.to_mod, "resExcel", "DataUpdates.xlsx"))
             sheets = excel.Workbooks.Open(pathAct)
             wb = sheets.Worksheets[5]
             path=str(os.path.join(Path.home(), "Downloads", "scale_Consistency.pdf"))
@@ -366,7 +372,7 @@ class dataFile():
             excel.Application.Quit()
             print("pdf downloaded !")
 
-    def inconsistencies(self, format='display'):
+    def inconsistencies(self, save='display'):
         df = pd.read_excel(self.resPath, sheet_name='INCONSISTENCIES')
         df = df.style.format(precision=2, na_rep='').hide_index().set_table_styles([
                             
@@ -386,10 +392,10 @@ class dataFile():
 
                         ])
         display(df)
-        if format=='pdf':
+        if save=='pdf':
             print("loading pdf...")
             excel = client.Dispatch("Excel.Application")
-            pathAct = str(os.path.join(Path().absolute(), "excDoc", "DataUpdates.xlsx"))
+            pathAct = str(os.path.join(self.to_mod, "resExcel", "DataUpdates.xlsx"))
             sheets = excel.Workbooks.Open(pathAct)
             wb = sheets.Worksheets[7]
             path=str(os.path.join(Path.home(), "Downloads", "inconsistencies.pdf"))
@@ -397,7 +403,7 @@ class dataFile():
             excel.Application.Quit()
             print("pdf downloaded !")
 
-    def benchmark(self, format='display'):
+    def benchmark(self, save='display'):
         df = pd.read_excel(self.resPath, sheet_name='BENCHMARK')
         tempDf =df
         df = df.head(10).style.format(precision=2, na_rep='').hide_index().set_table_styles([
@@ -442,10 +448,10 @@ class dataFile():
         plt.legend(loc="upper right")
 
         plt.show()
-        if format=='pdf':
+        if save=='pdf':
             print("loading pdf...")
             excel = client.Dispatch("Excel.Application")
-            pathAct = str(os.path.join(Path().absolute(), "excDoc", "DataUpdates.xlsx"))
+            pathAct = str(os.path.join(self.to_mod, "resExcel", "DataUpdates.xlsx"))
             sheets = excel.Workbooks.Open(pathAct)
             wb = sheets.Worksheets[6]
             path=str(os.path.join(Path.home(), "Downloads", "benchmark.pdf"))
@@ -454,7 +460,7 @@ class dataFile():
             print("pdf downloaded !")
         
 
-    def results(self, format='display'):
+    def results(self, save='display'):
 
         df = pd.read_excel(self.resPath, sheet_name='RESULTS')
         tempDf =df
@@ -486,10 +492,10 @@ class dataFile():
         plt.bar(item, mean)
         plt.show()
         
-        if format=='pdf':
+        if save=='pdf':
             print("loading pdf...")
             excel = client.Dispatch("Excel.Application")
-            pathAct = str(os.path.join(Path().absolute(), "excDoc", "DataUpdates.xlsx"))
+            pathAct = str(os.path.join(self.to_mod, "resExcel", "DataUpdates.xlsx"))
             sheets = excel.Workbooks.Open(pathAct)
             wb = sheets.Worksheets[3]
             path=str(os.path.join(Path.home(), "Downloads", "results.pdf"))
@@ -502,7 +508,7 @@ class dataFile():
            
     
     #Cognitive load
-    def cognitive_load(self, format='display'):
+    def cognitive_load(self, save='display'):
         plt.rcParams["figure.figsize"] = (16,8)
         fig= plt.figure()
              
@@ -580,14 +586,14 @@ class dataFile():
         fig.subplots_adjust(bottom=0.5, top=1.2)
         
         #pdf download
-        if format=='pdf':
+        if save=='pdf':
             print("loading pdf...")
             path=str(os.path.join(Path.home(), "Downloads", "Cognitive_Load.pdf"))
             fig.savefig(path,  bbox_inches='tight')
             print("pdf downloaded !")
     
     
-    def User_Experience_Qual_Analysis(self, format='display'):
+    def User_Experience_Qual_Analysis(self, save='display'):
 
         plt.rcParams["figure.figsize"] = (20,8)
         fig= plt.figure()
@@ -639,21 +645,9 @@ class dataFile():
             
         frames = [colMil,df,colMil2, df2]
         result = pd.concat(frames)
-            
-#         result = result.style.set_table_styles([
-#                             {
-#                                 "selector":"thead",
-#                                 "props": [("background-color", "gray"),
-#                                         ]
-#                             },
-
-#                         ])
-            
-            
-#         display (result)
 
         #pdf download
-        if format=='pdf':
+        if save=='pdf':
             print("loading pdf...")
             path=str(os.path.join(Path.home(), "Downloads", "User_Experience_Qual.pdf"))
             fig.savefig(path,  bbox_inches='tight')
@@ -662,7 +656,7 @@ class dataFile():
         
         
     
-    def cognitive_load_Qual_Analysis(self, format='display'):
+    def cognitive_load_Qual_Analysis(self, save='display'):
 
         plt.rcParams["figure.figsize"] = (20,8)
         fig= plt.figure()
@@ -698,7 +692,7 @@ class dataFile():
         ax6.pie([self.mentloadQual[0][5],self.mentloadQual[1][5],self.mentloadQual[2][5]],labels=['Negative','Neutral','Positive'], colors=['#DC2209','#EED238','#1CCD00'], autopct='%1.1f%%')
         ax6.set_title('Overall easiness to use')
         
-        if format=='pdf':
+        if save=='pdf':
             print("loading pdf...")
             path=str(os.path.join(Path.home(), "Downloads", "Cognitive_load_Qual.pdf"))
             fig.savefig(path,  bbox_inches='tight')
@@ -707,7 +701,7 @@ class dataFile():
 
     
     #Software Usability
-    def Software_Usability(self, format='display'):
+    def Software_Usability(self, save='display'):
         
         plt.rcParams["figure.figsize"] = (16,8)
         fig= plt.figure()
@@ -804,14 +798,14 @@ class dataFile():
         fig.subplots_adjust(bottom=2, top=4, hspace=0.5)
         
         
-        if format=='pdf':
+        if save=='pdf':
             print("loading pdf...")
             path=str(os.path.join(Path.home(), "Downloads", "Software_Usability.pdf"))
             fig.savefig(path,  bbox_inches='tight')
             print("pdf downloaded !")
             
             
-    def Software_Usability_Qual(self, format='display'):
+    def Software_Usability_Qual(self, save='display'):
         plt.rcParams["figure.figsize"] = (20,8)
         
         #System
@@ -899,7 +893,7 @@ class dataFile():
         
         
         #pdf download
-        if format=='pdf':
+        if save=='pdf':
             print("loading pdf...")
             path=str(os.path.join(Path.home(), "Downloads", "Software_Usability_Qual.pdf"))
             pp = PdfPages(path)
@@ -914,10 +908,10 @@ class dataFile():
        
             
         
-    def Software_Usability_Coments(self, format='display', type='basic'):
+    def Software_Usability_Coments(self, save='display', type='basic'):
 
 
-        if format=='WordCloud' or type=='WordCloud':
+        if save=='WordCloud' or type=='WordCloud':
         
             fig= plt.figure(figsize=(20,20))
             spec4 = fig.add_gridspec(ncols=1, nrows=3)
@@ -954,7 +948,7 @@ class dataFile():
             ax1.axis("off")
             ax1.set_title('What functions and capabilities would you like to see in this system?')
             
-            if format=='pdf' or type=='pdf':
+            if save=='pdf' or type=='pdf':
                 print("loading pdf...")
                 path=str(os.path.join(Path.home(), "Downloads", "Software_Usability_coments.pdf"))
                 fig.savefig(path,  bbox_inches='tight')
@@ -974,10 +968,10 @@ class dataFile():
 
                             ])
             display (df)
-            if format=='pdf' or type=='pdf':
+            if save=='pdf' or type=='pdf':
                 print("loading pdf...")
                 path=str(os.path.join(Path.home(), "Downloads", "Software_Coments.pdf"))
-                pathAct = str(os.path.join(Path().absolute(), "excDoc", "Software_Usability_coments.pdf"))    
+                pathAct = str(os.path.join(self.to_mod, "Software_Usability_coments.pdf"))    
                 dfi.export(df, pathAct)
                 doc = aw.Document()
                 builder = aw.DocumentBuilder(doc)
@@ -992,7 +986,7 @@ class dataFile():
             
             
         #Software Usability
-    def Searching_Learning(self, format='display'):       
+    def Searching_Learning(self, save='display'):       
         
         plt.rcParams["figure.figsize"] = (16,8)
         fig= plt.figure()
@@ -1127,13 +1121,13 @@ class dataFile():
         fig.subplots_adjust(bottom=2, top=4, hspace=0.5)
         
         
-        if format=='pdf':
+        if save=='pdf':
             print("loading pdf...")
             path=str(os.path.join(Path.home(), "Downloads", "Searching_Learning.pdf"))
             fig.savefig(path,  bbox_inches='tight')
             print("pdf downloaded !")
         
-    def Searching_Learning_Qual(self, format='display'):
+    def Searching_Learning_Qual(self, save='display'):
         
         
         plt.rcParams["figure.figsize"] = (20,8)
@@ -1242,7 +1236,7 @@ class dataFile():
         
         
         #pdf download
-        if format=='pdf':
+        if save=='pdf':
             print("loading pdf...")
             path=str(os.path.join(Path.home(), "Downloads", "Searching_Learning_Qual.pdf"))
             pp = PdfPages(path)
@@ -1254,7 +1248,7 @@ class dataFile():
             print("pdf downloaded !")
         
     #knowledge gain
-    def Knowledge_Gain(self, format='display'):
+    def Knowledge_Gain(self, save='display'):
         
         plt.rcParams["figure.figsize"] = (16,8)
         fig= plt.figure()
@@ -1296,14 +1290,14 @@ class dataFile():
     
         
         #pdf download
-        if format=='pdf':
+        if save=='pdf':
             print("loading pdf...")
             path=str(os.path.join(Path.home(), "Downloads", "Knowledge_Gain.pdf"))
             fig.savefig(path,  bbox_inches='tight')
             print("pdf downloaded !")
             
     #knowledge gain
-    def Knowledge_Gain_Qual_Analysis(self, format='display'):
+    def Knowledge_Gain_Qual_Analysis(self, save='display'):
 
         plt.rcParams["figure.figsize"] = (20,8)
         fig= plt.figure()
@@ -1330,7 +1324,7 @@ class dataFile():
 
         
         #pdf download
-        if format=='pdf':
+        if save=='pdf':
             print("loading pdf...")
             path=str(os.path.join(Path.home(), "Downloads", "Knowledge_Gain_Qual.pdf"))
             fig.savefig(path,  bbox_inches='tight')
@@ -1338,23 +1332,98 @@ class dataFile():
             
             
             
-    def test(self):
-        mean = self.mentLoad
-        print("len"+str(len(mean[0])))
-        #Color of the graph
-        colorMean=[]
-        testMean=[round(mean, 1) for mean in mean[0]]
-        for i in range(len(testMean)):
-            if testMean[i]<3.5:
-                print(str(mean[0][i]))
-                print("green")
-                colorMean.append('#1CCD00')
-            if testMean[i]==3.5:
-                colorMean.append('#EED238')
-                print(str(mean[0][i]))
-                print("yellow")
-            if testMean[i]>3.5:
-                colorMean.append('#DC2209')
-                print(str(mean[0][i]))
-                print("red")
+    #print all possible function
+    def info(self):
+        print("""
+        
+Quantitative analysis:
+benchmark (): Display information on the benchmark 
+[ex: MyFile.benchmark()]
+Parameters: 
+- save (String): ‘pdf’ to download the pdf version
+
+results (): Display information on the results of the analyse of the data
+[ex: MyFile. results ()]
+Parameters: 
+- save (String): ‘pdf’ to download the pdf version
+
+dt (): Display information on the mid-calcul
+[ex: MyFile.dt()]
+Parameters: 
+- save (String): ‘pdf’ to download the pdf version
+
+
+confidence_Intervals (): Display information on confidence intervals
+[ex: MyFile. confidence_Intervals ()]
+Parameters: 
+- save (String): ‘pdf’ to download the pdf version
+
+
+scale_Consistency (): Display information on scale consistency
+[Ex : MyFile. Scale_Consistency ()]
+Parameters: 
+- save (String): ‘pdf’ to download the pdf version
+
+Inconsistencies () : Display information on inconsistencies
+[Ex : MyFile. Inconsistencies ()]
+Parameters: 
+- save (String): ‘pdf’ to download the pdf version
+
+cognitive_load (format): Display results of cognitive load
+[ex: MyFile.cognitive_load ()]
+Parameters: 
+- save (String): ‘pdf’ to download the pdf version
+
+
+Software_Usability (format): Display results of software usability
+[ex: MyFile.Software_Usability ()]
+Parameters: 
+- save (String): ‘pdf’ to download the pdf version
+
+Software_Usability_Coments (format): display comments on software usability
+[ex: MyFile.Software_Usability_Coments ()]
+Parameters: 
+- save (String): ‘pdf’ to download the pdf version
+-'WordCloud': display the information on a word cloud format
+
+Searching_Learning (format): display information on the searching as learning questionnaire
+[ex: MyFile.Searching_Learning ()]
+Parameters: 
+- save (String): ‘pdf’ to download the pdf version
+
+Knowledge_Gain (format): display information on the knowledge gain questionnaire
+[ex: MyFile.Knowledge_Gain ()]
+Parameters: 
+- save (String): ‘pdf’ to download the pdf version
+
+Qualitative analysis:
+
+Knowledge_Gain_Qual_Analysis (): Display qualitative analysis of knowledge gain 
+[ex: MyFile.Knowledge_Gain_Qual_Analysis ()]
+Parameters: 
+- save (String): ‘pdf’ to download the pdf version
+
+
+cognitive_load_Qual_Analysis (): Display qualitative analysis of cognitive load
+[ex: MyFile.cognitive_load_Qual_Analysis ()]
+Parameters: 
+- save (String): ‘pdf’ to download the pdf version
+
+
+User_Experience_Qual_Analysis () : Display qualitative analysis of user experience
+[Ex : MyFile.User_Experience_Qual_Analysis ()]
+Parameters: 
+- save (String): ‘pdf’ to download the pdf version
+
+Software_Usability_Qual (): Display qualitative analysis of software usability
+[ex: MyFile.Software_Usability_Qual ()]
+Parameters: 
+- save (String): ‘pdf’ to download the pdf version
+
+Searching_Learning_Qual (): Display qualitative analysis of the searching as learning questionnaire
+[ex: MyFile.Searching_Learning_Qual ()]
+Parameters: 
+- save (String): ‘pdf’ to download the pdf version
+
+ """)
         

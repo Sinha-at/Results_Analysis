@@ -1,45 +1,51 @@
 import pandas as pd
 import openpyxl
-import sys
 import warnings
-from pycel import ExcelCompiler
 from IPython.display import display
-import formulas
 import numpy as np
 from win32com import client
 import matplotlib.pyplot as plt
-import ipywidgets as widgets
-import string
 import os
+import formulas
 from pathlib import Path
 import dataframe_image as dfi
 import aspose.words as aw
 from wordcloud import WordCloud, STOPWORDS, ImageColorGenerator
-from collections import Counter
 import matplotlib.gridspec as gridspec
 from matplotlib.backends.backend_pdf import PdfPages
 from scipy import stats
 from statsmodels.stats.weightstats import ztest
-import inspect as it
 import imp
 import wget
+
+
 
 class ComparedDataFile():
     
     warnings.filterwarnings('ignore', category=UserWarning, module='openpyxl')
     
-    def __init__(self, path, path2, link='independant'):
+    #the type of test that can be used is either welsh-test, t-test or z-test
+    
+        
+    def __init__(self, path, path2, link='independant', test_diff_size='welsh-test'):
+        self.test_diff_size=test_diff_size
         self.link=link
         test, ph, au=imp.find_module('Results_Analysis')
         self.to_mod=ph
         wget.download('http://docs.google.com/spreadsheets/d/1VfMyCkI5xUmbBa-LXQm_O_Ebz62MH7y_/export?format=xlsx', self.to_mod+'\Short_UEQ_Data_Analysis_Tool.xlsx')
         self.processing(path)
-        self.resPath=ph+'\resExcel\DATAUPDATES.XLSX'
+        self.resPath = str(os.path.join(self.to_mod, "resExcel", "DATAUPDATES.XLSX"))
         self.processing2(path2)
-        self.resPath=ph+'\resExcel\DATAUPDATES2.XLSX'
+        self.resPath2 = str(os.path.join(self.to_mod, "resExcel", "DATAUPDATES2.XLSX"))
         self.diff_size=self.size==self.size2
+        self.parameter=False
+        if self.test_diff_size!='welsh-test':
+            self.diff_size= False
+        if self.test_diff_size=='z-test':
+            self.parameter=True
         
-        
+    
+       
         
 
     def processing(self, path):
@@ -293,11 +299,11 @@ class ComparedDataFile():
         spreadsheet=self.to_mod+'\DataUpdates.xlsx'
         xfile.save(spreadsheet)
 
-        fpath = spreadsheet
-        dirname = r'.\resExcel'
-        xl_model = formulas.ExcelModel().loads(fpath).finish()
-        xl_model.calculate()
-        xl_model.write(dirpath=dirname)
+        # fpath = spreadsheet
+        # dirname = str(os.path.join(self.to_mod, "resExcel"))
+        # xl_model = formulas.ExcelModel().loads(fpath).finish()
+        # xl_model.calculate()
+        # xl_model.write(dirpath=dirname)
         print("first file complete")
         
     def processing2(self, path):
@@ -550,170 +556,250 @@ class ComparedDataFile():
             
                 
         print("converting data...")
-        spreadsheet=self.to_mod+'\DataUpdates.xlsx'
+        spreadsheet=self.to_mod+'\DataUpdates2.xlsx'
         xfile.save(spreadsheet)
 
-        fpath = spreadsheet
-        dirname = r'.\resExcel'
-        xl_model = formulas.ExcelModel().loads(fpath).finish()
-        xl_model.calculate()
-        xl_model.write(dirpath=dirname)
+        # fpath = spreadsheet
+        # dirname = str(os.path.join(self.to_mod, "resExcel"))
+        # xl_model = formulas.ExcelModel().loads(fpath).finish()
+        # xl_model.calculate()
+        # xl_model.write(dirpath=dirname)
         print("Second file complete")
         
        
     #User Experience  
     def dt(self, save='display'):
+        print('file 1/file 2 dt')
         df = pd.read_excel(self.resPath, sheet_name='DT')
-        df = df.head(10).style.format(precision=2, na_rep='').hide_index().set_table_styles([
-                            
-                             {
-                                "selector":".row0",
-                                "props":"background-color:gray; color:white; border:3px black;"
-                            },
+        df2 = pd.read_excel(self.resPath2, sheet_name='DT')
+        
+        frames = [df,df2]
+        tab = pd.concat(frames)
+        
+
+        tab = tab.style.format(precision=2,na_rep='  ').hide_index().set_table_styles([
                             {
                                 "selector":"thead",
                                 "props": [("visibility", "collapse"),
                                           ]
                             },
+                            {
+                                "selector":".row0",
+                                "props": [("background-color", "gray"),
+                                          ]
+                            },
+                            {
+                                "selector":".row"+str(len(df)),
+                                "props": [("background-color", "gray"),
+                                          ]
+                            },
 
                         ])
-        display(df)
+        display (tab)          
         if save=='pdf':
             print("loading pdf...")
-            excel = client.Dispatch("Excel.Application")
-            pathAct = str(os.path.join(Path().absolute(), "excDoc", "DataUpdates.xlsx"))
-            sheets = excel.Workbooks.Open(pathAct)
-            wb = sheets.Worksheets[2]
-            #.head()
             path=str(os.path.join(Path.home(), "Downloads", "dt.pdf"))
-            wb.ExportAsFixedFormat(0, path)
-            excel.Application.Quit()
+            pathAct = str(os.path.join(self.to_mod, "dt.pdf"))    
+            dfi.export(tab, pathAct)
+            doc = aw.Document()
+            builder = aw.DocumentBuilder(doc)
+            builder.insert_image(pathAct)
+            doc.save(path)
             print("pdf downloaded !")
         
     def confidence_Intervals(self, save='display'):
+        print('file 1/file 2 confidence intervals')
         df = pd.read_excel(self.resPath, sheet_name='CONFIDENCE_INTERVALS')
-        df = df.head(10).style.format(precision=2, na_rep='').hide_index().set_table_styles([
-                            
-                             {
-                                "selector":".row0",
-                                "props":"background-color:gray; color:white; border:3px black;"
-                            },
-                            {
-                                "selector":".row1",
-                                "props":"background-color:gray; color:white; border:3px black;"
-                            },
-                            {
-                                "selector":".row2",
-                                "props":"background-color:gray; color:white; border:3px black;"
-                            },
+        df2 = pd.read_excel(self.resPath2, sheet_name='CONFIDENCE_INTERVALS')
+        
+        frames = [df,df2]
+        tab = pd.concat(frames)
+        
+
+        tab = tab.style.format(precision=2,na_rep='  ').hide_index().set_table_styles([
                             {
                                 "selector":"thead",
                                 "props": [("visibility", "collapse"),
                                           ]
                             },
+                            {
+                                "selector":".row0",
+                                "props": [("background-color", "gray"),
+                                          ]
+                            },
+                            {
+                                "selector":".row1",
+                                "props": [("background-color", "gray"),
+                                          ]
+                            },
+                            {
+                                "selector":".row2",
+                                "props": [("background-color", "gray"),
+                                          ]
+                            },
+                            {
+                                "selector":".row"+str(len(df)),
+                                "props": [("background-color", "gray"),
+                                          ]
+                            },
+                            {
+                                "selector":".row"+str(len(df)+1),
+                                "props": [("background-color", "gray"),
+                                          ]
+                            },
+                            {
+                                "selector":".row"+str(len(df)+2),
+                                "props": [("background-color", "gray"),
+                                          ]
+                            },
 
                         ])
-        display(df)
+        display (tab)          
         if save=='pdf':
             print("loading pdf...")
-            excel = client.Dispatch("Excel.Application")
-            pathAct = str(os.path.join(Path().absolute(), "excDoc", "DataUpdates.xlsx"))
-            sheets = excel.Workbooks.Open(pathAct)
-            wb = sheets.Worksheets[4]
             path=str(os.path.join(Path.home(), "Downloads", "confidence_Intervals.pdf"))
-            wb.ExportAsFixedFormat(0, path)
-            excel.Application.Quit()
+            pathAct = str(os.path.join(self.to_mod, "confidence_Intervals.pdf"))    
+            dfi.export(tab, pathAct)
+            doc = aw.Document()
+            builder = aw.DocumentBuilder(doc)
+            builder.insert_image(pathAct)
+            doc.save(path)
             print("pdf downloaded !")
         
+        
     def scale_Consistency(self, save='display'):
+        print('file 1/file 2 scale consistency')
         df = pd.read_excel(self.resPath, sheet_name='SCALE_CONSISTENCY')
-        df = df.head(10).style.format(precision=2, na_rep='').hide_index().set_table_styles([
-                            
-                             {
+        df2 = pd.read_excel(self.resPath2, sheet_name='SCALE_CONSISTENCY')
+        
+        frames = [df,df2]
+        tab = pd.concat(frames)
+        
+
+        tab = tab.style.format(precision=2,na_rep='  ').hide_index().set_table_styles([
+                            {
+                                "selector":"thead",
+                                "props": [("visibility", "collapse"),
+                                          ]
+                            },
+                            {
                                 "selector":".row0",
-                                "props":"background-color:gray; color:white; border:3px black;text-align: center;"
+                                "props": [("background-color", "gray"),
+                                          ]
                             },
                             {
                                 "selector":".row1",
-                                "props":"background-color:gray; color:white; border:3px black;"
+                                "props": [("background-color", "gray"),
+                                          ]
                             },
                             {
                                 "selector":".row2",
-                                "props":"background-color:gray; color:white; border:3px black;"
+                                "props": [("background-color", "gray"),
+                                          ]
                             },
                             {
-                                "selector":"thead",
-                                "props": [("visibility", "collapse"),
+                                "selector":".row"+str(len(df)),
+                                "props": [("background-color", "gray"),
+                                          ]
+                            },
+                            {
+                                "selector":".row"+str(len(df)+1),
+                                "props": [("background-color", "gray"),
+                                          ]
+                            },
+                            {
+                                "selector":".row"+str(len(df)+2),
+                                "props": [("background-color", "gray"),
                                           ]
                             },
 
                         ])
-        display(df)
+        display (tab)          
         if save=='pdf':
             print("loading pdf...")
-            excel = client.Dispatch("Excel.Application")
-            pathAct = str(os.path.join(Path().absolute(), "excDoc", "DataUpdates.xlsx"))
-            sheets = excel.Workbooks.Open(pathAct)
-            wb = sheets.Worksheets[5]
-            path=str(os.path.join(Path.home(), "Downloads", "scale_Consistency.pdf"))
-            wb.ExportAsFixedFormat(0, path)
-            excel.Application.Quit()
+            path=str(os.path.join(Path.home(), "Downloads", "scale_consistency.pdf"))
+            pathAct = str(os.path.join(self.to_mod, "scale_consistency.pdf"))    
+            dfi.export(tab, pathAct)
+            doc = aw.Document()
+            builder = aw.DocumentBuilder(doc)
+            builder.insert_image(pathAct)
+            doc.save(path)
             print("pdf downloaded !")
+        
 
     def inconsistencies(self, save='display'):
+        print('file 1/file 2 inconsistencies')
         df = pd.read_excel(self.resPath, sheet_name='INCONSISTENCIES')
-        df = df.style.format(precision=2, na_rep='').hide_index().set_table_styles([
-                            
-                             {
-                                "selector":".row0",
-                                "props":"background-color:gray; color:white; border:3px black;"
-                            },
-                            {
-                                "selector":".row1",
-                                "props":"background-color:gray; color:white; border:3px black;"
-                            },
+        df2 = pd.read_excel(self.resPath2, sheet_name='INCONSISTENCIES')
+        
+        frames = [df,df2]
+        tab = pd.concat(frames)
+        
+
+        tab = tab.style.format(precision=2,na_rep='  ').hide_index().set_table_styles([
                             {
                                 "selector":"thead",
                                 "props": [("visibility", "collapse"),
                                           ]
                             },
+                            {
+                                "selector":".row0",
+                                "props": [("background-color", "gray"),
+                                          ]
+                            },
+                            {
+                                "selector":".row"+str(len(df)),
+                                "props": [("background-color", "gray"),
+                                          ]
+                            },
 
                         ])
-        display(df)
+        display (tab)          
         if save=='pdf':
             print("loading pdf...")
-            excel = client.Dispatch("Excel.Application")
-            pathAct = str(os.path.join(Path().absolute(), "excDoc", "DataUpdates.xlsx"))
-            sheets = excel.Workbooks.Open(pathAct)
-            wb = sheets.Worksheets[7]
             path=str(os.path.join(Path.home(), "Downloads", "inconsistencies.pdf"))
-            wb.ExportAsFixedFormat(0, path)
-            excel.Application.Quit()
+            pathAct = str(os.path.join(self.to_mod, "inconsistencies.pdf"))    
+            dfi.export(tab, pathAct)
+            doc = aw.Document()
+            builder = aw.DocumentBuilder(doc)
+            builder.insert_image(pathAct)
+            doc.save(path)
             print("pdf downloaded !")
 
+
     def benchmark(self, save='display'):
+        print('file 1/file 2 benchmark')
         df = pd.read_excel(self.resPath, sheet_name='BENCHMARK')
+        df2 = pd.read_excel(self.resPath2, sheet_name='BENCHMARK')
         tempDf =df
-        df = df.head(10).style.format(precision=2, na_rep='').hide_index().set_table_styles([
-                            
-                             {
-                                "selector":".row0",
-                                "props":"background-color:gray; color:white; border:3px black;"
-                            },
-                            {
-                                "selector":".row1",
-                                "props":"background-color:gray; color:white; border:3px black;"
-                            },
+        tempDf2 =df2
+        frames = [df,df2]
+        tab = pd.concat(frames)
+        
+
+        tab = tab.style.format(precision=2,na_rep='  ').hide_index().set_table_styles([
                             {
                                 "selector":"thead",
                                 "props": [("visibility", "collapse"),
                                           ]
                             },
+                            {
+                                "selector":".row0",
+                                "props": [("background-color", "gray"),
+                                          ]
+                            },
+                            {
+                                "selector":".row"+str(len(df)),
+                                "props": [("background-color", "gray"),
+                                          ]
+                            },
 
                         ])
-        display(df)
+        display (tab)          
+        
         plt.rcParams['figure.figsize'] = [8,5]
-
+        fig= plt.figure()
+        ax1= fig.add_subplot(2,1,1)
         cat = [tempDf.iloc[i,0] for i in range(24, 27)]
         line=[tempDf.iloc[i,7] for i in range(24, 27)]
         Excellent = np.array([tempDf.iloc[i,6] for i in range(24, 27)])
@@ -724,52 +810,96 @@ class ComparedDataFile():
         Lower_Border = np.array([tempDf.iloc[i,1] for i in range(24, 27)])
         ind = [x for x, _ in enumerate(cat)]
 
-        plt.bar(ind, Excellent, width=0.8, label='Excellent', color='#3EBA24', bottom=Good+Above_average+Below_average+Bad)
-        plt.bar(ind, Good, width=0.8, label='Good', color='#8EFA78', bottom=Above_average+Below_average+Bad)
-        plt.bar(ind, Above_average, width=0.8, label='Above average', color='#73C362', bottom=Below_average+Bad)
-        plt.bar(ind, Below_average, width=0.8, label='Below average', color='#EBC63C', bottom=Bad)
-        plt.bar(ind, Bad, width=0.8, label='Bad', color='#E8281F')
-        plt.bar(ind, Lower_Border, width=0.8, color='#E8281F')
-        plt.plot(line, color='black',marker='o' ,ms=5)
+        ax1.bar(ind, Excellent, width=0.8, label='Excellent', color='#3EBA24', bottom=Good+Above_average+Below_average+Bad)
+        ax1.bar(ind, Good, width=0.8, label='Good', color='#8EFA78', bottom=Above_average+Below_average+Bad)
+        ax1.bar(ind, Above_average, width=0.8, label='Above average', color='#73C362', bottom=Below_average+Bad)
+        ax1.bar(ind, Below_average, width=0.8, label='Below average', color='#EBC63C', bottom=Bad)
+        ax1.bar(ind, Bad, width=0.8, label='Bad', color='#E8281F')
+        ax1.bar(ind, Lower_Border, width=0.8, color='#E8281F')
+        ax1.plot(line, color='black',marker='o' ,ms=5)
+        ax1.set_xticks(ind, cat)
+        ax1.legend(loc="upper right")
+        ax1.set_title('file 1')
+        
+        plt.rcParams['figure.figsize'] = [8,5]
+        ax2= fig.add_subplot(2,1,2)
+        cat = [tempDf2.iloc[i,0] for i in range(24, 27)]
+        line=[tempDf2.iloc[i,7] for i in range(24, 27)]
+        Excellent = np.array([tempDf2.iloc[i,6] for i in range(24, 27)])
+        Good = np.array([tempDf2.iloc[i,5] for i in range(24, 27)])
+        Above_average = np.array([tempDf2.iloc[i,4] for i in range(24, 27)])
+        Below_average = np.array([tempDf2.iloc[i,3] for i in range(24, 27)])
+        Bad = np.array([tempDf2.iloc[i,2] for i in range(24, 27)])
+        Lower_Border = np.array([tempDf2.iloc[i,1] for i in range(24, 27)])
+        ind = [x for x, _ in enumerate(cat)]
 
-        plt.xticks(ind, cat)
-        plt.legend(loc="upper right")
-
-        plt.show()
+        ax2.bar(ind, Excellent, width=0.8, label='Excellent', color='#3EBA24', bottom=Good+Above_average+Below_average+Bad)
+        ax2.bar(ind, Good, width=0.8, label='Good', color='#8EFA78', bottom=Above_average+Below_average+Bad)
+        ax2.bar(ind, Above_average, width=0.8, label='Above average', color='#73C362', bottom=Below_average+Bad)
+        ax2.bar(ind, Below_average, width=0.8, label='Below average', color='#EBC63C', bottom=Bad)
+        ax2.bar(ind, Bad, width=0.8, label='Bad', color='#E8281F')
+        ax2.bar(ind, Lower_Border, width=0.8, color='#E8281F')
+        ax2.plot(line, color='black',marker='o' ,ms=5)
+        ax2.set_title('file 2')
+        ax2.set_xticks(ind, cat)
+        ax2.legend(loc="upper right")
+        
+        fig.subplots_adjust(bottom=2, top=4)
+        
         if save=='pdf':
             print("loading pdf...")
-            excel = client.Dispatch("Excel.Application")
-            pathAct = str(os.path.join(Path().absolute(), "excDoc", "DataUpdates.xlsx"))
-            sheets = excel.Workbooks.Open(pathAct)
-            wb = sheets.Worksheets[6]
             path=str(os.path.join(Path.home(), "Downloads", "benchmark.pdf"))
-            wb.ExportAsFixedFormat(0, path)
-            excel.Application.Quit()
+            pathAct = str(os.path.join(self.to_mod, "benchmark.pdf"))    
+            dfi.export(tab, pathAct)
+            doc = aw.Document()
+            builder = aw.DocumentBuilder(doc)
+            builder.insert_image(pathAct)
+            doc.save(path)
             print("pdf downloaded !")
+
+        # if save=='pdf':
+        #     print("loading pdf...")
+        #     excel = client.Dispatch("Excel.Application")
+        #     pathAct = str(os.path.join(self.to_mod, "resExcel", "DataUpdates.xlsx"))
+        #     sheets = excel.Workbooks.Open(pathAct)
+        #     wb = sheets.Worksheets[6]
+        #     path=str(os.path.join(Path.home(), "Downloads", "benchmark.pdf"))
+        #     wb.ExportAsFixedFormat(0, path)
+        #     excel.Application.Quit()
+        #     print("pdf downloaded !")
         
 
     def results(self, save='display'):
-
+        print('file 1/file 2 results')
         df = pd.read_excel(self.resPath, sheet_name='RESULTS')
+        df2 = pd.read_excel(self.resPath2, sheet_name='RESULTS')
         tempDf =df
-        df = df.head(10).style.format(precision=2, na_rep='').hide_index().set_table_styles([
-                            
-                            {
-                                "selector":".row0",
-                                "props":"background-color:gray; color:white; border:3px black;"
-                            },
-                            {
-                                "selector":".row1",
-                                "props":"background-color:gray; color:white; border:3px black;"
-                            },
+        tempDf2 =df2
+        
+        frames = [df,df2]
+        tab = pd.concat(frames)
+        
+
+        tab = tab.style.format(precision=2,na_rep='  ').hide_index().set_table_styles([
                             {
                                 "selector":"thead",
                                 "props": [("visibility", "collapse"),
-                                            ]
+                                          ]
+                            },
+                            {
+                                "selector":".row0",
+                                "props": [("background-color", "gray"),
+                                          ]
+                            },
+                            {
+                                "selector":".row"+str(len(df)),
+                                "props": [("background-color", "gray"),
+                                          ]
                             },
 
                         ])
-        display(df)
+        display (tab)          
+        print('file 1')
         item=[tempDf.iloc[i,0] for i in range(2, 10) ]
         mean=[tempDf.iloc[i,1] for i in range(2, 10) ]
         plt.barh(item, mean)
@@ -780,16 +910,37 @@ class ComparedDataFile():
         plt.bar(item, mean)
         plt.show()
         
+        print('file 2')
+        item=[tempDf2.iloc[i,0] for i in range(2, 10) ]
+        mean=[tempDf2.iloc[i,1] for i in range(2, 10) ]
+        plt.barh(item, mean)
+        plt.title('Mean value per item')
+        plt.show()
+        item=[tempDf2.iloc[i,10] for i in range(2, 5) ]
+        mean=[tempDf2.iloc[i,11] for i in range(2, 5) ]
+        plt.bar(item, mean)
+        plt.show()
+        
         if save=='pdf':
             print("loading pdf...")
-            excel = client.Dispatch("Excel.Application")
-            pathAct = str(os.path.join(Path().absolute(), "excDoc", "DataUpdates.xlsx"))
-            sheets = excel.Workbooks.Open(pathAct)
-            wb = sheets.Worksheets[3]
-            path=str(os.path.join(Path.home(), "Downloads", "results.pdf"))
-            wb.ExportAsFixedFormat(0, path)
-            excel.Application.Quit()
+            path=str(os.path.join(Path.home(), "Downloads", "inconsistencies.pdf"))
+            pathAct = str(os.path.join(self.to_mod, "inconsistencies.pdf"))    
+            dfi.export(tab, pathAct)
+            doc = aw.Document()
+            builder = aw.DocumentBuilder(doc)
+            builder.insert_image(pathAct)
+            doc.save(path)
             print("pdf downloaded !")
+        # if save=='pdf':
+        #     print("loading pdf...")
+        #     excel = client.Dispatch("Excel.Application")
+        #     pathAct = str(os.path.join(self.to_mod, "resExcel", "DataUpdates.xlsx"))
+        #     sheets = excel.Workbooks.Open(pathAct)
+        #     wb = sheets.Worksheets[3]
+        #     path=str(os.path.join(Path.home(), "Downloads", "results.pdf"))
+        #     wb.ExportAsFixedFormat(0, path)
+        #     excel.Application.Quit()
+        #     print("pdf downloaded !")
         
         
         
@@ -957,7 +1108,7 @@ class ComparedDataFile():
                 print("pdf downloaded !")
         
         if format=='tab':
-            if self.size<=30 or self.size2<=30 or not self.diff_size:
+            if (self.size<=30 or self.size2<=30 or not self.diff_size) and not self.parameter:
                 print('type of test: t-test')
                 print('level of significance: '+str(alpha))
                 if self.link=='independant':
@@ -1245,7 +1396,7 @@ class ComparedDataFile():
             if save=='pdf':
                 print("loading pdf...")
                 path=str(os.path.join(Path.home(), "Downloads", "Cognitive_Load.pdf"))
-                pathAct = str(os.path.join(Path().absolute(), "excDoc", "Cognitive_Load.pdf"))    
+                pathAct = str(os.path.join(self.to_mod, "Cognitive_Load.pdf"))    
                 dfi.export(tab, pathAct)
                 doc = aw.Document()
                 builder = aw.DocumentBuilder(doc)
@@ -1655,7 +1806,7 @@ class ComparedDataFile():
                 print("pdf downloaded !")
         
         if format=='tab':
-            if self.size<=30 or self.size2<=30 or not self.diff_size:
+            if (self.size<=30 or self.size2<=30 or not self.diff_size) and not self.parameter:
                 print('type of test: t-test')
                 print("level of significance: "+str(alpha))
                 if self.link=='independant':
@@ -2251,7 +2402,7 @@ class ComparedDataFile():
             if save=='pdf':
                 print("loading pdf...")
                 path=str(os.path.join(Path.home(), "Downloads", "Software_Usability.pdf"))
-                pathAct = str(os.path.join(Path().absolute(), "excDoc", "Software_Usability.pdf"))    
+                pathAct = str(os.path.join(self.to_mod, "Software_Usability.pdf"))    
                 dfi.export(tab, pathAct)
                 doc = aw.Document()
                 builder = aw.DocumentBuilder(doc)
@@ -2501,7 +2652,7 @@ class ComparedDataFile():
             df = pd.DataFrame(coments, index =self.com1[0],columns =['System: If it was difficult to recover from any mistake, please comment on the problems.', 'Information:if any information was not clear, what difficulties did you face?', 'What functions and capabilities would you like to see in this system?'])
             
             coments = list(zip(self.com12[1],self.com12[2], self.com12[3]))
-            df1 = pd.DataFrame(coments, index =self.com1[0],columns =['System: If it was difficult to recover from any mistake, please comment on the problems.', 'Information:if any information was not clear, what difficulties did you face?', 'What functions and capabilities would you like to see in this system?'])
+            df1 = pd.DataFrame(coments, index =self.com12[0],columns =['System: If it was difficult to recover from any mistake, please comment on the problems.', 'Information:if any information was not clear, what difficulties did you face?', 'What functions and capabilities would you like to see in this system?'])
             dfmid = pd.DataFrame([[' ', ' ', ' ']], index = ['file 2'], columns =['System: If it was difficult to recover from any mistake, please comment on the problems.', 'Information:if any information was not clear, what difficulties did you face?', 'What functions and capabilities would you like to see in this system?'])
             frames = [df,dfmid ,df1]
             tab = pd.concat(frames)
@@ -2520,14 +2671,13 @@ class ComparedDataFile():
 
                             ])
             display (tab)
-            # display (df1)
             
 
             
             if save=='pdf':
                 print("loading pdf...")
                 path=str(os.path.join(Path.home(), "Downloads", "Software_Coments.pdf"))
-                pathAct = str(os.path.join(Path().absolute(), "excDoc", "Software_Usability_coments.pdf"))    
+                pathAct = str(os.path.join(self.to_mod, "Software_Usability_coments.pdf"))    
                 dfi.export(tab, pathAct)
                 doc = aw.Document()
                 builder = aw.DocumentBuilder(doc)
@@ -2841,7 +2991,7 @@ class ComparedDataFile():
         
         if format=='tab':
 
-            if self.size<=30 or self.size2<=30 or not self.diff_size:
+            if (self.size<=30 or self.size2<=30 or not self.diff_size) and not self.parameter:
                 print('type of test: t-test')
                 print("level of significance: "+str(alpha))
                 if self.link=='independant':
@@ -3560,7 +3710,7 @@ class ComparedDataFile():
             if save=='pdf':
                 print("loading pdf...")
                 path=str(os.path.join(Path.home(), "Downloads", "Searching_learning.pdf"))
-                pathAct = str(os.path.join(Path().absolute(), "excDoc", "Searching_learning.pdf"))    
+                pathAct = str(os.path.join(self.to_mod, "Searching_learning.pdf"))    
                 dfi.export(tab, pathAct)
                 doc = aw.Document()
                 builder = aw.DocumentBuilder(doc)
@@ -3843,7 +3993,7 @@ class ComparedDataFile():
                 print("pdf downloaded !")
             
         if format=='tab':
-            if self.size<=30 or self.size2<=30 or not self.diff_size:
+            if (self.size<=30 or self.size2<=30 or not self.diff_size) and not self.parameter:
                 print('type of test: t-test')
                 print("level of significance: "+str(alpha))
                 if self.link=='independant':
@@ -3992,7 +4142,7 @@ class ComparedDataFile():
             if save=='pdf':
                 print("loading pdf...")
                 path=str(os.path.join(Path.home(), "Downloads", "Knowledge_Gain.pdf"))
-                pathAct = str(os.path.join(Path().absolute(), "excDoc", "Knowledge_Gain.pdf"))    
+                pathAct = str(os.path.join(self.to_mod, "Knowledge_Gain.pdf"))    
                 dfi.export(tab, pathAct)
                 doc = aw.Document()
                 builder = aw.DocumentBuilder(doc)
@@ -4047,9 +4197,43 @@ class ComparedDataFile():
             fig.savefig(path,  bbox_inches='tight')
             print("pdf downloaded !")
     
-    #print all possible function (add parameter ?) 
+    #print all possible function
     def info(self):
-        print("""Quantitative analysis:
+        print("""
+        
+Quantitative analysis:
+benchmark (): Display information on the benchmark 
+[ex: MyFile.benchmark()]
+Parameters: 
+- save (String): ‘pdf’ to download the pdf version
+
+results (): Display information on the results of the analyse of the data
+[ex: MyFile. results ()]
+Parameters: 
+- save (String): ‘pdf’ to download the pdf version
+
+dt (): Display information on the mid-calcul
+[ex: MyFile.dt()]
+Parameters: 
+- save (String): ‘pdf’ to download the pdf version
+
+
+confidence_Intervals (): Display information on confidence intervals
+[ex: MyFile. confidence_Intervals ()]
+Parameters: 
+- save (String): ‘pdf’ to download the pdf version
+
+
+scale_Consistency (): Display information on scale consistency
+[Ex : MyFile. Scale_Consistency ()]
+Parameters: 
+- save (String): ‘pdf’ to download the pdf version
+
+Inconsistencies () : Display information on inconsistencies
+[Ex : MyFile. Inconsistencies ()]
+Parameters: 
+- save (String): ‘pdf’ to download the pdf version
+
 cognitive_load (format): Display results of cognitive load
 [ex: MyFile.cognitive_load ()]
 Parameters: 
@@ -4093,12 +4277,10 @@ Parameters:
 - save (String): ‘pdf’ to download the pdf version
 
 
-
 cognitive_load_Qual_Analysis (): Display qualitative analysis of cognitive load
 [ex: MyFile.cognitive_load_Qual_Analysis ()]
 Parameters: 
 - save (String): ‘pdf’ to download the pdf version
-
 
 
 User_Experience_Qual_Analysis () : Display qualitative analysis of user experience
@@ -4119,9 +4301,6 @@ Parameters:
  """)
         
     
-    #allow users to change the parametre of the experience: dependant or independant, type of test use in case of different size
-    def parameter(self):
-        print('en travaux')
     
         
     
