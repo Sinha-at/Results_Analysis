@@ -35,7 +35,7 @@ other:
 - [wget](https://pypi.org/project/wget/)- Download file from url
 
 
-Results_Analysis itself is shared in a [public repository](https://github.com/Sinha1111/Results_Analysis) on GitHub.
+Results_Analysis itself is shared in a [GitHub repository](https://github.com/Sinha1111/Results_Analysis).
 
 ## File format
 Files must be formatted like [this file](https://docs.google.com/spreadsheets/d/1hjsJRMdZKLr5uegLY-H69nxv5on66eMK/edit?usp=sharing&ouid=106091935059439566018&rtpof=true&sd=true), make sure your matrices are in the correct order: Demographic Info, Pre-search Questionnaire, Post-Search Questionnaire, User Experience, Cognitive Load, Software Usability
