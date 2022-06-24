@@ -29,7 +29,7 @@ other:
 - [warnings](https://docs.python.org/3/library/warnings.html)- Deal with python's warning
 - [os](https://docs.python.org/3/library/os.path.html)- Path manipulation
 - [pathlib](https://pathlib.readthedocs.io/en/pep428/)- Path manipulation
-- [scipy](https://docs.scipy.org/doc/scipy/reference/)- Statistical testing (t-test)
+- [scipy](https://docs.scipy.org/doc/scipy/reference/)- Statistical testing (t-test/welsh-test)
 - [statsmodels](https://www.statsmodels.org/stable/index.html)- Statistical testing (z-test)
 - [imp](https://docs.python.org/3/library/imp.html)- Find module path
 - [wget](https://pypi.org/project/wget/)- Download file from url
