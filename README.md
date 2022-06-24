@@ -321,5 +321,10 @@ Information about every possible function and their parameters
  CompFile.info()
  MyFile.info()
 ```
+
+## Examples
+
+[Results_Analysis.ipynb]
+
 ## License
 MIT
