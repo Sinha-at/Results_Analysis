@@ -75,6 +75,7 @@ Create an object for one file
 ```sh
 MyFile=ra.dataFile(path to your file)
 ```
+> This operation usually takes a few minutes
 
 ## User Experience
 
@@ -191,6 +192,7 @@ Parameters:
 CompFile=ra.ComparedDataFile(path to your first file, path to your second file)
 CompFile=ra.ComparedDataFile(path to your first file,path to your second file,link='dependant', test_diff_size='welsh-test')
 ```
+> This operation usually takes a few minutes
 ## User Experience
 
 ## Quantitative analysis
