@@ -123,7 +123,7 @@ class dataFile():
                     av=0
                 
             #Software usabilities
-            #partie system
+            #part system
             if  58<=compt<=62 or compt==73:
                 if compt!=73:
                     for j in df[i]:
@@ -149,7 +149,7 @@ class dataFile():
                 av=0
                 
                 
-            #partie information
+            #part information
             if 64<=compt<=67:
                 for j in df[i]:
                     if df[i].get(j)>4:
@@ -171,7 +171,7 @@ class dataFile():
             if compt==72:
                 for j in df[i]:self.com1[3].append(df[i].get(j))
                 
-            #partie interface
+            #part interface
             if 69<=compt<=71:
                 for j in df[i]:
                     if df[i].get(j)>4:

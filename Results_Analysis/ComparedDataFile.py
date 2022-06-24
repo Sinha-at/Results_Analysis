@@ -299,11 +299,11 @@ class ComparedDataFile():
         spreadsheet=self.to_mod+'\DataUpdates.xlsx'
         xfile.save(spreadsheet)
 
-        # fpath = spreadsheet
-        # dirname = str(os.path.join(self.to_mod, "resExcel"))
-        # xl_model = formulas.ExcelModel().loads(fpath).finish()
-        # xl_model.calculate()
-        # xl_model.write(dirpath=dirname)
+        fpath = spreadsheet
+        dirname = str(os.path.join(self.to_mod, "resExcel"))
+        xl_model = formulas.ExcelModel().loads(fpath).finish()
+        xl_model.calculate()
+        xl_model.write(dirpath=dirname)
         print("first file complete")
         
     def processing2(self, path):
@@ -559,11 +559,11 @@ class ComparedDataFile():
         spreadsheet=self.to_mod+'\DataUpdates2.xlsx'
         xfile.save(spreadsheet)
 
-        # fpath = spreadsheet
-        # dirname = str(os.path.join(self.to_mod, "resExcel"))
-        # xl_model = formulas.ExcelModel().loads(fpath).finish()
-        # xl_model.calculate()
-        # xl_model.write(dirpath=dirname)
+        fpath = spreadsheet
+        dirname = str(os.path.join(self.to_mod, "resExcel"))
+        xl_model = formulas.ExcelModel().loads(fpath).finish()
+        xl_model.calculate()
+        xl_model.write(dirpath=dirname)
         print("Second file complete")
         
        
@@ -1108,7 +1108,7 @@ class ComparedDataFile():
                 print("pdf downloaded !")
         
         if format=='tab':
-            if (self.size<=30 or self.size2<=30 or not self.diff_size) and not self.parameter:
+            if (not self.diff_size or self.size<=30) and not self.parameter:
                 print('type of test: t-test')
                 print('level of significance: '+str(alpha))
                 if self.link=='independant':
@@ -1806,7 +1806,7 @@ class ComparedDataFile():
                 print("pdf downloaded !")
         
         if format=='tab':
-            if (self.size<=30 or self.size2<=30 or not self.diff_size) and not self.parameter:
+            if (not self.diff_size or self.size<=30) and not self.parameter:
                 print('type of test: t-test')
                 print("level of significance: "+str(alpha))
                 if self.link=='independant':
@@ -2990,8 +2990,8 @@ class ComparedDataFile():
                 print("pdf downloaded !")
         
         if format=='tab':
-
-            if (self.size<=30 or self.size2<=30 or not self.diff_size) and not self.parameter:
+            #if test arn't the same size, one of the sample is inferieur to 30 and parameter arn't changed
+            if (not self.diff_size or self.size<=30) and not self.parameter:
                 print('type of test: t-test')
                 print("level of significance: "+str(alpha))
                 if self.link=='independant':
@@ -3993,7 +3993,7 @@ class ComparedDataFile():
                 print("pdf downloaded !")
             
         if format=='tab':
-            if (self.size<=30 or self.size2<=30 or not self.diff_size) and not self.parameter:
+            if (not self.diff_size or self.size<=30) and not self.parameter:
                 print('type of test: t-test')
                 print("level of significance: "+str(alpha))
                 if self.link=='independant':
