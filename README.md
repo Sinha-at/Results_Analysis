@@ -40,6 +40,12 @@ Results_Analysis itself is shared in a [public repository](https://github.com/Si
 ## File format
 Files must be formatted like [this file](https://docs.google.com/spreadsheets/d/1hjsJRMdZKLr5uegLY-H69nxv5on66eMK/edit?usp=sharing&ouid=106091935059439566018&rtpof=true&sd=true), make sure your matrices are in the correct order: Demographic Info, Pre-search Questionnaire, Post-Search Questionnaire, User Experience, Cognitive Load, Software Usability
 
+## Default statistical test used
+
+- Both sample sizes <=30 --> T-test
+- Both sample sizes >30 --> Z-test
+- Different sizes --> Welsh-test
+
 ## Installation
 
 _Results_Analysis requires a version of python over 3 to run._
