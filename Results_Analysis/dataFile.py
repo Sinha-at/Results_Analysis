@@ -19,7 +19,6 @@ from statsmodels.stats.weightstats import ztest
 import imp
 import wget
 
-#help function stat test explanation
 class dataFile():
     
     warnings.filterwarnings('ignore', category=UserWarning, module='openpyxl')
