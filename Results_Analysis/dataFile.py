@@ -26,7 +26,7 @@ class dataFile():
     def __init__(self, path):
         test, ph, au=imp.find_module('Results_Analysis')
         self.to_mod=ph
-        wget.download('https://docs.google.com/spreadsheets/d/1Z_KnyxvX2xT2ukVqfle70VLRJl1SnmY2//export?format=xlsx', self.to_mod+'\Short_UEQ_Data_Analysis_Tool.xlsx')
+        wget.download('https://docs.google.com/spreadsheets/d/1Z_KnyxvX2xT2ukVqfle70VLRJl1SnmY2/export?format=xlsx', self.to_mod+'\Short_UEQ_Data_Analysis_Tool.xlsx')
 
         self.resPath = str(os.path.join(self.to_mod, "resExcel", "DATAUPDATES.XLSX"))
         self.processing(path)
