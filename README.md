@@ -8,7 +8,7 @@ Results_Analysis is a package that allows users to:
 - Compare the results of two files
 
 This package is based on a research paper written by Abhishek Kaushik: https://arxiv.org/pdf/2104.03940.pdf,
-if you are using the package please give credits to this research paper.
+if you are using the package please give credit to this research paper.
 
 ## Libraries used
 
