@@ -1,11 +1,14 @@
 # Results_Analysis
 ## _Test your conversational search system and analyze the results_
 
+
 Results_Analysis is a package that allows users to:
 
 - Interpret the results of a data file
 - Compare the results of two files
 
+This package is based on a reasearch paper written by Abhishek Kaushik: https://arxiv.org/pdf/2104.03940.pdf
+if you are using the package please give credits to this reasearch paper.
 
 ## Libraries used
 
@@ -65,6 +68,17 @@ For this documentation we will use:
 import Results_Analysis as ra
 ```
 
+##Update the package:
+
+```sh
+pip install Results_Analysis --upgrade
+```
+
+## Type of Analysis
+
+Quantitative analysis: This is based on the mean score of the participants in the study, statistical testing is carried out based on the population and nature of the experiment. When comparing a conventional system and a conversational system, we are able to perform dependent significant testing, since the population undertaking the experiment in both settings is the same. And, if we are comparing the mean score of the conversational interface with a standard benchmark, we can conduct independent significance testing
+
+Qualitative analysis:  The different dimensions are annotated based on comparison of the mean values for the study participants. A mean value between 2 and 4 represents a neutral evaluation of the corresponding scale (yellow dimension), a mean > 4 represents a positive evaluation (green dimension) and mean < 2 represents a negative evaluation (red dimension). After comparing the mean, each question is annotated based on the dimensions. The dimensions are annotated by two independent analysts with the Kappa coefficient (Approx .85), then the dimension is counted for each section. As per the dimension, the section of the interface that needs to be improved can be identified. For example, if software usability gets more red dimensions, then the interface needs to be improved with respect to software usability.
 
 
 # Analysis of one file
