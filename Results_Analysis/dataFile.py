@@ -610,36 +610,36 @@ class dataFile():
             
         #Supportive
         ax1=fig.add_subplot(spec4[0, 0])
-        ax1.pie([self.pragmaticQual[0][0],self.pragmaticQual[1][0], self.pragmaticQual[2][0]],labels=['Negative','Neutral','Positive'], colors=['#DC2209','#EED238','#1CCD00'], autopct='%1.1f%%')
+        ax1.pie([self.pragmaticQual[0][0],self.pragmaticQual[1][0], self.pragmaticQual[2][0]],labels=['Positive','Neutral','Negative'], colors=['#1CCD00','#EED238','#DC2209'], autopct='%1.1f%%')
         ax1.set_title('supportive')
         #Easiness
         ax2=fig.add_subplot(spec4[0, 1])
-        ax2.pie([self.pragmaticQual[0][1],self.pragmaticQual[1][1], self.pragmaticQual[2][1]],labels=['Negative','Neutral','Positive'], colors=['#DC2209','#EED238','#1CCD00'], autopct='%1.1f%%')
+        ax2.pie([self.pragmaticQual[0][1],self.pragmaticQual[1][1], self.pragmaticQual[2][1]],labels=['Positive','Neutral','Negative'], colors=['#1CCD00','#EED238','#DC2209'], autopct='%1.1f%%')
         ax2.set_title('easiness')
         #efficience
         ax3=fig.add_subplot(spec4[0, 2])
-        ax3.pie([self.pragmaticQual[0][2],self.pragmaticQual[1][2], self.pragmaticQual[2][2]],labels=['Negative','Neutral','Positive'], colors=['#DC2209','#EED238','#1CCD00'], autopct='%1.1f%%')
+        ax3.pie([self.pragmaticQual[0][2],self.pragmaticQual[1][2], self.pragmaticQual[2][2]],labels=['Positive','Neutral','Negative'], colors=['#1CCD00','#EED238','#DC2209'], autopct='%1.1f%%')
         ax3.set_title('efficience')
         #clearness
         ax4=fig.add_subplot(spec4[0, 3])
-        ax4.pie([self.pragmaticQual[0][3],self.pragmaticQual[1][3], self.pragmaticQual[2][3]],labels=['Negative','Neutral','Positive'], colors=['#DC2209','#EED238','#1CCD00'], autopct='%1.1f%%')
+        ax4.pie([self.pragmaticQual[0][3],self.pragmaticQual[1][3], self.pragmaticQual[2][3]],labels=['Positive','Neutral','Negative'], colors=['#1CCD00','#EED238','#DC2209'], autopct='%1.1f%%')
         ax4.set_title('clearness')
             
         #exciting
         ax1=fig.add_subplot(spec4[1, 0])
-        ax1.pie([self.hedonicQual[0][0],self.hedonicQual[1][0], self.hedonicQual[2][0]],labels=['Negative','Neutral','Positive'], colors=['#DC2209','#EED238','#1CCD00'], autopct='%1.1f%%')
+        ax1.pie([self.hedonicQual[0][0],self.hedonicQual[1][0], self.hedonicQual[2][0]],labels=['Positive','Neutral','Negative'], colors=['#1CCD00','#EED238','#DC2209'], autopct='%1.1f%%')
         ax1.set_title('exciting')
         #interesting
         ax2=fig.add_subplot(spec4[1, 1])
-        ax2.pie([self.hedonicQual[0][1],self.hedonicQual[1][1],self.hedonicQual[2][1]],labels=['Negative','Neutral','Positive'], colors=['#DC2209','#EED238','#1CCD00'], autopct='%1.1f%%')
+        ax2.pie([self.hedonicQual[0][1],self.hedonicQual[1][1],self.hedonicQual[2][1]],labels=['Positive','Neutral','Negative'], colors=['#1CCD00','#EED238','#DC2209'], autopct='%1.1f%%')
         ax2.set_title('interesting')
         #inventive
         ax3=fig.add_subplot(spec4[1, 2])
-        ax3.pie([self.hedonicQual[0][2],self.hedonicQual[1][2], self.hedonicQual[2][2]],labels=['Negative','Neutral','Positive'], colors=['#DC2209','#EED238','#1CCD00'], autopct='%1.1f%%')
+        ax3.pie([self.hedonicQual[0][2],self.hedonicQual[1][2], self.hedonicQual[2][2]],labels=['Positive','Neutral','Negative'], colors=['#1CCD00','#EED238','#DC2209'], autopct='%1.1f%%')
         ax3.set_title('inventive')
         #leading edge
         ax4=fig.add_subplot(spec4[1, 3])
-        ax4.pie([self.hedonicQual[0][3],self.hedonicQual[1][3], self.hedonicQual[2][3]],labels=['Negative','Neutral','Positive'], colors=['#DC2209','#EED238','#1CCD00'], autopct='%1.1f%%')
+        ax4.pie([self.hedonicQual[0][3],self.hedonicQual[1][3], self.hedonicQual[2][3]],labels=['Positive','Neutral','Negative'], colors=['#1CCD00','#EED238','#DC2209'], autopct='%1.1f%%')
         ax4.set_title('leading edge')
             
             
@@ -669,27 +669,27 @@ class dataFile():
             
         #Mentally demanding
         ax1=fig.add_subplot(spec4[0, 0])
-        ax1.pie([self.mentloadQual[0][0],self.mentloadQual[1][0], self.mentloadQual[2][0]],labels=['Negative','Neutral','Positive'], colors=['#DC2209','#EED238','#1CCD00'], autopct='%1.1f%%')
+        ax1.pie([self.mentloadQual[0][0],self.mentloadQual[1][0], self.mentloadQual[2][0]],labels=['Positive','Neutral','Negative'], colors=['#1CCD00','#EED238','#DC2209'], autopct='%1.1f%%')
         ax1.set_title('Mentally demanding')
         #physically demanding
         ax2=fig.add_subplot(spec4[0, 1])
-        ax2.pie([self.mentloadQual[0][1],self.mentloadQual[1][1], self.mentloadQual[2][1]],labels=['Negative','Neutral','Positive'], colors=['#DC2209','#EED238','#1CCD00'], autopct='%1.1f%%')
+        ax2.pie([self.mentloadQual[0][1],self.mentloadQual[1][1], self.mentloadQual[2][1]],labels=['Positive','Neutral','Negative'], colors=['#1CCD00','#EED238','#DC2209'], autopct='%1.1f%%')
         ax2.set_title('physically demanding')
         #hurried or rushed pace
         ax3=fig.add_subplot(spec4[0, 2])
-        ax3.pie([self.mentloadQual[0][2],self.mentloadQual[1][2], self.mentloadQual[2][2]],labels=['Negative','Neutral','Positive'], colors=['#DC2209','#EED238','#1CCD00'], autopct='%1.1f%%')
+        ax3.pie([self.mentloadQual[0][2],self.mentloadQual[1][2], self.mentloadQual[2][2]],labels=['Positive','Neutral','Negative'], colors=['#1CCD00','#EED238','#DC2209'], autopct='%1.1f%%')
         ax3.set_title('hurried or rushed pace')
         #success
         ax4=fig.add_subplot(spec4[1, 0])
-        ax4.pie([self.mentloadQual[0][3],self.mentloadQual[1][3], self.mentloadQual[2][3]],labels=['Negative','Neutral','Positive'], colors=['#DC2209','#EED238','#1CCD00'], autopct='%1.1f%%')
+        ax4.pie([self.mentloadQual[0][3],self.mentloadQual[1][3], self.mentloadQual[2][3]],labels=['Positive','Neutral','Negative'], colors=['#1CCD00','#EED238','#DC2209'], autopct='%1.1f%%')
         ax4.set_title('success') 
         #difficulty
         ax5=fig.add_subplot(spec4[1, 1])
-        ax5.pie([self.mentloadQual[0][4],self.mentloadQual[1][4], self.mentloadQual[2][4]],labels=['Negative','Neutral','Positive'], colors=['#DC2209','#EED238','#1CCD00'], autopct='%1.1f%%')
+        ax5.pie([self.mentloadQual[0][4],self.mentloadQual[1][4], self.mentloadQual[2][4]],labels=['Positive','Neutral','Negative'], colors=['#1CCD00','#EED238','#DC2209'], autopct='%1.1f%%')
         ax5.set_title('difficulty')
         #Overall easiness to use
         ax6=fig.add_subplot(spec4[1, 2])
-        ax6.pie([self.mentloadQual[0][5],self.mentloadQual[1][5],self.mentloadQual[2][5]],labels=['Negative','Neutral','Positive'], colors=['#DC2209','#EED238','#1CCD00'], autopct='%1.1f%%')
+        ax6.pie([self.mentloadQual[0][5],self.mentloadQual[1][5],self.mentloadQual[2][5]],labels=['Positive','Neutral','Negative'], colors=['#1CCD00','#EED238','#DC2209'], autopct='%1.1f%%')
         ax6.set_title('Overall easiness to use')
         
         if save=='pdf':
@@ -817,28 +817,28 @@ class dataFile():
             
         #Simplicity to use
         ax1=fig.add_subplot(spec4[0, 0])
-        ax1.pie([self.softUs_SystemQual[0][0],self.softUs_SystemQual[1][0], self.softUs_SystemQual[2][0]],labels=['Negative','Neutral','Positive'], colors=['#DC2209','#EED238','#1CCD00'], autopct='%1.1f%%')
+        ax1.pie([self.softUs_SystemQual[0][0],self.softUs_SystemQual[1][0], self.softUs_SystemQual[2][0]],labels=['Positive','Neutral','Negative'], colors=['#1CCD00','#EED238','#DC2209'], autopct='%1.1f%%')
         ax1.set_title('Simplicity to use')
         #helped effectivness of my work
         ax2=fig.add_subplot(spec4[0, 1])
-        ax2.pie([self.softUs_SystemQual[0][1],self.softUs_SystemQual[1][1], self.softUs_SystemQual[2][1]],labels=['Negative','Neutral','Positive'], colors=['#DC2209','#EED238','#1CCD00'], autopct='%1.1f%%')
+        ax2.pie([self.softUs_SystemQual[0][1],self.softUs_SystemQual[1][1], self.softUs_SystemQual[2][1]],labels=['Positive','Neutral','Negative'], colors=['#1CCD00','#EED238','#DC2209'], autopct='%1.1f%%')
         ax2.set_title('helped effectivness of my work')
         #helped pace of my work
         ax3=fig.add_subplot(spec4[0, 2])
-        ax3.pie([self.softUs_SystemQual[0][2],self.softUs_SystemQual[1][2], self.softUs_SystemQual[2][2]],labels=['Negative','Neutral','Positive'], colors=['#DC2209','#EED238','#1CCD00'], autopct='%1.1f%%')
+        ax3.pie([self.softUs_SystemQual[0][2],self.softUs_SystemQual[1][2], self.softUs_SystemQual[2][2]],labels=['Positive','Neutral','Negative'], colors=['#1CCD00','#EED238','#DC2209'], autopct='%1.1f%%')
         ax3.set_title('helped pace of my work')
         fig.suptitle('Search formulation (Per-earch)', fontsize=16)
         #confortable
         ax4=fig.add_subplot(spec4[1, 0])
-        ax4.pie([self.softUs_SystemQual[0][3],self.softUs_SystemQual[1][3], self.softUs_SystemQual[2][3]],labels=['Negative','Neutral','Positive'], colors=['#DC2209','#EED238','#1CCD00'], autopct='%1.1f%%')
+        ax4.pie([self.softUs_SystemQual[0][3],self.softUs_SystemQual[1][3], self.softUs_SystemQual[2][3]],labels=['Positive','Neutral','Negative'], colors=['#1CCD00','#EED238','#DC2209'], autopct='%1.1f%%')
         ax4.set_title('confortable')
         #easy recovery after mistake
         ax5=fig.add_subplot(spec4[1, 1])
-        ax5.pie([self.softUs_SystemQual[0][4],self.softUs_SystemQual[1][4], self.softUs_SystemQual[2][4]],labels=['Negative','Neutral','Positive'], colors=['#DC2209','#EED238','#1CCD00'], autopct='%1.1f%%')
+        ax5.pie([self.softUs_SystemQual[0][4],self.softUs_SystemQual[1][4], self.softUs_SystemQual[2][4]],labels=['Positive','Neutral','Negative'], colors=['#1CCD00','#EED238','#DC2209'], autopct='%1.1f%%')
         ax5.set_title('easy recovery after mistake')
         #overall satisfaction
         ax6=fig.add_subplot(spec4[1, 2])
-        ax6.pie([self.softUs_SystemQual[0][5],self.softUs_SystemQual[1][5], self.softUs_SystemQual[2][5]],labels=['Negative','Neutral','Positive'], colors=['#DC2209','#EED238','#1CCD00'], autopct='%1.1f%%')
+        ax6.pie([self.softUs_SystemQual[0][5],self.softUs_SystemQual[1][5], self.softUs_SystemQual[2][5]],labels=['Positive','Neutral','Negative'], colors=['#1CCD00','#EED238','#DC2209'], autopct='%1.1f%%')
         ax6.set_title('overall satisfaction')
         
          
@@ -851,19 +851,19 @@ class dataFile():
             
         #clear
         ax1=fig.add_subplot(spec4[0, 0])
-        ax1.pie([self.softUs_InformationQual[0][0],self.softUs_InformationQual[1][0], self.softUs_InformationQual[2][0]],labels=['Negative','Neutral','Positive'], colors=['#DC2209','#EED238','#1CCD00'], autopct='%1.1f%%')
+        ax1.pie([self.softUs_InformationQual[0][0],self.softUs_InformationQual[1][0], self.softUs_InformationQual[2][0]],labels=['Positive','Neutral','Negative'], colors=['#1CCD00','#EED238','#DC2209'], autopct='%1.1f%%')
         ax1.set_title('clear')
         #easy to find
         ax2=fig.add_subplot(spec4[0, 1])
-        ax2.pie([self.softUs_InformationQual[0][1],self.softUs_InformationQual[1][1], self.softUs_InformationQual[2][1]],labels=['Negative','Neutral','Positive'], colors=['#DC2209','#EED238','#1CCD00'], autopct='%1.1f%%')
+        ax2.pie([self.softUs_InformationQual[0][1],self.softUs_InformationQual[1][1], self.softUs_InformationQual[2][1]],labels=['Positive','Neutral','Negative'], colors=['#1CCD00','#EED238','#DC2209'], autopct='%1.1f%%')
         ax2.set_title('easy to find')
         #effective
         ax3=fig.add_subplot(spec4[0, 2])
-        ax3.pie([self.softUs_InformationQual[0][2],self.softUs_InformationQual[1][2], self.softUs_InformationQual[2][2]],labels=['Negative','Neutral','Positive'], colors=['#DC2209','#EED238','#1CCD00'], autopct='%1.1f%%')
+        ax3.pie([self.softUs_InformationQual[0][2],self.softUs_InformationQual[1][2], self.softUs_InformationQual[2][2]],labels=['Positive','Neutral','Negative'], colors=['#1CCD00','#EED238','#DC2209'], autopct='%1.1f%%')
         ax3.set_title('effective')
         #organized
         ax4=fig.add_subplot(spec4[0, 3])
-        ax4.pie([self.softUs_InformationQual[0][3],self.softUs_InformationQual[1][3], self.softUs_InformationQual[2][3]],labels=['Negative','Neutral','Positive'], colors=['#DC2209','#EED238','#1CCD00'], autopct='%1.1f%%')
+        ax4.pie([self.softUs_InformationQual[0][3],self.softUs_InformationQual[1][3], self.softUs_InformationQual[2][3]],labels=['Positive','Neutral','Negative'], colors=['#1CCD00','#EED238','#DC2209'], autopct='%1.1f%%')
         ax4.set_title('organized')
         fig.suptitle('Information', fontsize=16)
         
@@ -878,15 +878,15 @@ class dataFile():
             
         #pleasant
         ax1=fig.add_subplot(spec4[0, 0])
-        ax1.pie([self.softUs_InterfaceQual[0][0],self.softUs_InterfaceQual[1][0], self.softUs_InterfaceQual[2][0]],labels=['Negative','Neutral','Positive'], colors=['#DC2209','#EED238','#1CCD00'], autopct='%1.1f%%')
+        ax1.pie([self.softUs_InterfaceQual[0][0],self.softUs_InterfaceQual[1][0], self.softUs_InterfaceQual[2][0]],labels=['Positive','Neutral','Negative'], colors=['#1CCD00','#EED238','#DC2209'], autopct='%1.1f%%')
         ax1.set_title('pleasant')
         #Like using interface
         ax2=fig.add_subplot(spec4[0, 1])
-        ax2.pie([self.softUs_InterfaceQual[0][1],self.softUs_InterfaceQual[1][1], self.softUs_InterfaceQual[2][1]],labels=['Negative','Neutral','Positive'], colors=['#DC2209','#EED238','#1CCD00'], autopct='%1.1f%%')
+        ax2.pie([self.softUs_InterfaceQual[0][1],self.softUs_InterfaceQual[1][1], self.softUs_InterfaceQual[2][1]],labels=['Positive','Neutral','Negative'], colors=['#1CCD00','#EED238','#DC2209'], autopct='%1.1f%%')
         ax2.set_title('I like using interface')
         #fonctions and capabilities
         ax3=fig.add_subplot(spec4[0, 2])
-        ax3.pie([self.softUs_InterfaceQual[0][2],self.softUs_InterfaceQual[1][2], self.softUs_InterfaceQual[2][2]],labels=['Negative','Neutral','Positive'], colors=['#DC2209','#EED238','#1CCD00'], autopct='%1.1f%%')
+        ax3.pie([self.softUs_InterfaceQual[0][2],self.softUs_InterfaceQual[1][2], self.softUs_InterfaceQual[2][2]],labels=['Positive','Neutral','Negative'], colors=['#1CCD00','#EED238','#DC2209'], autopct='%1.1f%%')
         ax3.set_title('has all the fonctions and capabilities expected')
         fig.suptitle('Interface', fontsize=16)
 
@@ -1140,15 +1140,15 @@ class dataFile():
             
         #Background knowledge
         ax1=fig.add_subplot(spec4[0, 0])
-        ax1.pie([self.PreSearchQual[0][0],self.PreSearchQual[1][0], self.PreSearchQual[2][0]],labels=['Negative','Neutral','Positive'], colors=['#DC2209','#EED238','#1CCD00'], autopct='%1.1f%%')
+        ax1.pie([self.PreSearchQual[0][0],self.PreSearchQual[1][0], self.PreSearchQual[2][0]],labels=['Positive','Neutral','Negative'], colors=['#1CCD00','#EED238','#DC2209'], autopct='%1.1f%%')
         ax1.set_title('Background knowledge')
         #Interest in topic
         ax2=fig.add_subplot(spec4[0, 1])
-        ax2.pie([self.PreSearchQual[0][1],self.PreSearchQual[1][1], self.PreSearchQual[2][1]],labels=['Negative','Neutral','Positive'], colors=['#DC2209','#EED238','#1CCD00'], autopct='%1.1f%%')
+        ax2.pie([self.PreSearchQual[0][1],self.PreSearchQual[1][1], self.PreSearchQual[2][1]],labels=['Positive','Neutral','Negative'], colors=['#1CCD00','#EED238','#DC2209'], autopct='%1.1f%%')
         ax2.set_title('Interest in topic')
         #Anticipated difficulty
         ax3=fig.add_subplot(spec4[0, 2])
-        ax3.pie([self.PreSearchQual[0][2],self.PreSearchQual[1][2], self.PreSearchQual[2][2]],labels=['Negative','Neutral','Positive'], colors=['#DC2209','#EED238','#1CCD00'], autopct='%1.1f%%')
+        ax3.pie([self.PreSearchQual[0][2],self.PreSearchQual[1][2], self.PreSearchQual[2][2]],labels=['Positive','Neutral','Negative'], colors=['#1CCD00','#EED238','#DC2209'], autopct='%1.1f%%')
         ax3.set_title('Anticipated difficulty')
         fig.suptitle('Search formulation (Per-earch)', fontsize=16)
          
@@ -1161,23 +1161,23 @@ class dataFile():
             
         #Actual difficulty
         ax1=fig.add_subplot(spec4[0, 0])
-        ax1.pie([self.ContentSelectionQual[0][0],self.ContentSelectionQual[1][0], self.ContentSelectionQual[2][0]],labels=['Negative','Neutral','Positive'], colors=['#DC2209','#EED238','#1CCD00'], autopct='%1.1f%%')
+        ax1.pie([self.ContentSelectionQual[0][0],self.ContentSelectionQual[1][0], self.ContentSelectionQual[2][0]],labels=['Positive','Neutral','Negative'], colors=['#1CCD00','#EED238','#DC2209'], autopct='%1.1f%%')
         ax1.set_title('Actual difficulty')
         #Text presentation quality
         ax2=fig.add_subplot(spec4[0, 1])
-        ax2.pie([self.ContentSelectionQual[0][1],self.ContentSelectionQual[1][1], self.ContentSelectionQual[2][1]],labels=['Negative','Neutral','Positive'], colors=['#DC2209','#EED238','#1CCD00'], autopct='%1.1f%%')
+        ax2.pie([self.ContentSelectionQual[0][1],self.ContentSelectionQual[1][1], self.ContentSelectionQual[2][1]],labels=['Positive','Neutral','Negative'], colors=['#1CCD00','#EED238','#DC2209'], autopct='%1.1f%%')
         ax2.set_title('Text presentation quality')
         #average number of docs view/search
         ax3=fig.add_subplot(spec4[0, 2])
-        ax3.pie([self.ContentSelectionQual[0][2],self.ContentSelectionQual[1][2], self.ContentSelectionQual[2][2]],labels=['Negative','Neutral','Positive'], colors=['#DC2209','#EED238','#1CCD00'], autopct='%1.1f%%')
+        ax3.pie([self.ContentSelectionQual[0][2],self.ContentSelectionQual[1][2], self.ContentSelectionQual[2][2]],labels=['Positive','Neutral','Negative'], colors=['#1CCD00','#EED238','#DC2209'], autopct='%1.1f%%')
         ax3.set_title('average number of docs view/search')
         #Usefulness of search results
         ax4=fig.add_subplot(spec4[1, 0])
-        ax4.pie([self.ContentSelectionQual[0][3],self.ContentSelectionQual[1][3], self.ContentSelectionQual[2][3]],labels=['Negative','Neutral','Positive'], colors=['#DC2209','#EED238','#1CCD00'], autopct='%1.1f%%')
+        ax4.pie([self.ContentSelectionQual[0][3],self.ContentSelectionQual[1][3], self.ContentSelectionQual[2][3]],labels=['Positive','Neutral','Negative'], colors=['#1CCD00','#EED238','#DC2209'], autopct='%1.1f%%')
         ax4.set_title('Usefulness of search results')
         #Text relevance
         ax5=fig.add_subplot(spec4[1,1])
-        ax5.pie([self.ContentSelectionQual[0][4],self.ContentSelectionQual[1][4], self.ContentSelectionQual[2][4]],labels=['Negative','Neutral','Positive'], colors=['#DC2209','#EED238','#1CCD00'], autopct='%1.1f%%')
+        ax5.pie([self.ContentSelectionQual[0][4],self.ContentSelectionQual[1][4], self.ContentSelectionQual[2][4]],labels=['Positive','Neutral','Negative'], colors=['#1CCD00','#EED238','#DC2209'], autopct='%1.1f%%')
         ax5.set_title('average number of docs view/search')
         fig.suptitle('Content selection', fontsize=16)
         
@@ -1192,19 +1192,19 @@ class dataFile():
             
         #Cognitively engaged
         ax1=fig.add_subplot(spec4[0, 0])
-        ax1.pie([self.InteractionContentQual[0][0],self.InteractionContentQual[1][0], self.InteractionContentQual[2][0]],labels=['Negative','Neutral','Positive'], colors=['#DC2209','#EED238','#1CCD00'], autopct='%1.1f%%')
+        ax1.pie([self.InteractionContentQual[0][0],self.InteractionContentQual[1][0], self.InteractionContentQual[2][0]],labels=['Positive','Neutral','Negative'], colors=['#1CCD00','#EED238','#DC2209'], autopct='%1.1f%%')
         ax1.set_title('Cognitively engaged')
         #Suggestions skills
         ax2=fig.add_subplot(spec4[0, 1])
-        ax2.pie([self.InteractionContentQual[0][1],self.InteractionContentQual[1][1], self.InteractionContentQual[2][1]],labels=['Negative','Neutral','Positive'], colors=['#DC2209','#EED238','#1CCD00'], autopct='%1.1f%%')
+        ax2.pie([self.InteractionContentQual[0][1],self.InteractionContentQual[1][1], self.InteractionContentQual[2][1]],labels=['Positive','Neutral','Negative'], colors=['#1CCD00','#EED238','#DC2209'], autopct='%1.1f%%')
         ax2.set_title('Suggestions skills')
         #System undersdanting input
         ax3=fig.add_subplot(spec4[0, 2])
-        ax3.pie([self.InteractionContentQual[0][2],self.InteractionContentQual[1][2], self.InteractionContentQual[2][2]],labels=['Negative','Neutral','Positive'], colors=['#DC2209','#EED238','#1CCD00'], autopct='%1.1f%%')
+        ax3.pie([self.InteractionContentQual[0][2],self.InteractionContentQual[1][2], self.InteractionContentQual[2][2]],labels=['Positive','Neutral','Negative'], colors=['#1CCD00','#EED238','#DC2209'], autopct='%1.1f%%')
         ax3.set_title('System undersdanting input')
         #Average leve of satisfaction
         ax4=fig.add_subplot(spec4[0, 3])
-        ax4.pie([self.InteractionContentQual[0][3],self.InteractionContentQual[1][3], self.InteractionContentQual[2][3]],labels=['Negative','Neutral','Positive'], colors=['#DC2209','#EED238','#1CCD00'], autopct='%1.1f%%')
+        ax4.pie([self.InteractionContentQual[0][3],self.InteractionContentQual[1][3], self.InteractionContentQual[2][3]],labels=['Positive','Neutral','Negative'], colors=['#1CCD00','#EED238','#DC2209'], autopct='%1.1f%%')
         ax4.set_title('Anticipated difficulty')
         fig.suptitle('Interaction with content', fontsize=16)
         
@@ -1217,19 +1217,19 @@ class dataFile():
             
         #Search success
         ax1=fig.add_subplot(spec4[0, 0])
-        ax1.pie([self.PostSearchQual[0][0],self.PostSearchQual[1][0], self.PostSearchQual[2][0]],labels=['Negative','Neutral','Positive'], colors=['#DC2209','#EED238','#1CCD00'], autopct='%1.1f%%')
+        ax1.pie([self.PostSearchQual[0][0],self.PostSearchQual[1][0], self.PostSearchQual[2][0]],labels=['Positive','Neutral','Negative'], colors=['#1CCD00','#EED238','#DC2209'], autopct='%1.1f%%')
         ax1.set_title('Search success')
         #Presentation of the results
         ax2=fig.add_subplot(spec4[0, 1])
-        ax2.pie([self.PostSearchQual[0][1],self.PostSearchQual[1][1], self.PostSearchQual[2][1]],labels=['Negative','Neutral','Positive'], colors=['#DC2209','#EED238','#1CCD00'], autopct='%1.1f%%')
+        ax2.pie([self.PostSearchQual[0][1],self.PostSearchQual[1][1], self.PostSearchQual[2][1]],labels=['Positive','Neutral','Negative'], colors=['#1CCD00','#EED238','#DC2209'], autopct='%1.1f%%')
         ax2.set_title('Presentation of the results')
         #Expansion of knowledge
         ax3=fig.add_subplot(spec4[0, 2])
-        ax3.pie([self.PostSearchQual[0][2],self.PostSearchQual[1][2], self.PostSearchQual[2][2]],labels=['Negative','Neutral','Positive'], colors=['#DC2209','#EED238','#1CCD00'], autopct='%1.1f%%')
+        ax3.pie([self.PostSearchQual[0][2],self.PostSearchQual[1][2], self.PostSearchQual[2][2]],labels=['Positive','Neutral','Negative'], colors=['#1CCD00','#EED238','#DC2209'], autopct='%1.1f%%')
         ax3.set_title('Expansion of knowledge')
         #Understanding about the topic
         ax4=fig.add_subplot(spec4[0, 3])
-        ax4.pie([self.PostSearchQual[0][3],self.PostSearchQual[1][3], self.PostSearchQual[2][3]],labels=['Negative','Neutral','Positive'], colors=['#DC2209','#EED238','#1CCD00'], autopct='%1.1f%%')
+        ax4.pie([self.PostSearchQual[0][3],self.PostSearchQual[1][3], self.PostSearchQual[2][3]],labels=['Positive','Neutral','Negative'], colors=['#1CCD00','#EED238','#DC2209'], autopct='%1.1f%%')
         ax4.set_title('Understanding about the topic')
         fig.suptitle('Search success', fontsize=16)
         
@@ -1310,15 +1310,15 @@ class dataFile():
             
         #Quality of facts
         ax1=fig.add_subplot(spec4[0, 0])
-        ax1.pie([self.knowledgeGainQual[0][0],self.knowledgeGainQual[1][0], self.knowledgeGainQual[2][0]],labels=['Negative','Neutral','Positive'], colors=['#DC2209','#EED238','#1CCD00'], autopct='%1.1f%%')
+        ax1.pie([self.knowledgeGainQual[0][0],self.knowledgeGainQual[1][0], self.knowledgeGainQual[2][0]],labels=['Positive','Neutral','Negative'], colors=['#1CCD00','#EED238','#DC2209'], autopct='%1.1f%%')
         ax1.set_title('Quality of facts')
         #Interpretation
         ax2=fig.add_subplot(spec4[0, 1])
-        ax2.pie([self.knowledgeGainQual[0][1],self.knowledgeGainQual[1][1], self.knowledgeGainQual[2][1]],labels=['Negative','Neutral','Positive'], colors=['#DC2209','#EED238','#1CCD00'], autopct='%1.1f%%')
+        ax2.pie([self.knowledgeGainQual[0][1],self.knowledgeGainQual[1][1], self.knowledgeGainQual[2][1]],labels=['Positive','Neutral','Negative'], colors=['#1CCD00','#EED238','#DC2209'], autopct='%1.1f%%')
         ax2.set_title('Interpretation')
         #Critiques
         ax3=fig.add_subplot(spec4[0, 2])
-        ax3.pie([self.knowledgeGainQual[0][2],self.knowledgeGainQual[1][2], self.knowledgeGainQual[2][2]],labels=['Negative','Neutral','Positive'], colors=['#DC2209','#EED238','#1CCD00'], autopct='%1.1f%%')
+        ax3.pie([self.knowledgeGainQual[0][2],self.knowledgeGainQual[1][2], self.knowledgeGainQual[2][2]],labels=['Positive','Neutral','Negative'], colors=['#1CCD00','#EED238','#DC2209'], autopct='%1.1f%%')
         ax3.set_title('Critiques')
             
 
