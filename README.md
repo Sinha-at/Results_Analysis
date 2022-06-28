@@ -41,7 +41,7 @@ other:
 Results_Analysis itself is shared in a [GitHub repository](https://github.com/Sinha1111/Results_Analysis).
 
 ## File format
-Files must be formatted excactly like [this file](https://docs.google.com/spreadsheets/d/1hjsJRMdZKLr5uegLY-H69nxv5on66eMK/edit?usp=sharing&ouid=106091935059439566018&rtpof=true&sd=true), make sure your matrices are in the correct order: Demographic Info (A-M), Pre-search Questionnaire (N-R), Post-Search Questionnaire (T-AQ), User Experience (AR-AY), Cognitive Load (AZ-BE), Software Usability: [System (BF-BK), Information(BL-BP), Interface (BQ-BT), overall (BU)], Searching as learning:[Search formulation (BV-BX), Content selection (BY-CC), Interaction with content (CD-CG), Post Search (CH-CK)], Knowledge gain (CL-CN)
+Files must be formatted excactly like [this file](https://docs.google.com/spreadsheets/d/1hjsJRMdZKLr5uegLY-H69nxv5on66eMK/edit?usp=sharing&ouid=106091935059439566018&rtpof=true&sd=true). Make sure your matrices are in the correct order: Demographic Info (A-M), Pre-search Questionnaire (N-R), Post-Search Questionnaire (T-AQ), User Experience (AR-AY), Cognitive Load (AZ-BE), Software Usability: [System (BF-BK), Information(BL-BP), Interface (BQ-BT), overall (BU)], Searching as learning:[Search formulation (BV-BX), Content selection (BY-CC), Interaction with content (CD-CG), Post Search (CH-CK)], Knowledge gain (CL-CN)
 
 ## Default statistical test used
 
