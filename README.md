@@ -74,7 +74,8 @@ import Results_Analysis as ra
 pip install Results_Analysis --upgrade
 ```
 
-## Type of Analysis
+
+## How are the results calculated ?
 
 Quantitative analysis: This is based on the mean score of the participants in the study, statistical testing is carried out based on the population and nature of the experiment. When comparing a conventional system and a conversational system, we are able to perform dependent significant testing, since the population undertaking the experiment in both settings is the same. And, if we are comparing the mean score of the conversational interface with a standard benchmark, we can conduct independent significance testing
 
