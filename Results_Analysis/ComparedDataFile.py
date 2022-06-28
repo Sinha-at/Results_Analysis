@@ -299,11 +299,11 @@ class ComparedDataFile():
         spreadsheet=self.to_mod+'\DataUpdates.xlsx'
         xfile.save(spreadsheet)
 
-        fpath = spreadsheet
-        dirname = str(os.path.join(self.to_mod, "resExcel"))
-        xl_model = formulas.ExcelModel().loads(fpath).finish()
-        xl_model.calculate()
-        xl_model.write(dirpath=dirname)
+        # fpath = spreadsheet
+        # dirname = str(os.path.join(self.to_mod, "resExcel"))
+        # xl_model = formulas.ExcelModel().loads(fpath).finish()
+        # xl_model.calculate()
+        # xl_model.write(dirpath=dirname)
         print("first file complete")
         
     def processing2(self, path):
@@ -559,11 +559,11 @@ class ComparedDataFile():
         spreadsheet=self.to_mod+'\DataUpdates2.xlsx'
         xfile.save(spreadsheet)
 
-        fpath = spreadsheet
-        dirname = str(os.path.join(self.to_mod, "resExcel"))
-        xl_model = formulas.ExcelModel().loads(fpath).finish()
-        xl_model.calculate()
-        xl_model.write(dirpath=dirname)
+        # fpath = spreadsheet
+        # dirname = str(os.path.join(self.to_mod, "resExcel"))
+        # xl_model = formulas.ExcelModel().loads(fpath).finish()
+        # xl_model.calculate()
+        # xl_model.write(dirpath=dirname)
         print("Second file complete")
         
        
@@ -892,7 +892,17 @@ class ComparedDataFile():
                                           ]
                             },
                             {
+                                "selector":".row1",
+                                "props": [("background-color", "gray"),
+                                          ]
+                            },
+                            {
                                 "selector":".row"+str(len(df)),
+                                "props": [("background-color", "gray"),
+                                          ]
+                            },
+                            {
+                                "selector":".row"+str(len(df)+1),
                                 "props": [("background-color", "gray"),
                                           ]
                             },
@@ -1300,8 +1310,8 @@ class ComparedDataFile():
                 print("type of test: z-test")
                     
                 ### z test 
-                ztest_Score, p_value= ztest(x1=self.mentLoadData[0], x2=self.mentLoadData2[0])
-                one_tailed_p_value=float("{:.6f}".format(p_value/2))
+                ztest_Score, p_value= ztest(x1=self.mentLoadData[0], x2=self.mentLoadData2[0], value=0)
+                one_tailed_p_value=p_value
                 if one_tailed_p_value>alpha:
                     res1 = 'No'
                     best1 = '/'
@@ -1313,10 +1323,8 @@ class ComparedDataFile():
                         best1 = 'file 1'
                 ###   
                 ### z test 
-                ztest_Score, p_value= ztest(x1=self.mentLoadData[1], x2=self.mentLoadData2[1])
-                one_tailed_p_value2=float("{:.6f}".format(p_value/2))
-                t_value,p_value=stats.ttest_rel(self.mentLoadData[1],self.mentLoadData2[1])
-                one_tailed_p_value2=p_value/2
+                ztest_Score, p_value= ztest(x1=self.mentLoadData[1], x2=self.mentLoadData2[1], value=0)
+                one_tailed_p_value2=p_value
                 if one_tailed_p_value2>alpha:
                     res2 = 'No'
                     best2 = '/'
@@ -1328,8 +1336,8 @@ class ComparedDataFile():
                         best2 = 'file 1'
                 ###
                 ### z test 
-                ztest_Score, p_value= ztest(x1=self.mentLoadData[2], x2=self.mentLoadData2[2])
-                one_tailed_p_value3=float("{:.6f}".format(p_value/2))
+                ztest_Score, p_value= ztest(x1=self.mentLoadData[2], x2=self.mentLoadData2[2], value=0)
+                one_tailed_p_value3=p_value
                 if one_tailed_p_value3>alpha:
                     res3 = 'No'
                     best3 = '/'
@@ -1341,8 +1349,8 @@ class ComparedDataFile():
                         best3 = 'file 1'
                 ###
                 ### z test 
-                ztest_Score, p_value= ztest(x1=self.mentLoadData[3], x2=self.mentLoadData2[3])
-                one_tailed_p_value4=float("{:.6f}".format(p_value/2))
+                ztest_Score, p_value= ztest(x1=self.mentLoadData[3], x2=self.mentLoadData2[3], value=0)
+                one_tailed_p_value4=p_value
                 if one_tailed_p_value4>alpha:
                     res4 = 'No'
                     best4 = '/'
@@ -1356,9 +1364,10 @@ class ComparedDataFile():
                     
                 ###
                 ### z test 
-                ztest_Score, p_value= ztest(x1=self.mentLoadData[4], x2=self.mentLoadData2[4])
-                one_tailed_p_value5=float("{:.6f}".format(p_value/2))
+                ztest_Score, p_value= ztest(x1=self.mentLoadData[4], x2=self.mentLoadData2[4], value=0)
+                one_tailed_p_value5=p_value
                 if one_tailed_p_value5>alpha:
+                    
                     res5 = 'No'
                     best5 = '/'
                 else:
@@ -1369,8 +1378,8 @@ class ComparedDataFile():
                         best5 = 'file 1'
                 ###
                 ### z test 
-                ztest_Score, p_value= ztest(x1=self.mentLoadData[5], x2=self.mentLoadData2[5])
-                one_tailed_p_value6=float("{:.6f}".format(p_value/2))
+                ztest_Score, p_value= ztest(x1=self.mentLoadData[5], x2=self.mentLoadData2[5], value=0)
+                one_tailed_p_value6=p_value
                 if one_tailed_p_value6>alpha:
                     res6 = 'No'
                     best6 = '/'
@@ -1423,68 +1432,68 @@ class ComparedDataFile():
             
         #Supportive
         ax1=fig.add_subplot(spec4[0, 0])
-        ax1.pie([self.pragmaticQual[0][0],self.pragmaticQual[1][0], self.pragmaticQual[2][0]],labels=['Negative','Neutral','Positive'], colors=['#DC2209','#EED238','#1CCD00'], autopct='%1.1f%%')
+        ax1.pie([self.pragmaticQual[0][0],self.pragmaticQual[1][0], self.pragmaticQual[2][0]],labels=['Positive','Neutral','Negative'], colors=['#1CCD00','#EED238','#DC2209'], autopct='%1.1f%%')
         ax1.set_title('supportive file 1')
         #Supportive
         ax1v2=fig.add_subplot(spec4[0, 1])
-        ax1v2.pie([self.pragmaticQual2[0][0],self.pragmaticQual2[1][0], self.pragmaticQual2[2][0]],labels=['Negative','Neutral','Positive'], colors=['#DC2209','#EED238','#1CCD00'], autopct='%1.1f%%')
+        ax1v2.pie([self.pragmaticQual2[0][0],self.pragmaticQual2[1][0], self.pragmaticQual2[2][0]],labels=['Positive','Neutral','Negative'], colors=['#1CCD00','#EED238','#DC2209'], autopct='%1.1f%%')
         ax1v2.set_title('supportive file 2')
         #Easiness
         ax2=fig.add_subplot(spec4[1, 0])
-        ax2.pie([self.pragmaticQual[0][1],self.pragmaticQual[1][1], self.pragmaticQual[2][1]],labels=['Negative','Neutral','Positive'], colors=['#DC2209','#EED238','#1CCD00'], autopct='%1.1f%%')
+        ax2.pie([self.pragmaticQual[0][1],self.pragmaticQual[1][1], self.pragmaticQual[2][1]],labels=['Positive','Neutral','Negative'], colors=['#1CCD00','#EED238','#DC2209'], autopct='%1.1f%%')
         ax2.set_title('easiness file 1')
         #Easiness
         ax2v2=fig.add_subplot(spec4[1, 1])
-        ax2v2.pie([self.pragmaticQual2[0][1],self.pragmaticQual2[1][1], self.pragmaticQual2[2][1]],labels=['Negative','Neutral','Positive'], colors=['#DC2209','#EED238','#1CCD00'], autopct='%1.1f%%')
+        ax2v2.pie([self.pragmaticQual2[0][1],self.pragmaticQual2[1][1], self.pragmaticQual2[2][1]],labels=['Positive','Neutral','Negative'], colors=['#1CCD00','#EED238','#DC2209'], autopct='%1.1f%%')
         ax2v2.set_title('easiness file 2')
         #efficience
         ax3=fig.add_subplot(spec4[2, 0])
-        ax3.pie([self.pragmaticQual[0][2],self.pragmaticQual[1][2], self.pragmaticQual[2][2]],labels=['Negative','Neutral','Positive'], colors=['#DC2209','#EED238','#1CCD00'], autopct='%1.1f%%')
+        ax3.pie([self.pragmaticQual[0][2],self.pragmaticQual[1][2], self.pragmaticQual[2][2]],labels=['Positive','Neutral','Negative'], colors=['#1CCD00','#EED238','#DC2209'], autopct='%1.1f%%')
         ax3.set_title('efficience file 1')
         #efficience
         ax3v2=fig.add_subplot(spec4[2, 1])
-        ax3v2.pie([self.pragmaticQual2[0][2],self.pragmaticQual2[1][2], self.pragmaticQual2[2][2]],labels=['Negative','Neutral','Positive'], colors=['#DC2209','#EED238','#1CCD00'], autopct='%1.1f%%')
+        ax3v2.pie([self.pragmaticQual2[0][2],self.pragmaticQual2[1][2], self.pragmaticQual2[2][2]],labels=['Positive','Neutral','Negative'], colors=['#1CCD00','#EED238','#DC2209'], autopct='%1.1f%%')
         ax3v2.set_title('efficience file 2')
         #clearness
         ax4=fig.add_subplot(spec4[3, 0])
-        ax4.pie([self.pragmaticQual[0][3],self.pragmaticQual[1][3], self.pragmaticQual[2][3]],labels=['Negative','Neutral','Positive'], colors=['#DC2209','#EED238','#1CCD00'], autopct='%1.1f%%')
+        ax4.pie([self.pragmaticQual[0][3],self.pragmaticQual[1][3], self.pragmaticQual[2][3]],labels=['Positive','Neutral','Negative'], colors=['#1CCD00','#EED238','#DC2209'], autopct='%1.1f%%')
         ax4.set_title('clearness file 1')
         #clearness
         ax4v2=fig.add_subplot(spec4[3, 1])
-        ax4v2.pie([self.pragmaticQual2[0][3],self.pragmaticQual2[1][3], self.pragmaticQual2[2][3]],labels=['Negative','Neutral','Positive'], colors=['#DC2209','#EED238','#1CCD00'], autopct='%1.1f%%')
+        ax4v2.pie([self.pragmaticQual2[0][3],self.pragmaticQual2[1][3], self.pragmaticQual2[2][3]],labels=['Positive','Neutral','Negative'], colors=['#1CCD00','#EED238','#DC2209'], autopct='%1.1f%%')
         ax4v2.set_title('clearness file 2')
             
         #exciting
         ax1=fig.add_subplot(spec4[4, 0])
-        ax1.pie([self.hedonicQual[0][0],self.hedonicQual[1][0], self.hedonicQual[2][0]],labels=['Negative','Neutral','Positive'], colors=['#DC2209','#EED238','#1CCD00'], autopct='%1.1f%%')
+        ax1.pie([self.hedonicQual[0][0],self.hedonicQual[1][0], self.hedonicQual[2][0]],labels=['Positive','Neutral','Negative'], colors=['#1CCD00','#EED238','#DC2209'], autopct='%1.1f%%')
         ax1.set_title('exciting file 1')
         #exciting
         ax1v2=fig.add_subplot(spec4[4, 1])
-        ax1v2.pie([self.hedonicQual2[0][0],self.hedonicQual2[1][0], self.hedonicQual2[2][0]],labels=['Negative','Neutral','Positive'], colors=['#DC2209','#EED238','#1CCD00'], autopct='%1.1f%%')
+        ax1v2.pie([self.hedonicQual2[0][0],self.hedonicQual2[1][0], self.hedonicQual2[2][0]],labels=['Positive','Neutral','Negative'], colors=['#1CCD00','#EED238','#DC2209'], autopct='%1.1f%%')
         ax1v2.set_title('exciting file 2')
         #interesting
         ax2=fig.add_subplot(spec4[5, 0])
-        ax2.pie([self.hedonicQual[0][1],self.hedonicQual[1][1],self.hedonicQual[2][1]],labels=['Negative','Neutral','Positive'], colors=['#DC2209','#EED238','#1CCD00'], autopct='%1.1f%%')
+        ax2.pie([self.hedonicQual[0][1],self.hedonicQual[1][1],self.hedonicQual[2][1]],labels=['Positive','Neutral','Negative'], colors=['#1CCD00','#EED238','#DC2209'], autopct='%1.1f%%')
         ax2.set_title('interesting file 1')
         #interesting
         ax2v2=fig.add_subplot(spec4[5, 1])
-        ax2v2.pie([self.hedonicQual2[0][1],self.hedonicQual2[1][1],self.hedonicQual2[2][1]],labels=['Negative','Neutral','Positive'], colors=['#DC2209','#EED238','#1CCD00'], autopct='%1.1f%%')
+        ax2v2.pie([self.hedonicQual2[0][1],self.hedonicQual2[1][1],self.hedonicQual2[2][1]],labels=['Positive','Neutral','Negative'], colors=['#1CCD00','#EED238','#DC2209'], autopct='%1.1f%%')
         ax2v2.set_title('interesting file 2')
         #inventive
         ax3=fig.add_subplot(spec4[6, 0])
-        ax3.pie([self.hedonicQual[0][2],self.hedonicQual[1][2], self.hedonicQual[2][2]],labels=['Negative','Neutral','Positive'], colors=['#DC2209','#EED238','#1CCD00'], autopct='%1.1f%%')
+        ax3.pie([self.hedonicQual[0][2],self.hedonicQual[1][2], self.hedonicQual[2][2]],labels=['Positive','Neutral','Negative'], colors=['#1CCD00','#EED238','#DC2209'], autopct='%1.1f%%')
         ax3.set_title('inventive file 1')
         #inventive
         ax3v2=fig.add_subplot(spec4[6, 1])
-        ax3v2.pie([self.hedonicQual2[0][2],self.hedonicQual2[1][2], self.hedonicQual2[2][2]],labels=['Negative','Neutral','Positive'], colors=['#DC2209','#EED238','#1CCD00'], autopct='%1.1f%%')
+        ax3v2.pie([self.hedonicQual2[0][2],self.hedonicQual2[1][2], self.hedonicQual2[2][2]],labels=['Positive','Neutral','Negative'], colors=['#1CCD00','#EED238','#DC2209'], autopct='%1.1f%%')
         ax3v2.set_title('inventive file 2')
         #leading edge
         ax4=fig.add_subplot(spec4[7, 0])
-        ax4.pie([self.hedonicQual[0][3],self.hedonicQual[1][3], self.hedonicQual[2][3]],labels=['Negative','Neutral','Positive'], colors=['#DC2209','#EED238','#1CCD00'], autopct='%1.1f%%')
+        ax4.pie([self.hedonicQual[0][3],self.hedonicQual[1][3], self.hedonicQual[2][3]],labels=['Positive','Neutral','Negative'], colors=['#1CCD00','#EED238','#DC2209'], autopct='%1.1f%%')
         ax4.set_title('leading edge file 1')
         #leading edge
         ax4v2=fig.add_subplot(spec4[7, 1])
-        ax4v2.pie([self.hedonicQual2[0][3],self.hedonicQual2[1][3], self.hedonicQual2[2][3]],labels=['Negative','Neutral','Positive'], colors=['#DC2209','#EED238','#1CCD00'], autopct='%1.1f%%')
+        ax4v2.pie([self.hedonicQual2[0][3],self.hedonicQual2[1][3], self.hedonicQual2[2][3]],labels=['Positive','Neutral','Negative'], colors=['#1CCD00','#EED238','#DC2209'], autopct='%1.1f%%')
         ax4v2.set_title('leading edge file 2')
             
         fig.subplots_adjust(bottom=4, top=8)
@@ -1515,51 +1524,51 @@ class ComparedDataFile():
             
         #Mentally demanding
         ax1=fig.add_subplot(spec4[0, 0])
-        ax1.pie([self.mentloadQual[0][0],self.mentloadQual[1][0], self.mentloadQual[2][0]],labels=['Negative','Neutral','Positive'], colors=['#DC2209','#EED238','#1CCD00'], autopct='%1.1f%%')
+        ax1.pie([self.mentloadQual[0][0],self.mentloadQual[1][0], self.mentloadQual[2][0]],labels=['Positive','Neutral','Negative'], colors=['#1CCD00','#EED238','#DC2209'], autopct='%1.1f%%')
         ax1.set_title('Mentally demanding')
         #Mentally demanding
         ax1=fig.add_subplot(spec4[0, 1])
-        ax1.pie([self.mentloadQual2[0][0],self.mentloadQual2[1][0], self.mentloadQual2[2][0]],labels=['Negative','Neutral','Positive'], colors=['#DC2209','#EED238','#1CCD00'], autopct='%1.1f%%')
+        ax1.pie([self.mentloadQual2[0][0],self.mentloadQual2[1][0], self.mentloadQual2[2][0]],labels=['Positive','Neutral','Negative'], colors=['#1CCD00','#EED238','#DC2209'], autopct='%1.1f%%')
         ax1.set_title('Mentally demanding file 2')
         #physically demanding
         ax2=fig.add_subplot(spec4[1, 0])
-        ax2.pie([self.mentloadQual[0][1],self.mentloadQual[1][1], self.mentloadQual[2][1]],labels=['Negative','Neutral','Positive'], colors=['#DC2209','#EED238','#1CCD00'], autopct='%1.1f%%')
+        ax2.pie([self.mentloadQual[0][1],self.mentloadQual[1][1], self.mentloadQual[2][1]],labels=['Positive','Neutral','Negative'], colors=['#1CCD00','#EED238','#DC2209'], autopct='%1.1f%%')
         ax2.set_title('physically demanding')
         #physically demanding
         ax2=fig.add_subplot(spec4[1, 1])
-        ax2.pie([self.mentloadQual2[0][1],self.mentloadQual2[1][1], self.mentloadQual2[2][1]],labels=['Negative','Neutral','Positive'], colors=['#DC2209','#EED238','#1CCD00'], autopct='%1.1f%%')
+        ax2.pie([self.mentloadQual2[0][1],self.mentloadQual2[1][1], self.mentloadQual2[2][1]],labels=['Positive','Neutral','Negative'], colors=['#1CCD00','#EED238','#DC2209'], autopct='%1.1f%%')
         ax2.set_title('physically demanding file 2')
         #hurried or rushed pace
         ax3=fig.add_subplot(spec4[2, 0])
-        ax3.pie([self.mentloadQual[0][2],self.mentloadQual[1][2], self.mentloadQual[2][2]],labels=['Negative','Neutral','Positive'], colors=['#DC2209','#EED238','#1CCD00'], autopct='%1.1f%%')
+        ax3.pie([self.mentloadQual[0][2],self.mentloadQual[1][2], self.mentloadQual[2][2]],labels=['Positive','Neutral','Negative'], colors=['#1CCD00','#EED238','#DC2209'], autopct='%1.1f%%')
         ax3.set_title('hurried or rushed pace')
         #hurried or rushed pace
         ax3=fig.add_subplot(spec4[2, 1])
-        ax3.pie([self.mentloadQual2[0][2],self.mentloadQual2[1][2], self.mentloadQual2[2][2]],labels=['Negative','Neutral','Positive'], colors=['#DC2209','#EED238','#1CCD00'], autopct='%1.1f%%')
+        ax3.pie([self.mentloadQual2[0][2],self.mentloadQual2[1][2], self.mentloadQual2[2][2]],labels=['Positive','Neutral','Negative'], colors=['#1CCD00','#EED238','#DC2209'], autopct='%1.1f%%')
         ax3.set_title('hurried or rushed pace file 2')
         #success
         ax4=fig.add_subplot(spec4[3, 0])
-        ax4.pie([self.mentloadQual[0][3],self.mentloadQual[1][3], self.mentloadQual[2][3]],labels=['Negative','Neutral','Positive'], colors=['#DC2209','#EED238','#1CCD00'], autopct='%1.1f%%')
+        ax4.pie([self.mentloadQual[0][3],self.mentloadQual[1][3], self.mentloadQual[2][3]],labels=['Positive','Neutral','Negative'], colors=['#1CCD00','#EED238','#DC2209'], autopct='%1.1f%%')
         ax4.set_title('success') 
         #success
         ax4=fig.add_subplot(spec4[3, 1])
-        ax4.pie([self.mentloadQual2[0][3],self.mentloadQual2[1][3], self.mentloadQual2[2][3]],labels=['Negative','Neutral','Positive'], colors=['#DC2209','#EED238','#1CCD00'], autopct='%1.1f%%')
+        ax4.pie([self.mentloadQual2[0][3],self.mentloadQual2[1][3], self.mentloadQual2[2][3]],labels=['Positive','Neutral','Negative'], colors=['#1CCD00','#EED238','#DC2209'], autopct='%1.1f%%')
         ax4.set_title('success file 2') 
         #difficulty
         ax5=fig.add_subplot(spec4[4, 0])
-        ax5.pie([self.mentloadQual[0][4],self.mentloadQual[1][4], self.mentloadQual[2][4]],labels=['Negative','Neutral','Positive'], colors=['#DC2209','#EED238','#1CCD00'], autopct='%1.1f%%')
+        ax5.pie([self.mentloadQual[0][4],self.mentloadQual[1][4], self.mentloadQual[2][4]],labels=['Positive','Neutral','Negative'], colors=['#1CCD00','#EED238','#DC2209'], autopct='%1.1f%%')
         ax5.set_title('difficulty')
         #difficulty
         ax5=fig.add_subplot(spec4[4, 1])
-        ax5.pie([self.mentloadQual2[0][4],self.mentloadQual2[1][4], self.mentloadQual2[2][4]],labels=['Negative','Neutral','Positive'], colors=['#DC2209','#EED238','#1CCD00'], autopct='%1.1f%%')
+        ax5.pie([self.mentloadQual2[0][4],self.mentloadQual2[1][4], self.mentloadQual2[2][4]],labels=['Positive','Neutral','Negative'], colors=['#1CCD00','#EED238','#DC2209'], autopct='%1.1f%%')
         ax5.set_title('difficulty file 2')
         #Overall easiness to use
         ax6=fig.add_subplot(spec4[5, 0])
-        ax6.pie([self.mentloadQual[0][5],self.mentloadQual[1][5],self.mentloadQual[2][5]],labels=['Negative','Neutral','Positive'], colors=['#DC2209','#EED238','#1CCD00'], autopct='%1.1f%%')
+        ax6.pie([self.mentloadQual[0][5],self.mentloadQual[1][5],self.mentloadQual[2][5]],labels=['Positive','Neutral','Negative'], colors=['#1CCD00','#EED238','#DC2209'], autopct='%1.1f%%')
         ax6.set_title('Overall easiness to use')
         #Overall easiness to use
         ax6=fig.add_subplot(spec4[5, 1])
-        ax6.pie([self.mentloadQual2[0][5],self.mentloadQual2[1][5],self.mentloadQual2[2][5]],labels=['Negative','Neutral','Positive'], colors=['#DC2209','#EED238','#1CCD00'], autopct='%1.1f%%')
+        ax6.pie([self.mentloadQual2[0][5],self.mentloadQual2[1][5],self.mentloadQual2[2][5]],labels=['Positive','Neutral','Negative'], colors=['#1CCD00','#EED238','#DC2209'], autopct='%1.1f%%')
         ax6.set_title('Overall easiness to use file 2')
         
         fig.subplots_adjust(bottom=4, top=8)
@@ -2207,9 +2216,9 @@ class ComparedDataFile():
                 
                 #####################################################################################################################"
                 ### z test 
-                ztest_Score, p_value= ztest(self.softUsInterSysData[0],self.softUsInterSysData2[0], alternative='larger')
+                ztest_Score, p_value= ztest(self.softUsInterSysData[0],self.softUsInterSysData2[0])
                 one_tailed_p_value=p_value
-                if one_tailed_p_value>alpha:
+                if one_tailed_p_value<alpha:
                     res1 = 'No'
                     best1 = '/'
                 else:
@@ -2220,9 +2229,9 @@ class ComparedDataFile():
                         best1 = 'file 1'
                 ###   
                 ### z test 
-                ztest_Score, p_value= ztest(self.softUsInterSysData[1],self.softUsInterSysData2[1], alternative='larger')
+                ztest_Score, p_value= ztest(self.softUsInterSysData[1],self.softUsInterSysData2[1])
                 one_tailed_p_value2=p_value
-                if one_tailed_p_value2>alpha:
+                if one_tailed_p_value2<alpha:
                     res2 = 'No'
                     best2 = '/'
                 else:
@@ -2233,9 +2242,9 @@ class ComparedDataFile():
                         best2 = 'file 1'
                 ###
                 ### z test 
-                ztest_Score, p_value= ztest(self.softUsInterSysData[2],self.softUsInterSysData2[2],alternative='larger')
+                ztest_Score, p_value= ztest(self.softUsInterSysData[2],self.softUsInterSysData2[2])
                 one_tailed_p_value3=p_value
-                if one_tailed_p_value3>alpha:
+                if one_tailed_p_value3<alpha:
                     res3 = 'No'
                     best3 = '/'
                 else:
@@ -2246,9 +2255,9 @@ class ComparedDataFile():
                         best3 = 'file 1'
                 ###
                 ### z test 
-                ztest_Score, p_value= ztest(self.softUsInterSysData[3],self.softUsInterSysData2[3], alternative='larger')
+                ztest_Score, p_value= ztest(self.softUsInterSysData[3],self.softUsInterSysData2[3])
                 one_tailed_p_value4=p_value
-                if one_tailed_p_value4>alpha:
+                if one_tailed_p_value4<alpha:
                     res4 = 'No'
                     best4 = '/'
                 else:
@@ -2259,9 +2268,9 @@ class ComparedDataFile():
                         best4 = 'file 1'
                 ###
                 ### z test 
-                ztest_Score, p_value= ztest(self.softUsInterSysData[4],self.softUsInterSysData2[4], alternative='larger')
+                ztest_Score, p_value= ztest(self.softUsInterSysData[4],self.softUsInterSysData2[4])
                 one_tailed_p_value5=p_value
-                if one_tailed_p_value5>alpha:
+                if one_tailed_p_value5<alpha:
                     res5 = 'No'
                     best5 = '/'
                 else:
@@ -2272,9 +2281,9 @@ class ComparedDataFile():
                         best5 = 'file 1'
                 ###
                 ### z test 
-                ztest_Score, p_value= ztest(self.softUsInterSysData[5],self.softUsInterSysData2[5], alternative='larger')
+                ztest_Score, p_value= ztest(self.softUsInterSysData[5],self.softUsInterSysData2[5])
                 one_tailed_p_value6=p_value
-                if one_tailed_p_value6>alpha:
+                if one_tailed_p_value6<alpha:
                     res6 = 'No'
                     best6 = '/'
                 else:
@@ -2286,9 +2295,9 @@ class ComparedDataFile():
                 ###
                 ################################################################################################################################################
                 ### z test 
-                ztest_Score, p_value= ztest(self.softUsInfoData[0],self.softUsInfoData2[0],alternative='larger')
+                ztest_Score, p_value= ztest(self.softUsInfoData[0],self.softUsInfoData2[0])
                 one_tailed_p_value7=p_value
-                if one_tailed_p_value7>alpha:
+                if one_tailed_p_value7<alpha:
                     res7 = 'No'
                     best7 = '/'
                 else:
@@ -2299,9 +2308,9 @@ class ComparedDataFile():
                         best7 = 'file 1'
                 ###   
                 ### z test 
-                ztest_Score, p_value= ztest(self.softUsInfoData[1],self.softUsInfoData2[1], alternative='larger')
+                ztest_Score, p_value= ztest(self.softUsInfoData[1],self.softUsInfoData2[1])
                 one_tailed_p_value8=p_value
-                if one_tailed_p_value8>alpha:
+                if one_tailed_p_value8<alpha:
                     res8 = 'No'
                     best8 = '/'
                 else:
@@ -2312,9 +2321,9 @@ class ComparedDataFile():
                         best8 = 'file 1'
                 ###
                 ### z test 
-                ztest_Score, p_value= ztest(self.softUsInfoData[2],self.softUsInfoData2[2], alternative='larger')
+                ztest_Score, p_value= ztest(self.softUsInfoData[2],self.softUsInfoData2[2])
                 one_tailed_p_value9=p_value
-                if one_tailed_p_value9>alpha:
+                if one_tailed_p_value9<alpha:
                     res9 = 'No'
                     best9 = '/'
                 else:
@@ -2325,9 +2334,9 @@ class ComparedDataFile():
                         best9 = 'file 1'
                 ###
                 ### z test 
-                ztest_Score, p_value= ztest(self.softUsInfoData[3],self.softUsInfoData2[3], alternative='larger')
+                ztest_Score, p_value= ztest(self.softUsInfoData[3],self.softUsInfoData2[3])
                 one_tailed_p_value0=p_value
-                if one_tailed_p_value0>alpha:
+                if one_tailed_p_value0<alpha:
                     res0 = 'No'
                     best0 = '/'
                 else:
@@ -2339,9 +2348,9 @@ class ComparedDataFile():
                 ###
                 ##############################################################################################################################
                 ### z test 
-                ztest_Score, p_value= ztest(self.softUsInterfaceData[0],self.softUsInterfaceData2[0], alternative='larger')
+                ztest_Score, p_value= ztest(self.softUsInterfaceData[0],self.softUsInterfaceData2[0])
                 one_tailed_p_value11=p_value
-                if one_tailed_p_value11>alpha:
+                if one_tailed_p_value11<alpha:
                     res11 = 'No'
                     best11 = '/'
                 else:
@@ -2352,9 +2361,9 @@ class ComparedDataFile():
                         best11 = 'file 1'
                 ###   
                 ### z test 
-                ztest_Score, p_value= ztest(self.softUsInterfaceData[1],self.softUsInterfaceData2[1], alternative='larger')
+                ztest_Score, p_value= ztest(self.softUsInterfaceData[1],self.softUsInterfaceData2[1])
                 one_tailed_p_value12=p_value
-                if one_tailed_p_value12>alpha:
+                if one_tailed_p_value12<alpha:
                     res12 = 'No'
                     best12 = '/'
                 else:
@@ -2365,9 +2374,9 @@ class ComparedDataFile():
                         best12 = 'file 1'
                 ###
                 ### z test 
-                ztest_Score, p_value= ztest(self.softUsInterfaceData[2],self.softUsInterfaceData2[2], alternative='larger')
+                ztest_Score, p_value= ztest(self.softUsInterfaceData[2],self.softUsInterfaceData2[2])
                 one_tailed_p_value13=p_value
-                if one_tailed_p_value13>alpha:
+                if one_tailed_p_value13<alpha:
                     res13 = 'No'
                     best13 = '/'
                 else:
@@ -2425,51 +2434,51 @@ class ComparedDataFile():
         
         #Simplicity to use
         ax1=fig.add_subplot(spec4[0, 0])
-        ax1.pie([self.softUs_SystemQual[0][0],self.softUs_SystemQual[1][0], self.softUs_SystemQual[2][0]],labels=['Negative','Neutral','Positive'], colors=['#DC2209','#EED238','#1CCD00'], autopct='%1.1f%%')
+        ax1.pie([self.softUs_SystemQual[0][0],self.softUs_SystemQual[1][0], self.softUs_SystemQual[2][0]],labels=['Positive','Neutral','Negative'], colors=['#1CCD00','#EED238','#DC2209'], autopct='%1.1f%%')
         ax1.set_title('Simplicity to use')
         #Simplicity to use
         ax1=fig.add_subplot(spec4[0, 1])
-        ax1.pie([self.softUs_SystemQual2[0][0],self.softUs_SystemQual2[1][0], self.softUs_SystemQual2[2][0]],labels=['Negative','Neutral','Positive'], colors=['#DC2209','#EED238','#1CCD00'], autopct='%1.1f%%')
+        ax1.pie([self.softUs_SystemQual2[0][0],self.softUs_SystemQual2[1][0], self.softUs_SystemQual2[2][0]],labels=['Positive','Neutral','Negative'], colors=['#1CCD00','#EED238','#DC2209'], autopct='%1.1f%%')
         ax1.set_title('Simplicity to use file 2')
         #helped effectivness of my work
         ax2=fig.add_subplot(spec4[1, 0])
-        ax2.pie([self.softUs_SystemQual[0][1],self.softUs_SystemQual[1][1], self.softUs_SystemQual[2][1]],labels=['Negative','Neutral','Positive'], colors=['#DC2209','#EED238','#1CCD00'], autopct='%1.1f%%')
+        ax2.pie([self.softUs_SystemQual[0][1],self.softUs_SystemQual[1][1], self.softUs_SystemQual[2][1]],labels=['Positive','Neutral','Negative'], colors=['#1CCD00','#EED238','#DC2209'], autopct='%1.1f%%')
         ax2.set_title('helped effectivness of my work')
         #helped effectivness of my work
         ax2=fig.add_subplot(spec4[1, 1])
-        ax2.pie([self.softUs_SystemQual2[0][1],self.softUs_SystemQual2[1][1], self.softUs_SystemQual2[2][1]],labels=['Negative','Neutral','Positive'], colors=['#DC2209','#EED238','#1CCD00'], autopct='%1.1f%%')
+        ax2.pie([self.softUs_SystemQual2[0][1],self.softUs_SystemQual2[1][1], self.softUs_SystemQual2[2][1]],labels=['Positive','Neutral','Negative'], colors=['#1CCD00','#EED238','#DC2209'], autopct='%1.1f%%')
         ax2.set_title('helped effectivness of my work file 2')
         #helped pace of my work
         ax3=fig.add_subplot(spec4[2, 0])
-        ax3.pie([self.softUs_SystemQual[0][2],self.softUs_SystemQual[1][2], self.softUs_SystemQual[2][2]],labels=['Negative','Neutral','Positive'], colors=['#DC2209','#EED238','#1CCD00'], autopct='%1.1f%%')
+        ax3.pie([self.softUs_SystemQual[0][2],self.softUs_SystemQual[1][2], self.softUs_SystemQual[2][2]],labels=['Positive','Neutral','Negative'], colors=['#1CCD00','#EED238','#DC2209'], autopct='%1.1f%%')
         ax3.set_title('helped pace of my work')
         #helped pace of my work
         ax3=fig.add_subplot(spec4[2, 1])
-        ax3.pie([self.softUs_SystemQual2[0][2],self.softUs_SystemQual2[1][2], self.softUs_SystemQual2[2][2]],labels=['Negative','Neutral','Positive'], colors=['#DC2209','#EED238','#1CCD00'], autopct='%1.1f%%')
+        ax3.pie([self.softUs_SystemQual2[0][2],self.softUs_SystemQual2[1][2], self.softUs_SystemQual2[2][2]],labels=['Positive','Neutral','Negative'], colors=['#1CCD00','#EED238','#DC2209'], autopct='%1.1f%%')
         ax3.set_title('helped pace of my work file 2')
         #confortable
         ax4=fig.add_subplot(spec4[3, 0])
-        ax4.pie([self.softUs_SystemQual[0][3],self.softUs_SystemQual[1][3], self.softUs_SystemQual[2][3]],labels=['Negative','Neutral','Positive'], colors=['#DC2209','#EED238','#1CCD00'], autopct='%1.1f%%')
+        ax4.pie([self.softUs_SystemQual[0][3],self.softUs_SystemQual[1][3], self.softUs_SystemQual[2][3]],labels=['Positive','Neutral','Negative'], colors=['#1CCD00','#EED238','#DC2209'], autopct='%1.1f%%')
         ax4.set_title('confortable')
         #confortable
         ax4=fig.add_subplot(spec4[3, 1])
-        ax4.pie([self.softUs_SystemQual2[0][3],self.softUs_SystemQual2[1][3], self.softUs_SystemQual2[2][3]],labels=['Negative','Neutral','Positive'], colors=['#DC2209','#EED238','#1CCD00'], autopct='%1.1f%%')
+        ax4.pie([self.softUs_SystemQual2[0][3],self.softUs_SystemQual2[1][3], self.softUs_SystemQual2[2][3]],labels=['Positive','Neutral','Negative'], colors=['#1CCD00','#EED238','#DC2209'], autopct='%1.1f%%')
         ax4.set_title('confortable file 2')
         #easy recovery after mistake
         ax5=fig.add_subplot(spec4[4, 0])
-        ax5.pie([self.softUs_SystemQual[0][4],self.softUs_SystemQual[1][4], self.softUs_SystemQual[2][4]],labels=['Negative','Neutral','Positive'], colors=['#DC2209','#EED238','#1CCD00'], autopct='%1.1f%%')
+        ax5.pie([self.softUs_SystemQual[0][4],self.softUs_SystemQual[1][4], self.softUs_SystemQual[2][4]],labels=['Positive','Neutral','Negative'], colors=['#1CCD00','#EED238','#DC2209'], autopct='%1.1f%%')
         ax5.set_title('easy recovery after mistake')
         #easy recovery after mistake
         ax5=fig.add_subplot(spec4[4, 1])
-        ax5.pie([self.softUs_SystemQual2[0][4],self.softUs_SystemQual2[1][4], self.softUs_SystemQual2[2][4]],labels=['Negative','Neutral','Positive'], colors=['#DC2209','#EED238','#1CCD00'], autopct='%1.1f%%')
+        ax5.pie([self.softUs_SystemQual2[0][4],self.softUs_SystemQual2[1][4], self.softUs_SystemQual2[2][4]],labels=['Positive','Neutral','Negative'], colors=['#1CCD00','#EED238','#DC2209'], autopct='%1.1f%%')
         ax5.set_title('easy recovery after mistake file 2')
         #overall satisfaction
         ax6=fig.add_subplot(spec4[5, 0])
-        ax6.pie([self.softUs_SystemQual[0][5],self.softUs_SystemQual[1][5], self.softUs_SystemQual[2][5]],labels=['Negative','Neutral','Positive'], colors=['#DC2209','#EED238','#1CCD00'], autopct='%1.1f%%')
+        ax6.pie([self.softUs_SystemQual[0][5],self.softUs_SystemQual[1][5], self.softUs_SystemQual[2][5]],labels=['Positive','Neutral','Negative'], colors=['#1CCD00','#EED238','#DC2209'], autopct='%1.1f%%')
         ax6.set_title('overall satisfaction')
         #overall satisfaction
         ax6=fig.add_subplot(spec4[5, 1])
-        ax6.pie([self.softUs_SystemQual2[0][5],self.softUs_SystemQual2[1][5], self.softUs_SystemQual2[2][5]],labels=['Negative','Neutral','Positive'], colors=['#DC2209','#EED238','#1CCD00'], autopct='%1.1f%%')
+        ax6.pie([self.softUs_SystemQual2[0][5],self.softUs_SystemQual2[1][5], self.softUs_SystemQual2[2][5]],labels=['Positive','Neutral','Negative'], colors=['#1CCD00','#EED238','#DC2209'], autopct='%1.1f%%')
         ax6.set_title('overall satisfaction file 2')
         
         fig.subplots_adjust(bottom=2, top=6)
@@ -2484,35 +2493,35 @@ class ComparedDataFile():
         
         #clear
         ax1=fig.add_subplot(spec4[0, 0])
-        ax1.pie([self.softUs_InformationQual[0][0],self.softUs_InformationQual[1][0], self.softUs_InformationQual[2][0]],labels=['Negative','Neutral','Positive'], colors=['#DC2209','#EED238','#1CCD00'], autopct='%1.1f%%')
+        ax1.pie([self.softUs_InformationQual[0][0],self.softUs_InformationQual[1][0], self.softUs_InformationQual[2][0]],labels=['Positive','Neutral','Negative'], colors=['#1CCD00','#EED238','#DC2209'], autopct='%1.1f%%')
         ax1.set_title('clear')
         #clear
         ax1=fig.add_subplot(spec4[0, 1])
-        ax1.pie([self.softUs_InformationQual2[0][0],self.softUs_InformationQual2[1][0], self.softUs_InformationQual2[2][0]],labels=['Negative','Neutral','Positive'], colors=['#DC2209','#EED238','#1CCD00'], autopct='%1.1f%%')
+        ax1.pie([self.softUs_InformationQual2[0][0],self.softUs_InformationQual2[1][0], self.softUs_InformationQual2[2][0]],labels=['Positive','Neutral','Negative'], colors=['#1CCD00','#EED238','#DC2209'], autopct='%1.1f%%')
         ax1.set_title('clear file 2')
         #easy to find
         ax2=fig.add_subplot(spec4[1, 0])
-        ax2.pie([self.softUs_InformationQual[0][1],self.softUs_InformationQual[1][1], self.softUs_InformationQual[2][1]],labels=['Negative','Neutral','Positive'], colors=['#DC2209','#EED238','#1CCD00'], autopct='%1.1f%%')
+        ax2.pie([self.softUs_InformationQual[0][1],self.softUs_InformationQual[1][1], self.softUs_InformationQual[2][1]],labels=['Positive','Neutral','Negative'], colors=['#1CCD00','#EED238','#DC2209'], autopct='%1.1f%%')
         ax2.set_title('easy to find')
         #easy to find
         ax2=fig.add_subplot(spec4[1, 1])
-        ax2.pie([self.softUs_InformationQual2[0][1],self.softUs_InformationQual2[1][1], self.softUs_InformationQual2[2][1]],labels=['Negative','Neutral','Positive'], colors=['#DC2209','#EED238','#1CCD00'], autopct='%1.1f%%')
+        ax2.pie([self.softUs_InformationQual2[0][1],self.softUs_InformationQual2[1][1], self.softUs_InformationQual2[2][1]],labels=['Positive','Neutral','Negative'], colors=['#1CCD00','#EED238','#DC2209'], autopct='%1.1f%%')
         ax2.set_title('easy to find file 2')
         #effective
         ax3=fig.add_subplot(spec4[2, 0])
-        ax3.pie([self.softUs_InformationQual[0][2],self.softUs_InformationQual[1][2], self.softUs_InformationQual[2][2]],labels=['Negative','Neutral','Positive'], colors=['#DC2209','#EED238','#1CCD00'], autopct='%1.1f%%')
+        ax3.pie([self.softUs_InformationQual[0][2],self.softUs_InformationQual[1][2], self.softUs_InformationQual[2][2]],labels=['Positive','Neutral','Negative'], colors=['#1CCD00','#EED238','#DC2209'], autopct='%1.1f%%')
         ax3.set_title('effective')
         #effective
         ax3=fig.add_subplot(spec4[2, 1])
-        ax3.pie([self.softUs_InformationQual2[0][2],self.softUs_InformationQual2[1][2], self.softUs_InformationQual2[2][2]],labels=['Negative','Neutral','Positive'], colors=['#DC2209','#EED238','#1CCD00'], autopct='%1.1f%%')
+        ax3.pie([self.softUs_InformationQual2[0][2],self.softUs_InformationQual2[1][2], self.softUs_InformationQual2[2][2]],labels=['Positive','Neutral','Negative'], colors=['#1CCD00','#EED238','#DC2209'], autopct='%1.1f%%')
         ax3.set_title('effective file 2')
         #organized
         ax4=fig.add_subplot(spec4[3, 0])
-        ax4.pie([self.softUs_InformationQual[0][3],self.softUs_InformationQual[1][3], self.softUs_InformationQual[2][3]],labels=['Negative','Neutral','Positive'], colors=['#DC2209','#EED238','#1CCD00'], autopct='%1.1f%%')
+        ax4.pie([self.softUs_InformationQual[0][3],self.softUs_InformationQual[1][3], self.softUs_InformationQual[2][3]],labels=['Positive','Neutral','Negative'], colors=['#1CCD00','#EED238','#DC2209'], autopct='%1.1f%%')
         ax4.set_title('organized')
         #organized
         ax4=fig.add_subplot(spec4[3, 1])
-        ax4.pie([self.softUs_InformationQual2[0][3],self.softUs_InformationQual2[1][3], self.softUs_InformationQual2[2][3]],labels=['Negative','Neutral','Positive'], colors=['#DC2209','#EED238','#1CCD00'], autopct='%1.1f%%')
+        ax4.pie([self.softUs_InformationQual2[0][3],self.softUs_InformationQual2[1][3], self.softUs_InformationQual2[2][3]],labels=['Positive','Neutral','Negative'], colors=['#1CCD00','#EED238','#DC2209'], autopct='%1.1f%%')
         ax4.set_title('organized file 2')
         
         
@@ -2527,27 +2536,27 @@ class ComparedDataFile():
             
         #pleasant
         ax1=fig.add_subplot(spec4[0, 0])
-        ax1.pie([self.softUs_InterfaceQual[0][0],self.softUs_InterfaceQual[1][0], self.softUs_InterfaceQual[2][0]],labels=['Negative','Neutral','Positive'], colors=['#DC2209','#EED238','#1CCD00'], autopct='%1.1f%%')
+        ax1.pie([self.softUs_InterfaceQual[0][0],self.softUs_InterfaceQual[1][0], self.softUs_InterfaceQual[2][0]],labels=['Positive','Neutral','Negative'], colors=['#1CCD00','#EED238','#DC2209'], autopct='%1.1f%%')
         ax1.set_title('pleasant')
         #pleasant
         ax1=fig.add_subplot(spec4[0, 1])
-        ax1.pie([self.softUs_InterfaceQual2[0][0],self.softUs_InterfaceQual2[1][0], self.softUs_InterfaceQual2[2][0]],labels=['Negative','Neutral','Positive'], colors=['#DC2209','#EED238','#1CCD00'], autopct='%1.1f%%')
+        ax1.pie([self.softUs_InterfaceQual2[0][0],self.softUs_InterfaceQual2[1][0], self.softUs_InterfaceQual2[2][0]],labels=['Positive','Neutral','Negative'], colors=['#1CCD00','#EED238','#DC2209'], autopct='%1.1f%%')
         ax1.set_title('pleasant file 2')
         #Like using interface
         ax2=fig.add_subplot(spec4[1, 0])
-        ax2.pie([self.softUs_InterfaceQual[0][1],self.softUs_InterfaceQual[1][1], self.softUs_InterfaceQual[2][1]],labels=['Negative','Neutral','Positive'], colors=['#DC2209','#EED238','#1CCD00'], autopct='%1.1f%%')
+        ax2.pie([self.softUs_InterfaceQual[0][1],self.softUs_InterfaceQual[1][1], self.softUs_InterfaceQual[2][1]],labels=['Positive','Neutral','Negative'], colors=['#1CCD00','#EED238','#DC2209'], autopct='%1.1f%%')
         ax2.set_title('I like using interface')
          #Like using interface
         ax2=fig.add_subplot(spec4[1, 1])
-        ax2.pie([self.softUs_InterfaceQual2[0][1],self.softUs_InterfaceQual2[1][1], self.softUs_InterfaceQual2[2][1]],labels=['Negative','Neutral','Positive'], colors=['#DC2209','#EED238','#1CCD00'], autopct='%1.1f%%')
+        ax2.pie([self.softUs_InterfaceQual2[0][1],self.softUs_InterfaceQual2[1][1], self.softUs_InterfaceQual2[2][1]],labels=['Positive','Neutral','Negative'], colors=['#1CCD00','#EED238','#DC2209'], autopct='%1.1f%%')
         ax2.set_title('I like using interface file 2')
         #fonctions and capabilities
         ax3=fig.add_subplot(spec4[2, 0])
-        ax3.pie([self.softUs_InterfaceQual[0][2],self.softUs_InterfaceQual[1][2], self.softUs_InterfaceQual[2][2]],labels=['Negative','Neutral','Positive'], colors=['#DC2209','#EED238','#1CCD00'], autopct='%1.1f%%')
+        ax3.pie([self.softUs_InterfaceQual[0][2],self.softUs_InterfaceQual[1][2], self.softUs_InterfaceQual[2][2]],labels=['Positive','Neutral','Negative'], colors=['#1CCD00','#EED238','#DC2209'], autopct='%1.1f%%')
         ax3.set_title('has all the fonctions and capabilities expected')
         #fonctions and capabilities
         ax3=fig.add_subplot(spec4[2, 1])
-        ax3.pie([self.softUs_InterfaceQual2[0][2],self.softUs_InterfaceQual2[1][2], self.softUs_InterfaceQual2[2][2]],labels=['Negative','Neutral','Positive'], colors=['#DC2209','#EED238','#1CCD00'], autopct='%1.1f%%')
+        ax3.pie([self.softUs_InterfaceQual2[0][2],self.softUs_InterfaceQual2[1][2], self.softUs_InterfaceQual2[2][2]],labels=['Positive','Neutral','Negative'], colors=['#1CCD00','#EED238','#DC2209'], autopct='%1.1f%%')
         ax3.set_title('has all the fonctions and capabilities expected file 2')
         
         fig.subplots_adjust(bottom=1, top=5)
@@ -3476,9 +3485,9 @@ class ComparedDataFile():
             else:
                 ### z-test 
                 print('type of test: z-test')
-                ztest_Score, p_value= ztest(x1=self.PreSearchData[0], x2=self.PreSearchData2[0], alternative='larger')
+                ztest_Score, p_value= ztest(x1=self.PreSearchData[0], x2=self.PreSearchData2[0])
                 one_tailed_p_value1=p_value
-                if one_tailed_p_value1<=alpha:
+                if one_tailed_p_value1<alpha:
                     res1 = 'No'
                     best1 = '/'
                 else:
@@ -3489,9 +3498,9 @@ class ComparedDataFile():
                         best1 = 'file 1'
                 ###   
                 ### z-test 
-                ztest_Score, p_value= ztest(x1=self.PreSearchData[1], x2=self.PreSearchData2[1], alternative='larger')
+                ztest_Score, p_value= ztest(x1=self.PreSearchData[1], x2=self.PreSearchData2[1])
                 one_tailed_p_value2=p_value
-                if one_tailed_p_value2>alpha:
+                if one_tailed_p_value2<alpha:
                     res2 = 'No'
                     best2 = '/'
                 else:
@@ -3502,9 +3511,9 @@ class ComparedDataFile():
                         best2 = 'file 1'
                 ###   
                 ### z test 
-                ztest_Score, p_value= ztest(x1=self.PreSearchData[2], x2=self.PreSearchData2[2], alternative='larger')
+                ztest_Score, p_value= ztest(x1=self.PreSearchData[2], x2=self.PreSearchData2[2])
                 one_tailed_p_value3=p_value
-                if one_tailed_p_value3>alpha:
+                if one_tailed_p_value3<alpha:
                     res3 = 'No'
                     best3 = '/'
                 else:
@@ -3516,9 +3525,9 @@ class ComparedDataFile():
                 ###
                 #######################################################################################################################
                 ### z test 
-                ztest_Score, p_value= ztest(x1=self.ContentSelectionData[0], x2=self.ContentSelectionData2[0], alternative='larger')
+                ztest_Score, p_value= ztest(x1=self.ContentSelectionData[0], x2=self.ContentSelectionData2[0])
                 one_tailed_p_value4=p_value
-                if one_tailed_p_value4>alpha:
+                if one_tailed_p_value4<alpha:
                     res4 = 'No'
                     best4 = '/'
                 else:
@@ -3529,9 +3538,9 @@ class ComparedDataFile():
                         best4 = 'file 1'
                 ###
                 ### z test 
-                ztest_Score, p_value= ztest(x1=self.ContentSelectionData[1], x2=self.ContentSelectionData2[1], alternative='larger')
+                ztest_Score, p_value= ztest(x1=self.ContentSelectionData[1], x2=self.ContentSelectionData2[1])
                 one_tailed_p_value5=p_value
-                if one_tailed_p_value5>alpha:
+                if one_tailed_p_value5<alpha:
                     res5 = 'No'
                     best5 = '/'
                 else:
@@ -3542,9 +3551,9 @@ class ComparedDataFile():
                         best5 = 'file 1'
                 ###
                 ### z test 
-                ztest_Score, p_value= ztest(x1=self.ContentSelectionData[2], x2=self.ContentSelectionData2[2], alternative='larger')
+                ztest_Score, p_value= ztest(x1=self.ContentSelectionData[2], x2=self.ContentSelectionData2[2])
                 one_tailed_p_value6=p_value
-                if one_tailed_p_value6>alpha:
+                if one_tailed_p_value6<alpha:
                     res6 = 'No'
                     best6 = '/'
                 else:
@@ -3555,9 +3564,9 @@ class ComparedDataFile():
                         best6 = 'file 1'
                 ###
                 ### z test 
-                ztest_Score, p_value= ztest(x1=self.ContentSelectionData[3], x2=self.ContentSelectionData2[3], alternative='larger')
+                ztest_Score, p_value= ztest(x1=self.ContentSelectionData[3], x2=self.ContentSelectionData2[3])
                 one_tailed_p_value7=p_value
-                if one_tailed_p_value7>alpha:
+                if one_tailed_p_value7<alpha:
                     res7 = 'No'
                     best7 = '/'
                 else:
@@ -3568,9 +3577,9 @@ class ComparedDataFile():
                         best7 = 'file 1'
                 ###
                 ### z test 
-                ztest_Score, p_value= ztest(x1=self.ContentSelectionData[4], x2=self.ContentSelectionData2[4], alternative='larger')
+                ztest_Score, p_value= ztest(x1=self.ContentSelectionData[4], x2=self.ContentSelectionData2[4])
                 one_tailed_p_value8=p_value
-                if one_tailed_p_value8>alpha:
+                if one_tailed_p_value8<alpha:
                     res8 = 'No'
                     best8 = '/'
                 else:
@@ -3582,9 +3591,9 @@ class ComparedDataFile():
                 ###
                 #######################################################################################################################################
                 ### z test 
-                ztest_Score, p_value= ztest(x1=self.InteractionContentData[0], x2=self.InteractionContentData2[0], alternative='larger')
+                ztest_Score, p_value= ztest(x1=self.InteractionContentData[0], x2=self.InteractionContentData2[0])
                 one_tailed_p_value9=p_value
-                if one_tailed_p_value9>alpha:
+                if one_tailed_p_value9<alpha:
                     res9 = 'No'
                     best9 = '/'
                 else:
@@ -3595,9 +3604,9 @@ class ComparedDataFile():
                         best9 = 'file 1'
                 ###
                 ### z test 
-                ztest_Score, p_value= ztest(x1=self.InteractionContentData[1], x2=self.InteractionContentData2[1], alternative='larger')
+                ztest_Score, p_value= ztest(x1=self.InteractionContentData[1], x2=self.InteractionContentData2[1])
                 one_tailed_p_value0=p_value
-                if one_tailed_p_value0>alpha:
+                if one_tailed_p_value0<alpha:
                     res0 = 'No'
                     best0 = '/'
                 else:
@@ -3608,9 +3617,9 @@ class ComparedDataFile():
                         best0 = 'file 1'
                 ###
                 ### z test 
-                ztest_Score, p_value= ztest(x1=self.InteractionContentData[2], x2=self.InteractionContentData2[2], alternative='larger')
+                ztest_Score, p_value= ztest(x1=self.InteractionContentData[2], x2=self.InteractionContentData2[2])
                 one_tailed_p_value11=p_value
-                if one_tailed_p_value11>alpha:
+                if one_tailed_p_value11<alpha:
                     res11 = 'No'
                     best11 = '/'
                 else:
@@ -3621,9 +3630,9 @@ class ComparedDataFile():
                         best11 = 'file 1'
                 ###
                 ### z test 
-                ztest_Score, p_value= ztest(x1=self.InteractionContentData[3], x2=self.InteractionContentData2[3], alternative='larger')
+                ztest_Score, p_value= ztest(x1=self.InteractionContentData[3], x2=self.InteractionContentData2[3])
                 one_tailed_p_value12=p_value
-                if one_tailed_p_value12>alpha:
+                if one_tailed_p_value12<alpha:
                     res12 = 'No'
                     best12 = '/'
                 else:
@@ -3635,9 +3644,9 @@ class ComparedDataFile():
                 ###
                 #################################################################################################################################
                 ### z test 
-                ztest_Score, p_value= ztest(x1=self.PostSearchData[0], x2=self.PostSearchData2[0], alternative='larger')
+                ztest_Score, p_value= ztest(x1=self.PostSearchData[0], x2=self.PostSearchData2[0])
                 one_tailed_p_value13=p_value
-                if one_tailed_p_value13>alpha:
+                if one_tailed_p_value13<alpha:
                     res13 = 'No'
                     best13 = '/'
                 else:
@@ -3648,9 +3657,9 @@ class ComparedDataFile():
                         best13 = 'file 1'
                 ###
                 ### z test 
-                ztest_Score, p_value= ztest(x1=self.PostSearchData[1], x2=self.PostSearchData2[1], alternative='larger')
+                ztest_Score, p_value= ztest(x1=self.PostSearchData[1], x2=self.PostSearchData2[1])
                 one_tailed_p_value14=p_value
-                if one_tailed_p_value14>alpha:
+                if one_tailed_p_value14<alpha:
                     res14 = 'No'
                     best14 = '/'
                 else:
@@ -3661,22 +3670,22 @@ class ComparedDataFile():
                         best14 = 'file 1'
                 ###
                 ### z test 
-                ztest_Score, p_value= ztest(x1=self.PostSearchData[2], x2=self.PostSearchData2[2], alternative='larger')
+                ztest_Score, p_value= ztest(x1=self.PostSearchData[2], x2=self.PostSearchData2[2])
                 one_tailed_p_value15=p_value
-                if one_tailed_p_value15>alpha:
+                if one_tailed_p_value15<alpha:
                     res15 = 'No'
                     best15 = '/'
                 else:
-                    res13 = 'Yes'
+                    res15 = 'Yes'
                     if ztest_Score<0:
                         best15 = 'file 2'
                     else:
                         best15 = 'file 1'
                 ###
                 ### z test 
-                ztest_Score, p_value= ztest(x1=self.PostSearchData[3], x2=self.PostSearchData2[3], alternative='larger')
+                ztest_Score, p_value= ztest(x1=self.PostSearchData[3], x2=self.PostSearchData2[3])
                 one_tailed_p_value16=p_value
-                if one_tailed_p_value16>alpha:
+                if one_tailed_p_value16<alpha:
                     res16 = 'No'
                     best16 = '/'
                 else:
@@ -3720,6 +3729,8 @@ class ComparedDataFile():
 
         
         
+        
+        
     def Searching_Learning_Qual(self, save='display'):
         
         print('type of analysis: Qualitative')
@@ -3733,27 +3744,27 @@ class ComparedDataFile():
             
         #Background Knowledge
         ax1=fig.add_subplot(spec4[0, 0])
-        ax1.pie([self.PreSearchQual[0][0],self.PreSearchQual[1][0], self.PreSearchQual[2][0]],labels=['Negative','Neutral','Positive'], colors=['#DC2209','#EED238','#1CCD00'], autopct='%1.1f%%')
+        ax1.pie([self.PreSearchQual[0][0],self.PreSearchQual[1][0], self.PreSearchQual[2][0]],labels=['Positive','Neutral','Negative'], colors=['#1CCD00','#EED238','#DC2209'], autopct='%1.1f%%')
         ax1.set_title('Background Knowledge')
         #Background Knowledge
         ax1=fig.add_subplot(spec4[0, 1])
-        ax1.pie([self.PreSearchQual2[0][0],self.PreSearchQual2[1][0], self.PreSearchQual2[2][0]],labels=['Negative','Neutral','Positive'], colors=['#DC2209','#EED238','#1CCD00'], autopct='%1.1f%%')
+        ax1.pie([self.PreSearchQual2[0][0],self.PreSearchQual2[1][0], self.PreSearchQual2[2][0]],labels=['Positive','Neutral','Negative'], colors=['#1CCD00','#EED238','#DC2209'], autopct='%1.1f%%')
         ax1.set_title('Background Knowledge file 2')
         #Interest in topic
         ax2=fig.add_subplot(spec4[1, 0])
-        ax2.pie([self.PreSearchQual[0][1],self.PreSearchQual[1][1], self.PreSearchQual[2][1]],labels=['Negative','Neutral','Positive'], colors=['#DC2209','#EED238','#1CCD00'], autopct='%1.1f%%')
+        ax2.pie([self.PreSearchQual[0][1],self.PreSearchQual[1][1], self.PreSearchQual[2][1]],labels=['Positive','Neutral','Negative'], colors=['#1CCD00','#EED238','#DC2209'], autopct='%1.1f%%')
         ax2.set_title('Interest in topic')
         #Interest in topic
         ax2=fig.add_subplot(spec4[1, 1])
-        ax2.pie([self.PreSearchQual2[0][1],self.PreSearchQual2[1][1], self.PreSearchQual2[2][1]],labels=['Negative','Neutral','Positive'], colors=['#DC2209','#EED238','#1CCD00'], autopct='%1.1f%%')
+        ax2.pie([self.PreSearchQual2[0][1],self.PreSearchQual2[1][1], self.PreSearchQual2[2][1]],labels=['Positive','Neutral','Negative'], colors=['#1CCD00','#EED238','#DC2209'], autopct='%1.1f%%')
         ax2.set_title('Interest in topic file 2')
         #Anticipated difficulty
         ax3=fig.add_subplot(spec4[2, 0])
-        ax3.pie([self.PreSearchQual[0][2],self.PreSearchQual[1][2], self.PreSearchQual[2][2]],labels=['Negative','Neutral','Positive'], colors=['#DC2209','#EED238','#1CCD00'], autopct='%1.1f%%')
+        ax3.pie([self.PreSearchQual[0][2],self.PreSearchQual[1][2], self.PreSearchQual[2][2]],labels=['Positive','Neutral','Negative'], colors=['#1CCD00','#EED238','#DC2209'], autopct='%1.1f%%')
         ax3.set_title('Anticipated difficulty')
         #Anticipated difficulty
         ax3=fig.add_subplot(spec4[2, 1])
-        ax3.pie([self.PreSearchQual2[0][2],self.PreSearchQual2[1][2], self.PreSearchQual2[2][2]],labels=['Negative','Neutral','Positive'], colors=['#DC2209','#EED238','#1CCD00'], autopct='%1.1f%%')
+        ax3.pie([self.PreSearchQual2[0][2],self.PreSearchQual2[1][2], self.PreSearchQual2[2][2]],labels=['Positive','Neutral','Negative'], colors=['#1CCD00','#EED238','#DC2209'], autopct='%1.1f%%')
         ax3.set_title('Anticipated difficulty file 2')
         fig.suptitle('Search formulation (Per-earch)', fontsize=16)
         fig.subplots_adjust(bottom=1, top=5)
@@ -3766,43 +3777,43 @@ class ComparedDataFile():
             
         #Actual difficulty
         ax1=fig.add_subplot(spec4[0, 0])
-        ax1.pie([self.ContentSelectionQual[0][0],self.ContentSelectionQual[1][0], self.ContentSelectionQual[2][0]],labels=['Negative','Neutral','Positive'], colors=['#DC2209','#EED238','#1CCD00'], autopct='%1.1f%%')
+        ax1.pie([self.ContentSelectionQual[0][0],self.ContentSelectionQual[1][0], self.ContentSelectionQual[2][0]],labels=['Positive','Neutral','Negative'], colors=['#1CCD00','#EED238','#DC2209'], autopct='%1.1f%%')
         ax1.set_title('Actual difficulty')
         #Actual difficulty
         ax1=fig.add_subplot(spec4[0, 1])
-        ax1.pie([self.ContentSelectionQual2[0][0],self.ContentSelectionQual2[1][0], self.ContentSelectionQual2[2][0]],labels=['Negative','Neutral','Positive'], colors=['#DC2209','#EED238','#1CCD00'], autopct='%1.1f%%')
+        ax1.pie([self.ContentSelectionQual2[0][0],self.ContentSelectionQual2[1][0], self.ContentSelectionQual2[2][0]],labels=['Positive','Neutral','Negative'], colors=['#1CCD00','#EED238','#DC2209'], autopct='%1.1f%%')
         ax1.set_title('Actual difficulty file 2')
         #Text presentation quality
         ax2=fig.add_subplot(spec4[1, 0])
-        ax2.pie([self.ContentSelectionQual[0][1],self.ContentSelectionQual[1][1], self.ContentSelectionQual[2][1]],labels=['Negative','Neutral','Positive'], colors=['#DC2209','#EED238','#1CCD00'], autopct='%1.1f%%')
+        ax2.pie([self.ContentSelectionQual[0][1],self.ContentSelectionQual[1][1], self.ContentSelectionQual[2][1]],labels=['Positive','Neutral','Negative'], colors=['#1CCD00','#EED238','#DC2209'], autopct='%1.1f%%')
         ax2.set_title('Text presentation quality')
          #Text presentation quality
         ax2=fig.add_subplot(spec4[1, 1])
-        ax2.pie([self.ContentSelectionQual2[0][1],self.ContentSelectionQual2[1][1], self.ContentSelectionQual2[2][1]],labels=['Negative','Neutral','Positive'], colors=['#DC2209','#EED238','#1CCD00'], autopct='%1.1f%%')
+        ax2.pie([self.ContentSelectionQual2[0][1],self.ContentSelectionQual2[1][1], self.ContentSelectionQual2[2][1]],labels=['Positive','Neutral','Negative'], colors=['#1CCD00','#EED238','#DC2209'], autopct='%1.1f%%')
         ax2.set_title('Text presentation quality file 2')
         #average number of docs view/search
         ax3=fig.add_subplot(spec4[2, 0])
-        ax3.pie([self.ContentSelectionQual[0][2],self.ContentSelectionQual[1][2], self.ContentSelectionQual[2][2]],labels=['Negative','Neutral','Positive'], colors=['#DC2209','#EED238','#1CCD00'], autopct='%1.1f%%')
+        ax3.pie([self.ContentSelectionQual[0][2],self.ContentSelectionQual[1][2], self.ContentSelectionQual[2][2]],labels=['Positive','Neutral','Negative'], colors=['#1CCD00','#EED238','#DC2209'], autopct='%1.1f%%')
         ax3.set_title('average number of docs view/search')
         #average number of docs view/search
         ax3=fig.add_subplot(spec4[2, 1])
-        ax3.pie([self.ContentSelectionQual2[0][2],self.ContentSelectionQual2[1][2], self.ContentSelectionQual2[2][2]],labels=['Negative','Neutral','Positive'], colors=['#DC2209','#EED238','#1CCD00'], autopct='%1.1f%%')
+        ax3.pie([self.ContentSelectionQual2[0][2],self.ContentSelectionQual2[1][2], self.ContentSelectionQual2[2][2]],labels=['Positive','Neutral','Negative'], colors=['#1CCD00','#EED238','#DC2209'], autopct='%1.1f%%')
         ax3.set_title('average number of docs view/search file 2')
         #Usefulness of search results
         ax4=fig.add_subplot(spec4[3, 0])
-        ax4.pie([self.ContentSelectionQual[0][3],self.ContentSelectionQual[1][3], self.ContentSelectionQual[2][3]],labels=['Negative','Neutral','Positive'], colors=['#DC2209','#EED238','#1CCD00'], autopct='%1.1f%%')
+        ax4.pie([self.ContentSelectionQual[0][3],self.ContentSelectionQual[1][3], self.ContentSelectionQual[2][3]],labels=['Positive','Neutral','Negative'], colors=['#1CCD00','#EED238','#DC2209'], autopct='%1.1f%%')
         ax4.set_title('Usefulness of search results')
         #Usefulness of search results
         ax4=fig.add_subplot(spec4[3, 1])
-        ax4.pie([self.ContentSelectionQual2[0][3],self.ContentSelectionQual2[1][3], self.ContentSelectionQual2[2][3]],labels=['Negative','Neutral','Positive'], colors=['#DC2209','#EED238','#1CCD00'], autopct='%1.1f%%')
+        ax4.pie([self.ContentSelectionQual2[0][3],self.ContentSelectionQual2[1][3], self.ContentSelectionQual2[2][3]],labels=['Positive','Neutral','Negative'], colors=['#1CCD00','#EED238','#DC2209'], autopct='%1.1f%%')
         ax4.set_title('Usefulness of search results file 2')
         #Text relevance
         ax5=fig.add_subplot(spec4[4,0])
-        ax5.pie([self.ContentSelectionQual[0][4],self.ContentSelectionQual[1][4], self.ContentSelectionQual[2][4]],labels=['Negative','Neutral','Positive'], colors=['#DC2209','#EED238','#1CCD00'], autopct='%1.1f%%')
+        ax5.pie([self.ContentSelectionQual[0][4],self.ContentSelectionQual[1][4], self.ContentSelectionQual[2][4]],labels=['Positive','Neutral','Negative'], colors=['#1CCD00','#EED238','#DC2209'], autopct='%1.1f%%')
         ax5.set_title('average number of docs view/search')
         #Text relevance
         ax5=fig.add_subplot(spec4[4,1])
-        ax5.pie([self.ContentSelectionQual2[0][4],self.ContentSelectionQual2[1][4], self.ContentSelectionQual2[2][4]],labels=['Negative','Neutral','Positive'], colors=['#DC2209','#EED238','#1CCD00'], autopct='%1.1f%%')
+        ax5.pie([self.ContentSelectionQual2[0][4],self.ContentSelectionQual2[1][4], self.ContentSelectionQual2[2][4]],labels=['Positive','Neutral','Negative'], colors=['#1CCD00','#EED238','#DC2209'], autopct='%1.1f%%')
         ax5.set_title('average number of docs view/search file 2')
         fig.suptitle('Content selection', fontsize=16)
         fig.subplots_adjust(bottom=1, top=5)
@@ -3817,35 +3828,35 @@ class ComparedDataFile():
             
         #Cognitively engaged
         ax1=fig.add_subplot(spec4[0, 0])
-        ax1.pie([self.InteractionContentQual[0][0],self.InteractionContentQual[1][0], self.InteractionContentQual[2][0]],labels=['Negative','Neutral','Positive'], colors=['#DC2209','#EED238','#1CCD00'], autopct='%1.1f%%')
+        ax1.pie([self.InteractionContentQual[0][0],self.InteractionContentQual[1][0], self.InteractionContentQual[2][0]],labels=['Positive','Neutral','Negative'], colors=['#1CCD00','#EED238','#DC2209'], autopct='%1.1f%%')
         ax1.set_title('Cognitively engaged')
         #Cognitively engaged
         ax1=fig.add_subplot(spec4[0, 1])
-        ax1.pie([self.InteractionContentQual2[0][0],self.InteractionContentQual2[1][0], self.InteractionContentQual2[2][0]],labels=['Negative','Neutral','Positive'], colors=['#DC2209','#EED238','#1CCD00'], autopct='%1.1f%%')
+        ax1.pie([self.InteractionContentQual2[0][0],self.InteractionContentQual2[1][0], self.InteractionContentQual2[2][0]],labels=['Positive','Neutral','Negative'], colors=['#1CCD00','#EED238','#DC2209'], autopct='%1.1f%%')
         ax1.set_title('Cognitively engaged file 2')
         #Suggestions skills
         ax2=fig.add_subplot(spec4[1, 0])
-        ax2.pie([self.InteractionContentQual[0][1],self.InteractionContentQual[1][1], self.InteractionContentQual[2][1]],labels=['Negative','Neutral','Positive'], colors=['#DC2209','#EED238','#1CCD00'], autopct='%1.1f%%')
+        ax2.pie([self.InteractionContentQual[0][1],self.InteractionContentQual[1][1], self.InteractionContentQual[2][1]],labels=['Positive','Neutral','Negative'], colors=['#1CCD00','#EED238','#DC2209'], autopct='%1.1f%%')
         ax2.set_title('Suggestions skills')
         #Suggestions skills
         ax2=fig.add_subplot(spec4[1, 1])
-        ax2.pie([self.InteractionContentQual2[0][1],self.InteractionContentQual2[1][1], self.InteractionContentQual2[2][1]],labels=['Negative','Neutral','Positive'], colors=['#DC2209','#EED238','#1CCD00'], autopct='%1.1f%%')
+        ax2.pie([self.InteractionContentQual2[0][1],self.InteractionContentQual2[1][1], self.InteractionContentQual2[2][1]],labels=['Positive','Neutral','Negative'], colors=['#1CCD00','#EED238','#DC2209'], autopct='%1.1f%%')
         ax2.set_title('Suggestions skills file 2')
         #System undersdanting input
         ax3=fig.add_subplot(spec4[2, 0])
-        ax3.pie([self.InteractionContentQual[0][2],self.InteractionContentQual[1][2], self.InteractionContentQual[2][2]],labels=['Negative','Neutral','Positive'], colors=['#DC2209','#EED238','#1CCD00'], autopct='%1.1f%%')
+        ax3.pie([self.InteractionContentQual[0][2],self.InteractionContentQual[1][2], self.InteractionContentQual[2][2]],labels=['Positive','Neutral','Negative'], colors=['#1CCD00','#EED238','#DC2209'], autopct='%1.1f%%')
         ax3.set_title('System undersdanting input')
         #System undersdanting input
         ax3=fig.add_subplot(spec4[2, 1])
-        ax3.pie([self.InteractionContentQual2[0][2],self.InteractionContentQual2[1][2], self.InteractionContentQual2[2][2]],labels=['Negative','Neutral','Positive'], colors=['#DC2209','#EED238','#1CCD00'], autopct='%1.1f%%')
+        ax3.pie([self.InteractionContentQual2[0][2],self.InteractionContentQual2[1][2], self.InteractionContentQual2[2][2]],labels=['Positive','Neutral','Negative'], colors=['#1CCD00','#EED238','#DC2209'], autopct='%1.1f%%')
         ax3.set_title('System undersdanting input file 2')
         #Average leve of satisfaction
         ax4=fig.add_subplot(spec4[3, 0])
-        ax4.pie([self.InteractionContentQual[0][3],self.InteractionContentQual[1][3], self.InteractionContentQual[2][3]],labels=['Negative','Neutral','Positive'], colors=['#DC2209','#EED238','#1CCD00'], autopct='%1.1f%%')
+        ax4.pie([self.InteractionContentQual[0][3],self.InteractionContentQual[1][3], self.InteractionContentQual[2][3]],labels=['Positive','Neutral','Negative'], colors=['#1CCD00','#EED238','#DC2209'], autopct='%1.1f%%')
         ax4.set_title('Anticipated difficulty')
         #Average leve of satisfaction
         ax4=fig.add_subplot(spec4[3, 1])
-        ax4.pie([self.InteractionContentQual2[0][3],self.InteractionContentQual2[1][3], self.InteractionContentQual2[2][3]],labels=['Negative','Neutral','Positive'], colors=['#DC2209','#EED238','#1CCD00'], autopct='%1.1f%%')
+        ax4.pie([self.InteractionContentQual2[0][3],self.InteractionContentQual2[1][3], self.InteractionContentQual2[2][3]],labels=['Positive','Neutral','Negative'], colors=['#1CCD00','#EED238','#DC2209'], autopct='%1.1f%%')
         ax4.set_title('Anticipated difficulty file 2')
         fig.suptitle('Interaction with content', fontsize=16)
         fig.subplots_adjust(bottom=1, top=5)
@@ -3858,35 +3869,35 @@ class ComparedDataFile():
             
         #Search success
         ax1=fig.add_subplot(spec4[0, 0])
-        ax1.pie([self.PostSearchQual[0][0],self.PostSearchQual[1][0], self.PostSearchQual[2][0]],labels=['Negative','Neutral','Positive'], colors=['#DC2209','#EED238','#1CCD00'], autopct='%1.1f%%')
+        ax1.pie([self.PostSearchQual[0][0],self.PostSearchQual[1][0], self.PostSearchQual[2][0]],labels=['Positive','Neutral','Negative'], colors=['#1CCD00','#EED238','#DC2209'], autopct='%1.1f%%')
         ax1.set_title('Search success')
         #Search success
         ax1=fig.add_subplot(spec4[0, 1])
-        ax1.pie([self.PostSearchQual2[0][0],self.PostSearchQual2[1][0], self.PostSearchQual2[2][0]],labels=['Negative','Neutral','Positive'], colors=['#DC2209','#EED238','#1CCD00'], autopct='%1.1f%%')
+        ax1.pie([self.PostSearchQual2[0][0],self.PostSearchQual2[1][0], self.PostSearchQual2[2][0]],labels=['Positive','Neutral','Negative'], colors=['#1CCD00','#EED238','#DC2209'], autopct='%1.1f%%')
         ax1.set_title('Search success file 2')
         #Presentation of the results
         ax2=fig.add_subplot(spec4[1, 0])
-        ax2.pie([self.PostSearchQual[0][1],self.PostSearchQual[1][1], self.PostSearchQual[2][1]],labels=['Negative','Neutral','Positive'], colors=['#DC2209','#EED238','#1CCD00'], autopct='%1.1f%%')
+        ax2.pie([self.PostSearchQual[0][1],self.PostSearchQual[1][1], self.PostSearchQual[2][1]],labels=['Positive','Neutral','Negative'], colors=['#1CCD00','#EED238','#DC2209'], autopct='%1.1f%%')
         ax2.set_title('Presentation of the results')
         #Presentation of the results
         ax2=fig.add_subplot(spec4[1, 1])
-        ax2.pie([self.PostSearchQual2[0][1],self.PostSearchQual2[1][1], self.PostSearchQual2[2][1]],labels=['Negative','Neutral','Positive'], colors=['#DC2209','#EED238','#1CCD00'], autopct='%1.1f%%')
+        ax2.pie([self.PostSearchQual2[0][1],self.PostSearchQual2[1][1], self.PostSearchQual2[2][1]],labels=['Positive','Neutral','Negative'], colors=['#1CCD00','#EED238','#DC2209'], autopct='%1.1f%%')
         ax2.set_title('Presentation of the results file 2')
         #Expansion of Knowledge
         ax3=fig.add_subplot(spec4[2, 0])
-        ax3.pie([self.PostSearchQual[0][2],self.PostSearchQual[1][2], self.PostSearchQual[2][2]],labels=['Negative','Neutral','Positive'], colors=['#DC2209','#EED238','#1CCD00'], autopct='%1.1f%%')
+        ax3.pie([self.PostSearchQual[0][2],self.PostSearchQual[1][2], self.PostSearchQual[2][2]],labels=['Positive','Neutral','Negative'], colors=['#1CCD00','#EED238','#DC2209'], autopct='%1.1f%%')
         ax3.set_title('Expansion of Knowledge')
         #Expansion of Knowledge
         ax3=fig.add_subplot(spec4[2, 1])
-        ax3.pie([self.PostSearchQual2[0][2],self.PostSearchQual2[1][2], self.PostSearchQual2[2][2]],labels=['Negative','Neutral','Positive'], colors=['#DC2209','#EED238','#1CCD00'], autopct='%1.1f%%')
+        ax3.pie([self.PostSearchQual2[0][2],self.PostSearchQual2[1][2], self.PostSearchQual2[2][2]],labels=['Positive','Neutral','Negative'], colors=['#1CCD00','#EED238','#DC2209'], autopct='%1.1f%%')
         ax3.set_title('Expansion of Knowledge file 2')
         #Understanding about the topic
         ax4=fig.add_subplot(spec4[3, 0])
-        ax4.pie([self.PostSearchQual[0][3],self.PostSearchQual[1][3], self.PostSearchQual[2][3]],labels=['Negative','Neutral','Positive'], colors=['#DC2209','#EED238','#1CCD00'], autopct='%1.1f%%')
+        ax4.pie([self.PostSearchQual[0][3],self.PostSearchQual[1][3], self.PostSearchQual[2][3]],labels=['Positive','Neutral','Negative'], colors=['#1CCD00','#EED238','#DC2209'], autopct='%1.1f%%')
         ax4.set_title('Understanding about the topic')
         #Understanding about the topic
         ax4=fig.add_subplot(spec4[3, 1])
-        ax4.pie([self.PostSearchQual2[0][3],self.PostSearchQual2[1][3], self.PostSearchQual2[2][3]],labels=['Negative','Neutral','Positive'], colors=['#DC2209','#EED238','#1CCD00'], autopct='%1.1f%%')
+        ax4.pie([self.PostSearchQual2[0][3],self.PostSearchQual2[1][3], self.PostSearchQual2[2][3]],labels=['Positive','Neutral','Negative'], colors=['#1CCD00','#EED238','#DC2209'], autopct='%1.1f%%')
         ax4.set_title('Understanding about the topic file 2')
         fig.suptitle('Search success', fontsize=16)
         fig.subplots_adjust(bottom=1, top=5)
@@ -4095,9 +4106,9 @@ class ComparedDataFile():
             else:
                 print('type of test: z-test')
                 ###z test quality
-                ztest_Score, p_value= ztest(x1=self.KnowledgeGainData[0], x2=self.KnowledgeGainData2[0], alternative='larger')
-                one_tailed_p_value=float("{:.6f}".format(p_value/2))
-                if one_tailed_p_value>alpha:
+                ztest_Score, p_value= ztest(x1=self.KnowledgeGainData[0], x2=self.KnowledgeGainData2[0], value=0)
+                one_tailed_p_value=p_value
+                if one_tailed_p_value<alpha:
                     res1 = 'No'
                     best1 = '/'
                 else:
@@ -4108,9 +4119,9 @@ class ComparedDataFile():
                         best1 = 'file 1'
                 ###   
                 ### z test interpretation
-                ztest_Score, p_value= ztest(x1=self.KnowledgeGainData[1], x2=self.KnowledgeGainData2[1], alternative='larger')
-                one_tailed_p_value2=float("{:.6f}".format(p_value/2))
-                if one_tailed_p_value2>alpha:
+                ztest_Score, p_value= ztest(x1=self.KnowledgeGainData[1], x2=self.KnowledgeGainData2[1], value=0)
+                one_tailed_p_value2=p_value
+                if one_tailed_p_value2<alpha:
                     res2 = 'No'
                     best2 = '/'
                 else:
@@ -4121,9 +4132,9 @@ class ComparedDataFile():
                         best2 = 'file 1'
                 ###
                 ### z test critiques
-                ztest_Score, p_value= ztest(x1=self.KnowledgeGainData[2], x2=self.KnowledgeGainData2[2], alternative='larger')
-                one_tailed_p_value3=float("{:.6f}".format(p_value/2))
-                if one_tailed_p_value3>alpha:
+                ztest_Score, p_value= ztest(x1=self.KnowledgeGainData[2], x2=self.KnowledgeGainData2[2], value=0)
+                one_tailed_p_value3=p_value
+                if one_tailed_p_value3<alpha:
                     res3 = 'No'
                     best3 = '/'
                 else:
@@ -4165,27 +4176,27 @@ class ComparedDataFile():
             
         #quality of facts
         ax1=fig.add_subplot(spec4[0, 0])
-        ax1.pie([self.KnowledgeGainQual[0][0],self.KnowledgeGainQual[1][0], self.KnowledgeGainQual[2][0]],labels=['Negative','Neutral','Positive'], colors=['#DC2209','#EED238','#1CCD00'], autopct='%1.1f%%')
+        ax1.pie([self.KnowledgeGainQual[0][0],self.KnowledgeGainQual[1][0], self.KnowledgeGainQual[2][0]],labels=['Positive','Neutral','Negative'], colors=['#1CCD00','#EED238','#DC2209'], autopct='%1.1f%%')
         ax1.set_title('quality of facts file 1')
         #quality of facts
         ax1v2=fig.add_subplot(spec4[0, 1])
-        ax1v2.pie([self.KnowledgeGainQual2[0][0],self.KnowledgeGainQual2[1][0], self.KnowledgeGainQual2[2][0]],labels=['Negative','Neutral','Positive'], colors=['#DC2209','#EED238','#1CCD00'], autopct='%1.1f%%')
+        ax1v2.pie([self.KnowledgeGainQual2[0][0],self.KnowledgeGainQual2[1][0], self.KnowledgeGainQual2[2][0]],labels=['Positive','Neutral','Negative'], colors=['#1CCD00','#EED238','#DC2209'], autopct='%1.1f%%')
         ax1v2.set_title('quality of facts file 2')
         #interpretation
         ax2=fig.add_subplot(spec4[1, 0])
-        ax2.pie([self.KnowledgeGainQual[0][1],self.KnowledgeGainQual[1][1], self.KnowledgeGainQual[2][1]],labels=['Negative','Neutral','Positive'], colors=['#DC2209','#EED238','#1CCD00'], autopct='%1.1f%%')
+        ax2.pie([self.KnowledgeGainQual[0][1],self.KnowledgeGainQual[1][1], self.KnowledgeGainQual[2][1]],labels=['Positive','Neutral','Negative'], colors=['#1CCD00','#EED238','#DC2209'], autopct='%1.1f%%')
         ax2.set_title('interpretation file 1')
         #interpretation
         ax2v2=fig.add_subplot(spec4[1, 1])
-        ax2v2.pie([self.KnowledgeGainQual2[0][1],self.KnowledgeGainQual2[1][1], self.KnowledgeGainQual2[2][1]],labels=['Negative','Neutral','Positive'], colors=['#DC2209','#EED238','#1CCD00'], autopct='%1.1f%%')
+        ax2v2.pie([self.KnowledgeGainQual2[0][1],self.KnowledgeGainQual2[1][1], self.KnowledgeGainQual2[2][1]],labels=['Positive','Neutral','Negative'], colors=['#1CCD00','#EED238','#DC2209'], autopct='%1.1f%%')
         ax2v2.set_title('interpretation file 2')      
         #critiques
         ax3=fig.add_subplot(spec4[2, 0])
-        ax3.pie([self.KnowledgeGainQual[0][2],self.KnowledgeGainQual[1][2], self.KnowledgeGainQual[2][2]],labels=['Negative','Neutral','Positive'], colors=['#DC2209','#EED238','#1CCD00'], autopct='%1.1f%%')
+        ax3.pie([self.KnowledgeGainQual[0][2],self.KnowledgeGainQual[1][2], self.KnowledgeGainQual[2][2]],labels=['Positive','Neutral','Negative'], colors=['#1CCD00','#EED238','#DC2209'], autopct='%1.1f%%')
         ax3.set_title('critiques file 1')
         #critiques
         ax3v2=fig.add_subplot(spec4[2, 1])
-        ax3v2.pie([self.KnowledgeGainQual2[0][2],self.KnowledgeGainQual2[1][2], self.KnowledgeGainQual2[2][2]],labels=['Negative','Neutral','Positive'], colors=['#DC2209','#EED238','#1CCD00'], autopct='%1.1f%%')
+        ax3v2.pie([self.KnowledgeGainQual2[0][2],self.KnowledgeGainQual2[1][2], self.KnowledgeGainQual2[2][2]],labels=['Positive','Neutral','Negative'], colors=['#1CCD00','#EED238','#DC2209'], autopct='%1.1f%%')
         ax3v2.set_title('critiques file 2')
         
         fig.subplots_adjust(bottom=4, top=6)
