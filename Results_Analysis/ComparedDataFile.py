@@ -39,11 +39,9 @@ class ComparedDataFile():
         self.resPath2 = str(os.path.join(self.to_mod, "resExcel", "DATAUPDATES2.XLSX"))
         self.diff_size=self.size==self.size2
         self.parameter=False
-        if self.test_diff_size!='welsh-test':
-            self.diff_size= False
-        if self.test_diff_size=='z-test':
-            self.parameter=True
-        
+        if self.test_diff_size!='welsh-test':self.diff_size= False
+        if self.test_diff_size=='z-test':self.parameter=True
+
     
        
         
@@ -299,11 +297,11 @@ class ComparedDataFile():
         spreadsheet=self.to_mod+'\DataUpdates.xlsx'
         xfile.save(spreadsheet)
 
-        fpath = spreadsheet
-        dirname = str(os.path.join(self.to_mod, "resExcel"))
-        xl_model = formulas.ExcelModel().loads(fpath).finish()
-        xl_model.calculate()
-        xl_model.write(dirpath=dirname)
+        # fpath = spreadsheet
+        # dirname = str(os.path.join(self.to_mod, "resExcel"))
+        # xl_model = formulas.ExcelModel().loads(fpath).finish()
+        # xl_model.calculate()
+        # xl_model.write(dirpath=dirname)
         print("first file complete")
         
     def processing2(self, path):
@@ -558,12 +556,11 @@ class ComparedDataFile():
         print("converting data...")
         spreadsheet=self.to_mod+'\DataUpdates2.xlsx'
         xfile.save(spreadsheet)
-
-        fpath = spreadsheet
-        dirname = str(os.path.join(self.to_mod, "resExcel"))
-        xl_model = formulas.ExcelModel().loads(fpath).finish()
-        xl_model.calculate()
-        xl_model.write(dirpath=dirname)
+        # fpath = spreadsheet
+        # dirname = str(os.path.join(self.to_mod, "resExcel"))
+        # xl_model = formulas.ExcelModel().loads(fpath).finish()
+        # xl_model.calculate()
+        # xl_model.write(dirpath=dirname)
         print("Second file complete")
         
        
@@ -572,7 +569,6 @@ class ComparedDataFile():
         print('file 1/file 2 dt')
         df = pd.read_excel(self.resPath, sheet_name='DT')
         df2 = pd.read_excel(self.resPath2, sheet_name='DT')
-        
         frames = [df,df2]
         tab = pd.concat(frames)
         
@@ -658,7 +654,7 @@ class ComparedDataFile():
         if save=='pdf':
             print("loading pdf...")
             path=str(os.path.join(Path.home(), "Downloads", "confidence_Intervals.pdf"))
-            pathAct = str(os.path.join(self.to_mod, "confidence_Intervals.pdf"))    
+            pathAct = str(os.path.join(self.to_mod, "Confidence_Intervals.pdf"))    
             dfi.export(tab, pathAct)
             doc = aw.Document()
             builder = aw.DocumentBuilder(doc)
@@ -847,9 +843,9 @@ class ComparedDataFile():
         fig.subplots_adjust(bottom=2, top=4)
         
         if save=='pdf':
-            print("loading pdf...")
-            path=str(os.path.join(Path.home(), "Downloads", "benchmark.pdf"))
-            pathAct = str(os.path.join(self.to_mod, "benchmark.pdf"))    
+            path=str(os.path.join(Path.home(), "Downloads", "Benchmark.pdf"))
+            print("loading pdf in location "+path)
+            pathAct = str(os.path.join(self.to_mod, "Benchmark.pdf"))    
             dfi.export(tab, pathAct)
             doc = aw.Document()
             builder = aw.DocumentBuilder(doc)
@@ -906,7 +902,6 @@ class ComparedDataFile():
                                 "props": [("background-color", "gray"),
                                           ]
                             },
-
                         ])
         display (tab)          
         print('file 1')
@@ -932,8 +927,8 @@ class ComparedDataFile():
         plt.show()
         
         if save=='pdf':
-            print("loading pdf...")
             path=str(os.path.join(Path.home(), "Downloads", "inconsistencies.pdf"))
+            print("loading pdf in location "+path)
             pathAct = str(os.path.join(self.to_mod, "inconsistencies.pdf"))    
             dfi.export(tab, pathAct)
             doc = aw.Document()
@@ -958,6 +953,8 @@ class ComparedDataFile():
     
     #Cognitive load
     def cognitive_load(self, format,save='notActivated', alpha=0.05):
+        
+        print("--------------------------------------------Quantitative Cognitive Load-------------------------------------------")
         
         if type(save) != str:alpha=save
         
@@ -1112,8 +1109,8 @@ class ComparedDataFile():
             
             #pdf download
             if save=='pdf':
-                print("loading pdf...")
                 path=str(os.path.join(Path.home(), "Downloads", "Cognitive_Load.pdf"))
+                print("loading pdf in location "+path)
                 fig.savefig(path,  bbox_inches='tight')
                 print("pdf downloaded !")
         
@@ -1403,8 +1400,8 @@ class ComparedDataFile():
 
             #pdf download
             if save=='pdf':
-                print("loading pdf...")
                 path=str(os.path.join(Path.home(), "Downloads", "Cognitive_Load.pdf"))
+                print("loading pdf in location "+path)
                 pathAct = str(os.path.join(self.to_mod, "Cognitive_Load.pdf"))    
                 dfi.export(tab, pathAct)
                 doc = aw.Document()
@@ -1415,6 +1412,13 @@ class ComparedDataFile():
     
     
     def User_Experience_Qual_Analysis(self, save='display'):
+        
+        print("--------------------------------------------Qualitative User Experience--------------------------------------------")
+        
+        print( """ Qualitative Analysis
+        Green-Positive: 5-7
+        Yellow-Neutral: 3-4
+        Red-Negative: 1-2 """)
         
         print('type of analysis: Qualitative')
         plt.rcParams["figure.figsize"] = (20,8)
@@ -1503,8 +1507,8 @@ class ComparedDataFile():
 
         #pdf download
         if save=='pdf':
-            print("loading pdf...")
             path=str(os.path.join(Path.home(), "Downloads", "User_Experience_Qual.pdf"))
+            print("loading pdf in location "+path)
             fig.savefig(path,  bbox_inches='tight')
             print("pdf downloaded !")
             
@@ -1512,6 +1516,19 @@ class ComparedDataFile():
         
     
     def cognitive_load_Qual_Analysis(self, save='display'):
+        
+        print("--------------------------------------------Qualitative Cognitive Load--------------------------------------------")
+        
+        print( """ Qualitative Analysis for the 'Success' and 'Overall easiness to use' part:
+        Green-Positive: 5-7
+        Yellow-Neutral: 3-4
+        Red-Negative: 1-2 """)
+        
+        print( """ Qualitative Analysis for the other part:
+        Red-Negative: 5-7
+        Yellow-Neutral: 3-4
+        Green-Positive: 1-2 """)
+        
         print('type of analysis: Qualitative')
         plt.rcParams["figure.figsize"] = (20,8)
         fig= plt.figure()
@@ -1519,7 +1536,7 @@ class ComparedDataFile():
         anno_opts = dict(xy=(0.5, 0.5), xycoords='axes fraction',va='center', ha='center')
 
         coments = list(zip(self.mentloadQual[0],self.mentloadQual[1], self.mentloadQual[2]))
-        df = pd.DataFrame(coments, index =['Mentally demanding', 'physically demanding', 'hurried or rushed pace', 'success','difficulty','Overall easiness to use'],columns =['Green', 'Yellow', 'Red'])
+        df = pd.DataFrame(coments, index =['mentally demanding', 'physically demanding', 'hurried or rushed pace', 'success','difficulty','Overall easiness to use'],columns =['Green', 'Yellow', 'Red'])
             
             
         #Mentally demanding
@@ -1574,8 +1591,8 @@ class ComparedDataFile():
         fig.subplots_adjust(bottom=4, top=8)
         
         if save=='pdf':
-            print("loading pdf...")
             path=str(os.path.join(Path.home(), "Downloads", "Cognitive_load_Qual.pdf"))
+            print("loading pdf in location "+path)
             fig.savefig(path,  bbox_inches='tight')
             print("pdf downloaded !")
 
@@ -1583,6 +1600,8 @@ class ComparedDataFile():
     
     #Software Usability
     def Software_Usability(self, format,save='notActivated', alpha=0.05):
+        
+        print("--------------------------------------------Quantitative Software Usability--------------------------------------------")
         
         if type(save) != str:alpha=save
         print('type of analysis: Quantitative')
@@ -1595,7 +1614,7 @@ class ComparedDataFile():
 
             #First bar chart/table
             ax1 = fig.add_subplot(3,1,1)
-            columns = ['simplicity to use', 'helped effectivness of my work', 'helped pace of my work', 'confortable system', 'easy recovery after mistake', 'Overall satisfaction']
+            columns = ['easy to use', 'helped effectiveness', 'helped pace', 'comfortable', 'easy recovery after mistake', 'overall satisfaction']
             mean = self.softUs
             colorMean=[]
             roundMean=[round(mean, 1) for mean in mean[0]]                   
@@ -1650,8 +1669,8 @@ class ComparedDataFile():
                     colorMean.append('#EED238')
                 if roundMean[i]>3.5:
                     colorMean.append('#1CCD00')
-
-            columns = ['simplicity to use f1','f2', 'helped effectivness of my work f1','f2', 'helped pace of my work f1','f2', 'confortable system f1','f2', 'easy recovery after mistake f1','f2', 'Overall satisfaction f1','f2']
+            
+            columns = ['easy to use f1','f2', 'helped effectivness f1','f2', 'helped pace f1','f2', 'confortable f1','f2', 'easy recovery after mistake f1','f2', 'overall satisfaction f1','f2']
 
             ytable = ax1.table(cellText=mean2, colLabels=columns,rowLabels=['Mean'], loc='bottom')
             ytable.auto_set_column_width(-1)
@@ -1809,8 +1828,8 @@ class ComparedDataFile():
             fig.subplots_adjust(bottom=4, top=5.5, hspace=0.5)
             
             if save=='pdf':
-                print("loading pdf...")
                 path=str(os.path.join(Path.home(), "Downloads", "Software_Usability.pdf"))
+                print("loading pdf in location "+path)
                 fig.savefig(path,  bbox_inches='tight')
                 print("pdf downloaded !")
         
@@ -2409,8 +2428,8 @@ class ComparedDataFile():
                 display(tab)
             #pdf
             if save=='pdf':
-                print("loading pdf...")
                 path=str(os.path.join(Path.home(), "Downloads", "Software_Usability.pdf"))
+                print("loading pdf in location "+path)
                 pathAct = str(os.path.join(self.to_mod, "Software_Usability.pdf"))    
                 dfi.export(tab, pathAct)
                 doc = aw.Document()
@@ -2423,6 +2442,14 @@ class ComparedDataFile():
             
             
     def Software_Usability_Qual(self, save='display'):
+        
+        print("--------------------------------------------Qualitative Software Usability--------------------------------------------")
+
+        print( """ Qualitative Analysis
+        Green-Positive: 5-7
+        Yellow-Neutral: 3-4
+        Red-Negative: 1-2 """)
+        
         plt.rcParams["figure.figsize"] = (20,8)
         print('type of analysis: Qualitative')
         #System
@@ -2565,8 +2592,8 @@ class ComparedDataFile():
         
         #pdf download
         if save=='pdf':
-            print("loading pdf...")
             path=str(os.path.join(Path.home(), "Downloads", "Software_Usability_Qual.pdf"))
+            print("loading pdf in location "+path)
             pp = PdfPages(path)
             fig_nums = plt.get_fignums()
             figs = [plt.figure(n) for n in fig_nums]
@@ -2580,7 +2607,8 @@ class ComparedDataFile():
             
         
     def Software_Usability_Coments(self, save='display', type='basic'):
-
+    
+        print("--------------------------------------------Software Usability Coments--------------------------------------------")
 
         if save=='WordCloud' or type=='WordCloud':
         
@@ -2684,8 +2712,8 @@ class ComparedDataFile():
 
             
             if save=='pdf':
-                print("loading pdf...")
                 path=str(os.path.join(Path.home(), "Downloads", "Software_Coments.pdf"))
+                print("loading pdf in location "+path)
                 pathAct = str(os.path.join(self.to_mod, "Software_Usability_coments.pdf"))    
                 dfi.export(tab, pathAct)
                 doc = aw.Document()
@@ -2699,6 +2727,9 @@ class ComparedDataFile():
             
         #Software Usability
     def Searching_Learning(self, format,save='notActivated', alpha=0.05 ):      
+        
+        print("--------------------------------------------Quantitative Searching As Learning--------------------------------------------")
+        
         if type(save) != str:alpha=save
         print('type of analysis: Quantitative')
         if format=='graph':
@@ -2723,7 +2754,7 @@ class ComparedDataFile():
 
             ax1.bar(index- width/2, mean[0], color=colorMean, width = 0.25)
             ax1.axhline(y=3.5, color='black')
-            ax1.set_title('Search formulation (Per Search)')
+            ax1.set_title('Search formulation')
             ax1.set_xticks([])    
 
 
@@ -2778,7 +2809,7 @@ class ComparedDataFile():
             #Second bar chart/table
             index = np.arange(5)
             ax2= fig.add_subplot(4,1,2)
-            columns = ['actual Difficulty', 'text presentation quality', 'average number of docs viewed per search', 'the usefulness of Search Results', 'text relevance']
+            columns = ['Actual Difficulty', 'Text Presentation Quality', 'Average number of docs viewed', 'Usefull', 'Text relevance']
             mean = self.ContentSelection
             colorMean=[]                     
             roundMean=[round(mean, 1) for mean in mean[0]]
@@ -2828,8 +2859,7 @@ class ComparedDataFile():
                     colorMean.append('#EED238')
                 if roundMean[i]>3.5:
                     colorMean.append('#1CCD00')
-
-            columns = ['actual difficulty f1', 'f2','text presentation quality f1','f2', 'average number of docs viewed per search f1','f2', 'the usefulness of search results f1','f2', 'text relevance f1', 'f2']
+            columns = ['actual difficulty f1', 'f2','text presentation quality f1','f2', 'average number of docs viewed f1','f2', 'usefull f1','f2', 'text relevance f1', 'f2']
             wtable = ax2.table(cellText=mean2, colLabels=columns,rowLabels=['Mean'], loc='bottom')
             wtable.auto_set_column_width(-1)
 
@@ -2993,8 +3023,8 @@ class ComparedDataFile():
             fig.subplots_adjust(bottom=2, top=4, hspace=0.5)
             
             if save=='pdf':
-                print("loading pdf...")
                 path=str(os.path.join(Path.home(), "Downloads", "Searching_Learning.pdf"))
+                print("loading pdf in location "+path)
                 fig.savefig(path,  bbox_inches='tight')
                 print("pdf downloaded !")
         
@@ -3717,8 +3747,8 @@ class ComparedDataFile():
                 display(tab)
             
             if save=='pdf':
-                print("loading pdf...")
                 path=str(os.path.join(Path.home(), "Downloads", "Searching_learning.pdf"))
+                print("loading pdf in location "+path)
                 pathAct = str(os.path.join(self.to_mod, "Searching_learning.pdf"))    
                 dfi.export(tab, pathAct)
                 doc = aw.Document()
@@ -3733,10 +3763,17 @@ class ComparedDataFile():
         
     def Searching_Learning_Qual(self, save='display'):
         
+        print("--------------------------------------------Qualitative Searching As Learning--------------------------------------------")
+        
+        print( """ Qualitative Analysis
+        Green-Positive: 5-7
+        Yellow-Neutral: 3-4
+        Red-Negative: 1-2 """)
+        
         print('type of analysis: Qualitative')
         plt.rcParams["figure.figsize"] = (20,8)
         
-        #Search formulation (Per-earch)
+        #Search formulation
         fig= plt.figure()
         spec4 = fig.add_gridspec(ncols=2, nrows=3)
         anno_opts = dict(xy=(0.5, 0.5), xycoords='axes fraction',va='center', ha='center')
@@ -3766,7 +3803,7 @@ class ComparedDataFile():
         ax3=fig.add_subplot(spec4[2, 1])
         ax3.pie([self.PreSearchQual2[0][2],self.PreSearchQual2[1][2], self.PreSearchQual2[2][2]],labels=['Positive','Neutral','Negative'], colors=['#1CCD00','#EED238','#DC2209'], autopct='%1.1f%%')
         ax3.set_title('Anticipated difficulty file 2')
-        fig.suptitle('Search formulation (Per-earch)', fontsize=16)
+        fig.suptitle('Search formulation ', fontsize=16)
         fig.subplots_adjust(bottom=1, top=5)
             
         #Content selection
@@ -3905,8 +3942,8 @@ class ComparedDataFile():
         
         #pdf download
         if save=='pdf':
-            print("loading pdf...")
             path=str(os.path.join(Path.home(), "Downloads", "Searching_Learning_Qual.pdf"))
+            print("loading pdf in location "+path)
             pp = PdfPages(path)
             fig_nums = plt.get_fignums()
             figs = [plt.figure(n) for n in fig_nums]
@@ -3917,6 +3954,9 @@ class ComparedDataFile():
         
     #Knowledge gain
     def Knowledge_Gain(self, format, save='notActivated', alpha = 0.05):
+        
+        print("--------------------------------------------Quantitative Knowledge Gain--------------------------------------------")
+        
         if  type(save) != str:alpha=save
         print('type of analysis: Quantitative')
         if format=='graph':
@@ -3998,8 +4038,8 @@ class ComparedDataFile():
             fig.subplots_adjust(bottom=0.5, top=1.2)
             #pdf download
             if save=='pdf':
-                print("loading pdf...")
                 path=str(os.path.join(Path.home(), "Downloads", "Knowledge_Gain.pdf"))
+                print("loading pdf in location "+path)
                 fig.savefig(path,  bbox_inches='tight')
                 print("pdf downloaded !")
             
@@ -4151,8 +4191,8 @@ class ComparedDataFile():
                 
             #pdf download
             if save=='pdf':
-                print("loading pdf...")
                 path=str(os.path.join(Path.home(), "Downloads", "Knowledge_Gain.pdf"))
+                print("loading pdf in location "+path)
                 pathAct = str(os.path.join(self.to_mod, "Knowledge_Gain.pdf"))    
                 dfi.export(tab, pathAct)
                 doc = aw.Document()
@@ -4163,6 +4203,13 @@ class ComparedDataFile():
 
     #Knowledge gain
     def Knowledge_Gain_Qual_Analysis(self, save='display'):
+        
+        print("--------------------------------------------Qualitative Knowledge Gain--------------------------------------------")
+        
+        print( """ Qualitative Analysis
+        Green-Positive: 5-7
+        Yellow-Neutral: 3-4
+        Red-Negative: 1-2 """)
         
         print('type of analysis: Qualitative')
         plt.rcParams["figure.figsize"] = (20,8)
@@ -4203,8 +4250,8 @@ class ComparedDataFile():
         
         #pdf download
         if save=='pdf':
-            print("loading pdf...")
             path=str(os.path.join(Path.home(), "Downloads", "Knowledge_Gain_Qual.pdf"))
+            print("loading pdf in location "+path)
             fig.savefig(path,  bbox_inches='tight')
             print("pdf downloaded !")
     

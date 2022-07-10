@@ -18,6 +18,8 @@ from scipy import stats
 from statsmodels.stats.weightstats import ztest
 import imp
 import wget
+import pdfkit as pdf
+import sqlite3
 
 #help function stat test explanation
 class dataFile():
@@ -258,17 +260,17 @@ class dataFile():
                 av=av/len(df[i])
                 self.KnowledgeGain[0].append(av)
                 av=0    
-            
+       
                 
         print("converting data...")
         spreadsheet=self.to_mod+'\DataUpdates.xlsx'
         xfile.save(spreadsheet)
 
-        fpath = spreadsheet
-        dirname = str(os.path.join(self.to_mod, "resExcel"))
-        xl_model = formulas.ExcelModel().loads(fpath).finish()
-        xl_model.calculate()
-        xl_model.write(dirpath=dirname)
+        # fpath = spreadsheet
+        # dirname = str(os.path.join(self.to_mod, "resExcel"))
+        # xl_model = formulas.ExcelModel().loads(fpath).finish()
+        # xl_model.calculate()
+        # xl_model.write(dirpath=dirname)
         print("task complete")
         
         
@@ -290,16 +292,16 @@ class dataFile():
 
                         ])
         display(df)
+            
         if save=='pdf':
-            print("loading pdf...")
-            excel = client.Dispatch("Excel.Application")
-            pathAct = str(os.path.join(self.to_mod, "resExcel", "DataUpdates.xlsx"))
-            sheets = excel.Workbooks.Open(pathAct)
-            wb = sheets.Worksheets[2]
-            #.head()
-            path=str(os.path.join(Path.home(), "Downloads", "dt.pdf"))
-            wb.ExportAsFixedFormat(0, path)
-            excel.Application.Quit()
+            path=str(os.path.join(Path.home(), "Downloads", "Dt.pdf"))
+            print("loading pdf in location "+path)
+            pathAct = str(os.path.join(self.to_mod, "Dt.png"))    
+            dfi.export(df, pathAct)
+            doc = aw.Document()
+            builder = aw.DocumentBuilder(doc)
+            builder.insert_image(pathAct)
+            doc.save(path)
             print("pdf downloaded !")
         
     def confidence_Intervals(self, save='display'):
@@ -326,15 +328,16 @@ class dataFile():
 
                         ])
         display(df)
+        
         if save=='pdf':
-            print("loading pdf...")
-            excel = client.Dispatch("Excel.Application")
-            pathAct = str(os.path.join(self.to_mod, "resExcel", "DataUpdates.xlsx"))
-            sheets = excel.Workbooks.Open(pathAct)
-            wb = sheets.Worksheets[4]
-            path=str(os.path.join(Path.home(), "Downloads", "confidence_Intervals.pdf"))
-            wb.ExportAsFixedFormat(0, path)
-            excel.Application.Quit()
+            path=str(os.path.join(Path.home(), "Downloads", "Confidence_Intervals.pdf"))
+            print("loading pdf in location "+path)
+            pathAct = str(os.path.join(self.to_mod, "Confidence_Intervals.png"))    
+            dfi.export(df, pathAct)
+            doc = aw.Document()
+            builder = aw.DocumentBuilder(doc)
+            builder.insert_image(pathAct)
+            doc.save(path)
             print("pdf downloaded !")
         
     def scale_Consistency(self, save='display'):
@@ -362,14 +365,14 @@ class dataFile():
                         ])
         display(df)
         if save=='pdf':
-            print("loading pdf...")
-            excel = client.Dispatch("Excel.Application")
-            pathAct = str(os.path.join(self.to_mod, "resExcel", "DataUpdates.xlsx"))
-            sheets = excel.Workbooks.Open(pathAct)
-            wb = sheets.Worksheets[5]
-            path=str(os.path.join(Path.home(), "Downloads", "scale_Consistency.pdf"))
-            wb.ExportAsFixedFormat(0, path)
-            excel.Application.Quit()
+            path=str(os.path.join(Path.home(), "Downloads", "Scale_Consistency.pdf"))
+            print("loading pdf in location "+path)
+            pathAct = str(os.path.join(self.to_mod, "Scale_Consistency.png"))    
+            dfi.export(df, pathAct)
+            doc = aw.Document()
+            builder = aw.DocumentBuilder(doc)
+            builder.insert_image(pathAct)
+            doc.save(path)
             print("pdf downloaded !")
 
     def inconsistencies(self, save='display'):
@@ -392,15 +395,16 @@ class dataFile():
 
                         ])
         display(df)
+        
         if save=='pdf':
-            print("loading pdf...")
-            excel = client.Dispatch("Excel.Application")
-            pathAct = str(os.path.join(self.to_mod, "resExcel", "DataUpdates.xlsx"))
-            sheets = excel.Workbooks.Open(pathAct)
-            wb = sheets.Worksheets[7]
-            path=str(os.path.join(Path.home(), "Downloads", "inconsistencies.pdf"))
-            wb.ExportAsFixedFormat(0, path)
-            excel.Application.Quit()
+            path=str(os.path.join(Path.home(), "Downloads", "Inconsistencies.pdf"))
+            print("loading pdf in location "+path)
+            pathAct = str(os.path.join(self.to_mod, "Inconsistencies.png"))    
+            dfi.export(df, pathAct)
+            doc = aw.Document()
+            builder = aw.DocumentBuilder(doc)
+            builder.insert_image(pathAct)
+            doc.save(path)
             print("pdf downloaded !")
 
     def benchmark(self, save='display'):
@@ -449,12 +453,12 @@ class dataFile():
 
         plt.show()
         if save=='pdf':
-            print("loading pdf...")
+            path=str(os.path.join(Path.home(), "Downloads", "Benchmark.pdf"))
+            print("loading pdf in location "+path)
             excel = client.Dispatch("Excel.Application")
-            pathAct = str(os.path.join(self.to_mod, "resExcel", "DataUpdates.xlsx"))
+            pathAct = str(os.path.join(self.to_mod, "DataUpdates.xlsx"))
             sheets = excel.Workbooks.Open(pathAct)
             wb = sheets.Worksheets[6]
-            path=str(os.path.join(Path.home(), "Downloads", "benchmark.pdf"))
             wb.ExportAsFixedFormat(0, path)
             excel.Application.Quit()
             print("pdf downloaded !")
@@ -465,7 +469,6 @@ class dataFile():
         df = pd.read_excel(self.resPath, sheet_name='RESULTS')
         tempDf =df
         df = df.head(10).style.format(precision=2, na_rep='').hide_index().set_table_styles([
-                            
                             {
                                 "selector":".row0",
                                 "props":"background-color:gray; color:white; border:3px black;"
@@ -479,7 +482,6 @@ class dataFile():
                                 "props": [("visibility", "collapse"),
                                             ]
                             },
-
                         ])
         display(df)
         item=[tempDf.iloc[i,0] for i in range(2, 10) ]
@@ -493,12 +495,12 @@ class dataFile():
         plt.show()
         
         if save=='pdf':
-            print("loading pdf...")
+            path=str(os.path.join(Path.home(), "Downloads", "Results.pdf"))
+            print("loading pdf in location "+path)
             excel = client.Dispatch("Excel.Application")
-            pathAct = str(os.path.join(self.to_mod, "resExcel", "DataUpdates.xlsx"))
+            pathAct = str(os.path.join(self.to_mod, "DataUpdates.xlsx"))
             sheets = excel.Workbooks.Open(pathAct)
             wb = sheets.Worksheets[3]
-            path=str(os.path.join(Path.home(), "Downloads", "results.pdf"))
             wb.ExportAsFixedFormat(0, path)
             excel.Application.Quit()
             print("pdf downloaded !")
@@ -509,13 +511,15 @@ class dataFile():
     
     #Cognitive load
     def cognitive_load(self, save='display'):
+        
+        print("--------------------------------------------Quantitative Cognitive Load--------------------------------------------")
         plt.rcParams["figure.figsize"] = (16,8)
         fig= plt.figure()
              
         #first bar chart/table
         
         ax1= fig.add_subplot(1,3,(1,2))
-        columns = ['Mentally demanding', 'physically demanding', 'hurried or rushed pace',  'difficulty']
+        columns = ['mentally demanding', 'physically demanding', 'hurried or rushed pace',  'difficulty']
         mean = self.mentLoad
         
         #Color of the graph
@@ -587,13 +591,20 @@ class dataFile():
         
         #pdf download
         if save=='pdf':
-            print("loading pdf...")
             path=str(os.path.join(Path.home(), "Downloads", "Cognitive_Load.pdf"))
+            print("loading pdf in location "+path)
             fig.savefig(path,  bbox_inches='tight')
             print("pdf downloaded !")
     
     
     def User_Experience_Qual_Analysis(self, save='display'):
+        
+        print("--------------------------------------------Qualitative User Experience Load--------------------------------------------")
+        
+        print( """ Qualitative Analysis
+        Green-Positive: 5-7
+        Yellow-Neutral: 3-4
+        Red-Negative: 1-2 """)
 
         plt.rcParams["figure.figsize"] = (20,8)
         fig= plt.figure()
@@ -648,8 +659,8 @@ class dataFile():
 
         #pdf download
         if save=='pdf':
-            print("loading pdf...")
             path=str(os.path.join(Path.home(), "Downloads", "User_Experience_Qual.pdf"))
+            print("loading pdf in location "+path)
             fig.savefig(path,  bbox_inches='tight')
             print("pdf downloaded !")
             
@@ -657,6 +668,18 @@ class dataFile():
         
     
     def cognitive_load_Qual_Analysis(self, save='display'):
+        
+        print("--------------------------------------------Qualitative Cognitive Load--------------------------------------------")
+        
+        print( """ Qualitative Analysis for the 'Success' and 'Overall easiness to use' part:
+        Green-Positive: 5-7
+        Yellow-Neutral: 3-4
+        Red-Negative: 1-2 """)
+        
+        print( """ Qualitative Analysis for the other part:
+        Red-Negative: 5-7
+        Yellow-Neutral: 3-4
+        Green-Positive: 1-2 """)
 
         plt.rcParams["figure.figsize"] = (20,8)
         fig= plt.figure()
@@ -669,15 +692,15 @@ class dataFile():
             
         #Mentally demanding
         ax1=fig.add_subplot(spec4[0, 0])
-        ax1.pie([self.mentloadQual[0][0],self.mentloadQual[1][0], self.mentloadQual[2][0]],labels=['Positive','Neutral','Negative'], colors=['#1CCD00','#EED238','#DC2209'], autopct='%1.1f%%')
-        ax1.set_title('Mentally demanding')
+        ax1.pie([self.mentloadQual[0][0],self.mentloadQual[1][0], self.mentloadQual[2][0]],labels=['Negative','Neutral','Positive'], colors=['#DC2209','#EED238','#1CCD00'], autopct='%1.1f%%')
+        ax1.set_title('mentally demanding')
         #physically demanding
         ax2=fig.add_subplot(spec4[0, 1])
-        ax2.pie([self.mentloadQual[0][1],self.mentloadQual[1][1], self.mentloadQual[2][1]],labels=['Positive','Neutral','Negative'], colors=['#1CCD00','#EED238','#DC2209'], autopct='%1.1f%%')
+        ax2.pie([self.mentloadQual[0][1],self.mentloadQual[1][1], self.mentloadQual[2][1]],labels=['Negative','Neutral','Positive'], colors=['#DC2209','#EED238','#1CCD00'], autopct='%1.1f%%')
         ax2.set_title('physically demanding')
         #hurried or rushed pace
         ax3=fig.add_subplot(spec4[0, 2])
-        ax3.pie([self.mentloadQual[0][2],self.mentloadQual[1][2], self.mentloadQual[2][2]],labels=['Positive','Neutral','Negative'], colors=['#1CCD00','#EED238','#DC2209'], autopct='%1.1f%%')
+        ax3.pie([self.mentloadQual[0][2],self.mentloadQual[1][2], self.mentloadQual[2][2]],labels=['Negative','Neutral','Positive'], colors=['#DC2209','#EED238','#1CCD00'], autopct='%1.1f%%')
         ax3.set_title('hurried or rushed pace')
         #success
         ax4=fig.add_subplot(spec4[1, 0])
@@ -685,16 +708,16 @@ class dataFile():
         ax4.set_title('success') 
         #difficulty
         ax5=fig.add_subplot(spec4[1, 1])
-        ax5.pie([self.mentloadQual[0][4],self.mentloadQual[1][4], self.mentloadQual[2][4]],labels=['Positive','Neutral','Negative'], colors=['#1CCD00','#EED238','#DC2209'], autopct='%1.1f%%')
+        ax5.pie([self.mentloadQual[0][4],self.mentloadQual[1][4], self.mentloadQual[2][4]],labels=['Negative','Neutral','Positive'], colors=['#DC2209','#EED238','#1CCD00'], autopct='%1.1f%%')
         ax5.set_title('difficulty')
         #Overall easiness to use
         ax6=fig.add_subplot(spec4[1, 2])
         ax6.pie([self.mentloadQual[0][5],self.mentloadQual[1][5],self.mentloadQual[2][5]],labels=['Positive','Neutral','Negative'], colors=['#1CCD00','#EED238','#DC2209'], autopct='%1.1f%%')
-        ax6.set_title('Overall easiness to use')
+        ax6.set_title('overall easiness to use')
         
         if save=='pdf':
-            print("loading pdf...")
             path=str(os.path.join(Path.home(), "Downloads", "Cognitive_load_Qual.pdf"))
+            print("loading pdf in location "+path)
             fig.savefig(path,  bbox_inches='tight')
             print("pdf downloaded !")
 
@@ -703,10 +726,17 @@ class dataFile():
     #Software Usability
     def Software_Usability(self, save='display'):
         
+        print("--------------------------------------------Quantitative Software Usability--------------------------------------------")
+
+        print( """ Qualitative Analysis
+        Green-Positive: 5-7
+        Yellow-Neutral: 3-4
+        Red-Negative: 1-2 """)
+
         plt.rcParams["figure.figsize"] = (16,8)
         fig= plt.figure()
         ax1 = fig.add_subplot(4,1,1)
-        columns = ['simplicity to use', 'helped effectivness of my work', 'helped pace of my work', 'confortable system', 'easy recovery after mistake', 'Overall satisfaction']
+        columns = ['easy to use', 'helped effectiveness', 'helped pace', 'comfortable', 'easy recovery after mistake', 'overall satisfaction']
         mean = self.softUs
         colorMean=[]
         roundMean=[round(mean, 1) for mean in mean[0]]
@@ -736,7 +766,7 @@ class dataFile():
         
         
         ax2= fig.add_subplot(4,1,2)
-        columns = ['Clear', 'Easy to find', 'effective', 'Organized']
+        columns = ['clear', 'easy to find', 'effective', 'organized']
         mean = self.softUsInfo
         colorMean=[]
         roundMean=[round(mean, 1) for mean in mean[0]]
@@ -767,7 +797,7 @@ class dataFile():
         
         
         ax3= fig.add_subplot(4,1,3)
-        columns = ['Pleasant', 'I like using the interface', 'has all the functions and capabilities expected']
+        columns = ['pleasant', 'I like using the interface', 'has all the functions and capabilities expected']
         mean = self.softUsInterface
         colorMean=[]
         for i in range(len(mean[0])):
@@ -799,13 +829,22 @@ class dataFile():
         
         
         if save=='pdf':
-            print("loading pdf...")
             path=str(os.path.join(Path.home(), "Downloads", "Software_Usability.pdf"))
+            print("loading pdf in location "+path)
             fig.savefig(path,  bbox_inches='tight')
             print("pdf downloaded !")
             
             
     def Software_Usability_Qual(self, save='display'):
+        
+        print("--------------------------------------------Qualitative Software Usability--------------------------------------------")
+        
+        print( """ Qualitative Analysis
+        Green-Positive: 5-7
+        Yellow-Neutral: 3-4
+        Red-Negative: 1-2 """)
+
+        
         plt.rcParams["figure.figsize"] = (20,8)
         
         #System
@@ -827,7 +866,7 @@ class dataFile():
         ax3=fig.add_subplot(spec4[0, 2])
         ax3.pie([self.softUs_SystemQual[0][2],self.softUs_SystemQual[1][2], self.softUs_SystemQual[2][2]],labels=['Positive','Neutral','Negative'], colors=['#1CCD00','#EED238','#DC2209'], autopct='%1.1f%%')
         ax3.set_title('helped pace of my work')
-        fig.suptitle('Search formulation (Per-earch)', fontsize=16)
+        fig.suptitle('Search formulation', fontsize=16)
         #confortable
         ax4=fig.add_subplot(spec4[1, 0])
         ax4.pie([self.softUs_SystemQual[0][3],self.softUs_SystemQual[1][3], self.softUs_SystemQual[2][3]],labels=['Positive','Neutral','Negative'], colors=['#1CCD00','#EED238','#DC2209'], autopct='%1.1f%%')
@@ -884,23 +923,22 @@ class dataFile():
         ax2=fig.add_subplot(spec4[0, 1])
         ax2.pie([self.softUs_InterfaceQual[0][1],self.softUs_InterfaceQual[1][1], self.softUs_InterfaceQual[2][1]],labels=['Positive','Neutral','Negative'], colors=['#1CCD00','#EED238','#DC2209'], autopct='%1.1f%%')
         ax2.set_title('I like using interface')
-        #fonctions and capabilities
+        #functions and capabilities
         ax3=fig.add_subplot(spec4[0, 2])
         ax3.pie([self.softUs_InterfaceQual[0][2],self.softUs_InterfaceQual[1][2], self.softUs_InterfaceQual[2][2]],labels=['Positive','Neutral','Negative'], colors=['#1CCD00','#EED238','#DC2209'], autopct='%1.1f%%')
-        ax3.set_title('has all the fonctions and capabilities expected')
+        ax3.set_title('has all the functions and capabilities expected')
         fig.suptitle('Interface', fontsize=16)
 
         
         
         #pdf download
         if save=='pdf':
-            print("loading pdf...")
             path=str(os.path.join(Path.home(), "Downloads", "Software_Usability_Qual.pdf"))
+            print("loading pdf in location "+path)
             pp = PdfPages(path)
             fig_nums = plt.get_fignums()
             figs = [plt.figure(n) for n in fig_nums]
-            for fig in figs:
-                fig.savefig(pp, format='pdf')
+            for fig in figs:fig.savefig(pp, format='pdf')
             pp.close()
             print("pdf downloaded !")
         
@@ -909,6 +947,8 @@ class dataFile():
             
         
     def Software_Usability_Coments(self, save='display', type='basic'):
+
+        print("--------------------------------------------Software Usability coments--------------------------------------------")
 
 
         if save=='WordCloud' or type=='WordCloud':
@@ -949,8 +989,8 @@ class dataFile():
             ax1.set_title('What functions and capabilities would you like to see in this system?')
             
             if save=='pdf' or type=='pdf':
-                print("loading pdf...")
                 path=str(os.path.join(Path.home(), "Downloads", "Software_Usability_coments.pdf"))
+                print("loading pdf in location "+path)
                 fig.savefig(path,  bbox_inches='tight')
                 print("pdf downloaded !")
                 
@@ -969,8 +1009,8 @@ class dataFile():
                             ])
             display (df)
             if save=='pdf' or type=='pdf':
-                print("loading pdf...")
                 path=str(os.path.join(Path.home(), "Downloads", "Software_Coments.pdf"))
+                print("loading pdf in location "+path)
                 pathAct = str(os.path.join(self.to_mod, "Software_Usability_coments.pdf"))    
                 dfi.export(df, pathAct)
                 doc = aw.Document()
@@ -986,7 +1026,11 @@ class dataFile():
             
             
         #Software Usability
-    def Searching_Learning(self, save='display'):       
+    def Searching_Learning(self, save='display'): 
+        
+        
+        print("--------------------------------------------Quantitative Searching As Learning--------------------------------------------")
+
         
         plt.rcParams["figure.figsize"] = (16,8)
         fig= plt.figure()
@@ -1005,7 +1049,7 @@ class dataFile():
                 
         ax1.bar(columns, mean[0], color=colorMean)
         ax1.axhline(y=3.5, color='black')
-        ax1.set_title('Search Formulation (Per-Search)')
+        ax1.set_title('Search Formulation')
         ax1.set_xticks([])    
         mean[0]=[round(val, 3) for val in mean[0]]
         ytable = ax1.table(cellText=mean, colLabels=columns,rowLabels=['Mean'], loc='bottom')
@@ -1022,7 +1066,7 @@ class dataFile():
         
         
         ax2= fig.add_subplot(4,1,2)
-        columns = ['Actual Difficulty', 'Text Presentation Quality', 'Average number of docs viewed per search', 'The usefulness of Search Results', 'Text relevance']
+        columns = ['Actual Difficulty', 'Text Presentation Quality', 'Average number of docs viewed', 'Usefull', 'Text relevance']
         mean = self.ContentSelection
         colorMean=[]
         roundMean=[round(mean, 1) for mean in mean[0]]
@@ -1122,17 +1166,24 @@ class dataFile():
         
         
         if save=='pdf':
-            print("loading pdf...")
             path=str(os.path.join(Path.home(), "Downloads", "Searching_Learning.pdf"))
+            print("loading pdf in location "+path)
             fig.savefig(path,  bbox_inches='tight')
             print("pdf downloaded !")
         
     def Searching_Learning_Qual(self, save='display'):
         
+        print("--------------------------------------------Qualitative Searching As Learning--------------------------------------------")
+        
+        print( """ Qualitative Analysis
+        Green-Positive: 5-7
+        Yellow-Neutral: 3-4
+        Red-Negative: 1-2 """)
+
         
         plt.rcParams["figure.figsize"] = (20,8)
         
-        #Search formulation (Per-earch)
+        #Search formulation
         fig= plt.figure()
         spec4 = fig.add_gridspec(ncols=3, nrows=1)
         anno_opts = dict(xy=(0.5, 0.5), xycoords='axes fraction',va='center', ha='center')
@@ -1150,7 +1201,7 @@ class dataFile():
         ax3=fig.add_subplot(spec4[0, 2])
         ax3.pie([self.PreSearchQual[0][2],self.PreSearchQual[1][2], self.PreSearchQual[2][2]],labels=['Positive','Neutral','Negative'], colors=['#1CCD00','#EED238','#DC2209'], autopct='%1.1f%%')
         ax3.set_title('Anticipated difficulty')
-        fig.suptitle('Search formulation (Per-earch)', fontsize=16)
+        fig.suptitle('Search formulation', fontsize=16)
          
             
         #Content selection
@@ -1237,24 +1288,25 @@ class dataFile():
         
         #pdf download
         if save=='pdf':
-            print("loading pdf...")
             path=str(os.path.join(Path.home(), "Downloads", "Searching_Learning_Qual.pdf"))
+            print("loading pdf in location "+path)
             pp = PdfPages(path)
             fig_nums = plt.get_fignums()
             figs = [plt.figure(n) for n in fig_nums]
-            for fig in figs:
-                fig.savefig(pp, format='pdf')
+            for fig in figs:fig.savefig(pp, format='pdf')
             pp.close()
             print("pdf downloaded !")
         
     #knowledge gain
     def Knowledge_Gain(self, save='display'):
         
+        print("--------------------------------------------Quantitative Knowledge Gain--------------------------------------------")
+        
         plt.rcParams["figure.figsize"] = (16,8)
         fig= plt.figure()
         
         ax1= fig.add_subplot(1,1,1)
-        columns = ['Quality of facts', 'Interpretation', 'Critiques']
+        columns = ['Quality of facts', 'Interpretation', 'Critics']
         mean=[[]]
         mean = self.KnowledgeGain
         #Color of the graph
@@ -1291,13 +1343,21 @@ class dataFile():
         
         #pdf download
         if save=='pdf':
-            print("loading pdf...")
             path=str(os.path.join(Path.home(), "Downloads", "Knowledge_Gain.pdf"))
+            print("loading pdf in location "+path)
             fig.savefig(path,  bbox_inches='tight')
             print("pdf downloaded !")
             
     #knowledge gain
     def Knowledge_Gain_Qual_Analysis(self, save='display'):
+        
+        print("--------------------------------------------Qualitative Knowledge Gain--------------------------------------------")
+        
+        print( """ Qualitative Analysis
+        Green-Positive: 5-7
+        Yellow-Neutral: 3-4
+        Red-Negative: 1-2 """)
+
 
         plt.rcParams["figure.figsize"] = (20,8)
         fig= plt.figure()
@@ -1305,7 +1365,7 @@ class dataFile():
         anno_opts = dict(xy=(0.5, 0.5), xycoords='axes fraction',va='center', ha='center')
 
         coments = list(zip(self.knowledgeGainQual[0],self.knowledgeGainQual[1], self.knowledgeGainQual[2]))
-        df = pd.DataFrame(coments, index =['Quality of facts', 'Interpretation', 'Critiques'],columns =['Green', 'Yellow', 'Red'])
+        df = pd.DataFrame(coments, index =['Quality of facts', 'Interpretation', 'Critics'],columns =['Green', 'Yellow', 'Red'])
             
             
         #Quality of facts
@@ -1316,17 +1376,17 @@ class dataFile():
         ax2=fig.add_subplot(spec4[0, 1])
         ax2.pie([self.knowledgeGainQual[0][1],self.knowledgeGainQual[1][1], self.knowledgeGainQual[2][1]],labels=['Positive','Neutral','Negative'], colors=['#1CCD00','#EED238','#DC2209'], autopct='%1.1f%%')
         ax2.set_title('Interpretation')
-        #Critiques
+        #Critics
         ax3=fig.add_subplot(spec4[0, 2])
         ax3.pie([self.knowledgeGainQual[0][2],self.knowledgeGainQual[1][2], self.knowledgeGainQual[2][2]],labels=['Positive','Neutral','Negative'], colors=['#1CCD00','#EED238','#DC2209'], autopct='%1.1f%%')
-        ax3.set_title('Critiques')
+        ax3.set_title('Critics')
             
 
         
         #pdf download
         if save=='pdf':
-            print("loading pdf...")
             path=str(os.path.join(Path.home(), "Downloads", "Knowledge_Gain_Qual.pdf"))
+            print("loading pdf in location "+path)
             fig.savefig(path,  bbox_inches='tight')
             print("pdf downloaded !")
             
