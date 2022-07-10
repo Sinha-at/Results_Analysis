@@ -266,11 +266,11 @@ class dataFile():
         spreadsheet=self.to_mod+'\DataUpdates.xlsx'
         xfile.save(spreadsheet)
 
-        # fpath = spreadsheet
-        # dirname = str(os.path.join(self.to_mod, "resExcel"))
-        # xl_model = formulas.ExcelModel().loads(fpath).finish()
-        # xl_model.calculate()
-        # xl_model.write(dirpath=dirname)
+        fpath = spreadsheet
+        dirname = str(os.path.join(self.to_mod, "resExcel"))
+        xl_model = formulas.ExcelModel().loads(fpath).finish()
+        xl_model.calculate()
+        xl_model.write(dirpath=dirname)
         print("task complete")
         
         
@@ -292,16 +292,16 @@ class dataFile():
 
                         ])
         display(df)
-            
+        
         if save=='pdf':
             path=str(os.path.join(Path.home(), "Downloads", "Dt.pdf"))
             print("loading pdf in location "+path)
-            pathAct = str(os.path.join(self.to_mod, "Dt.png"))    
-            dfi.export(df, pathAct)
-            doc = aw.Document()
-            builder = aw.DocumentBuilder(doc)
-            builder.insert_image(pathAct)
-            doc.save(path)
+            excel = client.Dispatch("Excel.Application")
+            pathAct = str(os.path.join(self.to_mod, "DataUpdates.xlsx"))
+            sheets = excel.Workbooks.Open(pathAct)
+            wb = sheets.Worksheets[2]
+            wb.ExportAsFixedFormat(0, path)
+            excel.Application.Quit()
             print("pdf downloaded !")
         
     def confidence_Intervals(self, save='display'):
@@ -332,12 +332,12 @@ class dataFile():
         if save=='pdf':
             path=str(os.path.join(Path.home(), "Downloads", "Confidence_Intervals.pdf"))
             print("loading pdf in location "+path)
-            pathAct = str(os.path.join(self.to_mod, "Confidence_Intervals.png"))    
-            dfi.export(df, pathAct)
-            doc = aw.Document()
-            builder = aw.DocumentBuilder(doc)
-            builder.insert_image(pathAct)
-            doc.save(path)
+            excel = client.Dispatch("Excel.Application")
+            pathAct = str(os.path.join(self.to_mod, "DataUpdates.xlsx"))
+            sheets = excel.Workbooks.Open(pathAct)
+            wb = sheets.Worksheets[4]
+            wb.ExportAsFixedFormat(0, path)
+            excel.Application.Quit()
             print("pdf downloaded !")
         
     def scale_Consistency(self, save='display'):
@@ -367,13 +367,14 @@ class dataFile():
         if save=='pdf':
             path=str(os.path.join(Path.home(), "Downloads", "Scale_Consistency.pdf"))
             print("loading pdf in location "+path)
-            pathAct = str(os.path.join(self.to_mod, "Scale_Consistency.png"))    
-            dfi.export(df, pathAct)
-            doc = aw.Document()
-            builder = aw.DocumentBuilder(doc)
-            builder.insert_image(pathAct)
-            doc.save(path)
+            excel = client.Dispatch("Excel.Application")
+            pathAct = str(os.path.join(self.to_mod, "DataUpdates.xlsx"))
+            sheets = excel.Workbooks.Open(pathAct)
+            wb = sheets.Worksheets[5]
+            wb.ExportAsFixedFormat(0, path)
+            excel.Application.Quit()
             print("pdf downloaded !")
+
 
     def inconsistencies(self, save='display'):
         df = pd.read_excel(self.resPath, sheet_name='INCONSISTENCIES')
@@ -399,12 +400,12 @@ class dataFile():
         if save=='pdf':
             path=str(os.path.join(Path.home(), "Downloads", "Inconsistencies.pdf"))
             print("loading pdf in location "+path)
-            pathAct = str(os.path.join(self.to_mod, "Inconsistencies.png"))    
-            dfi.export(df, pathAct)
-            doc = aw.Document()
-            builder = aw.DocumentBuilder(doc)
-            builder.insert_image(pathAct)
-            doc.save(path)
+            excel = client.Dispatch("Excel.Application")
+            pathAct = str(os.path.join(self.to_mod, "DataUpdates.xlsx"))
+            sheets = excel.Workbooks.Open(pathAct)
+            wb = sheets.Worksheets[7]
+            wb.ExportAsFixedFormat(0, path)
+            excel.Application.Quit()
             print("pdf downloaded !")
 
     def benchmark(self, save='display'):

@@ -297,11 +297,11 @@ class ComparedDataFile():
         spreadsheet=self.to_mod+'\DataUpdates.xlsx'
         xfile.save(spreadsheet)
 
-        # fpath = spreadsheet
-        # dirname = str(os.path.join(self.to_mod, "resExcel"))
-        # xl_model = formulas.ExcelModel().loads(fpath).finish()
-        # xl_model.calculate()
-        # xl_model.write(dirpath=dirname)
+        fpath = spreadsheet
+        dirname = str(os.path.join(self.to_mod, "resExcel"))
+        xl_model = formulas.ExcelModel().loads(fpath).finish()
+        xl_model.calculate()
+        xl_model.write(dirpath=dirname)
         print("first file complete")
         
     def processing2(self, path):
@@ -556,11 +556,11 @@ class ComparedDataFile():
         print("converting data...")
         spreadsheet=self.to_mod+'\DataUpdates2.xlsx'
         xfile.save(spreadsheet)
-        # fpath = spreadsheet
-        # dirname = str(os.path.join(self.to_mod, "resExcel"))
-        # xl_model = formulas.ExcelModel().loads(fpath).finish()
-        # xl_model.calculate()
-        # xl_model.write(dirpath=dirname)
+        fpath = spreadsheet
+        dirname = str(os.path.join(self.to_mod, "resExcel"))
+        xl_model = formulas.ExcelModel().loads(fpath).finish()
+        xl_model.calculate()
+        xl_model.write(dirpath=dirname)
         print("Second file complete")
         
        
